@@ -29,10 +29,6 @@ export default function Home(props){
                                 <div className="text-sm mb-2">
                                     <span className="font-semibold">Radical Tendencies : </span><span className="font-bold text-sky-500">67%</span>
                                 </div>
-                                <span className="block text-sm mb-2 font-semibold">Description : </span>
-                                <p className="text-sm text-justify font-light">
-                                    Lorem ipsum, dolor sit amet consectetur adipisicing elit. Optio illo sit magni voluptas, natus incidunt expedita et voluptatem eum! Quia obcaecati quos, consequuntur eaque vero doloribus eveniet modi labore voluptas. Lorem ipsum dolor sit amet consectetur adipisicing elit. Quia doloribus fugiat laboriosam sunt provident, nam itaque perspiciatis, corrupti facilis qui deleniti. In minima ratione ad reiciendis provident obcaecati asperiores tempora.
-                                </p>
                             </div>
                             <button className="btn-primary mt-5">Save Result</button>
                         </div>
