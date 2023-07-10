@@ -33,17 +33,19 @@ export default function Home(props){
                             {
                                 showPredict && 
                                     <div className="">
-                                        <div className="text-sm mb-10">
-                                            <p className="font-light mb-3">
+                                        <div className="mb-5">
+                                            <p className="font-light text-lg mb-3">
                                                 {result}
                                             </p>
-                                            <span className="font-semibold">Akurasi : </span>
-                                            <span className="font-bold ">67% Negatif</span>
-                                            <span className="text-pink-500 font-semibold"> (Kalimat Cenderung Radikal !)</span>
+                                            <div className="text-base">
+                                                <span className="font-semibold">Akurasi : </span>
+                                                <span className="font-bold ">67% Negatif</span>
+                                                <span className="text-cyan-600 font-semibold"> (Kalimat Cenderung Radikal !)</span>
+                                            </div>
                                         </div>
-                                        <div className="mb-5">
-                                            <table className="table-fixed w-full border-collapse border text-sm">
-                                                <caption className="font-semibold text-sm mb-3 text-left">
+                                        <div className="mb-5 text-xs">
+                                            <table className="table-fixed w-full border-collapse border">
+                                                <caption className="mb-3 text-left text-base">
                                                     Tabel Skor Naive Bayes
                                                 </caption>
                                                 <thead>
