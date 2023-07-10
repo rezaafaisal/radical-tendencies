@@ -4,12 +4,12 @@ import sully from '../../../public/avatar/sully.jpg'
 
 export default function NavApp(){
     const [show, setShow] = useState(false)
-
     function showProfile(){
         setShow(!show)
     }
+
     return (
-        <nav className="bg-sky-500 h-20 flex items-center">
+        <nav className="bg-pink-500 h-20 flex items-center">
             <div className="wrapper flex justify-between items-center">
                 <Link href="/" className="text-2xl font-semibold text-white">MyApp.id</Link>
                 <div className="flex gap-5 items-center">
