@@ -40,7 +40,7 @@ export default function Home(props){
                                             <div className="text-base">
                                                 <span className="font-semibold">Akurasi : </span>
                                                 <span className="font-bold ">67% Negatif</span>
-                                                <span className="text-cyan-600 font-semibold"> (Kalimat Cenderung Radikal !)</span>
+                                                <span className="text-pink-600 font-semibold"> (Kalimat Cenderung Radikal !)</span>
                                             </div>
                                         </div>
                                         <div className="mb-5 text-xs">
