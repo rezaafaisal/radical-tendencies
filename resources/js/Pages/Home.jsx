@@ -4,33 +4,70 @@ import Textarea from "../Components/Forms/Textarea"
 
 export default function Home(props){
     const [text, setText] = useState('')
+    const [showPredict, setShowPredict] = useState(false)
 
-    function predict(){
+    const [result, setResult] = useState('')
 
-    }
+
+    // useEffect(() => {
+    //     setResult(text)
+    // }, [text])
     return(
         <UserLayout title="MyApp | Home">
             <section className="flex justify-center items-center h-60">
-                <header className="text-3xl text-gray-700 font-light text-center">
-                    <span className="font-normal">MyApp.id</span>  is an website to predict tendencies<br />of radical of your sentences
+                <header className="text-3xl text-gray-700 font-light text-center leading-10">
+                    Sistem Informasi Klasifikasi Kecenderungan <br /> Pemahaman Radikal di Media Sosial
                 </header>
             </section>
             <section>
                 <div className="wrapper">
                     <div className="rounded-lg grid grid-cols-1 md:grid-cols-2 divide-y md:divide-x bg-white shadow">
                         <div className="p-8">
-                            <header className="text-lg mb-5">Test with your own text</header>
+                            <header className="text-lg mb-5">Masukkan Teks</header>
                             <textarea onChange={(e) => setText(e.target.value)} className="bg-white border w-full rounded-lg p-3 h-52" placeholder="Masukkan kalimat" ></textarea>
-                            <button onClick={predict} className="btn-primary mt-5">Predict</button>
+                            <button onClick={() => {setShowPredict(true), setResult(text)}} className="btn-primary mt-5">Prediksi</button>
                         </div>
                         <div className="p-8 divide-y">
-                            <header className="text-lg mb-5">Results</header>
+                            <header className="text-lg mb-5">Hasil</header>
                             <div className="pt-2">
-                                <div className="text-sm mb-2">
-                                    <span className="font-semibold">Radical Tendencies : </span><span className="font-bold text-sky-500">67%</span>
-                                </div>
+                            {
+                                showPredict && 
+                                    <div className="">
+                                        <div className="text-sm mb-10">
+                                            <p className="font-light mb-3">
+                                                {result}
+                                            </p>
+                                            <span className="font-semibold">Akurasi : </span>
+                                            <span className="font-bold ">67% Negatif</span>
+                                            <span className="text-pink-500 font-semibold"> (Kalimat Cenderung Radikal !)</span>
+                                        </div>
+                                        <div className="mb-5">
+                                            <table className="table-fixed w-full border-collapse border text-sm">
+                                                <caption className="font-semibold text-sm mb-3 text-left">
+                                                    Tabel Skor Naive Bayes
+                                                </caption>
+                                                <thead>
+                                                    <tr className="border border-slate-200">
+                                                        <th className="p-2 border">Label</th>
+                                                        <th className="p-2 border">Skor</th>
+                                                    </tr>
+                                                </thead>
+                                                <tbody>
+                                                    <tr className="border border-s-amber-200">
+                                                        <td className="p-2 border">Positif</td>
+                                                        <td className="p-2 border">0.143</td>
+                                                    </tr>
+                                                    <tr className="border border-slate-200">
+                                                        <td className="p-2 border">Negatif</td>
+                                                        <td className="p-2 border">0.143</td>
+                                                    </tr>
+                                                </tbody>
+                                            </table>
+                                        </div>
+                                        <button className="btn-primary mt-5">Simpan Hasil</button>
+                                    </div>
+                                }
                             </div>
-                            <button className="btn-primary mt-5">Save Result</button>
                         </div>
                     </div>
                 </div>

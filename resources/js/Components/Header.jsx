@@ -9,11 +9,11 @@ export default function NavApp(){
     }
 
     return (
-        <nav className="bg-pink-500 h-20 flex items-center">
+        <nav className="bg-cyan-600 h-20 flex items-center">
             <div className="wrapper flex justify-between items-center">
                 <Link href="/" className="text-2xl font-semibold text-white">MyApp.id</Link>
                 <div className="flex gap-5 items-center">
-                    <Link href='sentences' className="bg-white text-sky-500 font-semibold px-5 py-2 rounded-lg hover:bg-gray-100 duration-150 shadow">My Sentences</Link>
+                    <Link href='sentences' className="bg-white text-cyan-500 font-semibold px-5 py-2 rounded-lg hover:bg-gray-100 duration-150 shadow">Kalimat Saya</Link>
                     <div className="relative">
                         <img src={sully} onClick={showProfile} className="h-10 w-10 rounded-full shadow cursor-pointer"/>
                         {
@@ -22,10 +22,10 @@ export default function NavApp(){
                                 <h3 className="text-center font-semibold text-gray-600">james P. Sullivan</h3>
                                 <ul className="mt-8 divide-y">
                                     <li className="pb-2">
-                                        <Link href="/profile" className="text-sm font-light hover:font-normal duration-150">Setting</Link>
+                                        <Link href="/profile" className="text-sm font-light hover:font-normal duration-150">Pengaturan</Link>
                                     </li>
                                     <li className="pt-2">
-                                        <Link href="/logout" className="text-sm font-light hover:font-normal duration-150">Sign out</Link>
+                                        <Link href="/logout" className="text-sm font-light hover:font-normal duration-150">Keluar</Link>
                                     </li>
                                 </ul>
                             </div>
