@@ -34,7 +34,7 @@ export default function Home(props){
                                 showPredict && 
                                     <div className="">
                                         <div className="mb-5">
-                                            <p className="font-light text-lg mb-3">
+                                            <p className="font-light mb-3">
                                                 {result}
                                             </p>
                                             <div className="text-base">
@@ -43,6 +43,7 @@ export default function Home(props){
                                                 <span className="text-pink-600 font-semibold"> (Kalimat Cenderung Radikal !)</span>
                                             </div>
                                         </div>
+                                        <hr className="my-6" />
                                         <div className="mb-5 text-xs">
                                             <table className="table-fixed w-full border-collapse border">
                                                 <caption className="mb-3 text-left text-base">
@@ -57,6 +58,10 @@ export default function Home(props){
                                                 <tbody>
                                                     <tr className="border border-s-amber-200">
                                                         <td className="p-2 border">Positif</td>
+                                                        <td className="p-2 border">0.143</td>
+                                                    </tr>
+                                                    <tr className="border border-slate-200">
+                                                        <td className="p-2 border">Netral</td>
                                                         <td className="p-2 border">0.143</td>
                                                     </tr>
                                                     <tr className="border border-slate-200">
