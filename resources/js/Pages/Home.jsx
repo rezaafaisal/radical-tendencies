@@ -1,17 +1,11 @@
 import React, { useEffect, useState } from "react"
 import UserLayout from "../Layouts/User"
-import Textarea from "../Components/Forms/Textarea"
 
 export default function Home(props){
     const [text, setText] = useState('')
     const [showPredict, setShowPredict] = useState(false)
-
     const [result, setResult] = useState('')
 
-
-    // useEffect(() => {
-    //     setResult(text)
-    // }, [text])
     return(
         <UserLayout title="MyApp | Home">
             <section className="flex justify-center items-center h-60">
