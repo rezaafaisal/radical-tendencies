@@ -1,10 +1,39 @@
 import React, { useEffect, useState } from "react"
 import UserLayout from "../Layouts/User"
+import axios from "axios"
 
 export default function Home(props){
     const [text, setText] = useState('')
     const [showPredict, setShowPredict] = useState(false)
     const [result, setResult] = useState('')
+    const [predict, setPredict] = useState({
+        prediksi: '',
+        akurasi: 0,
+        positif : 0,
+        negatif: 0,
+        netral: 0
+    })
+
+    async function predictData() {
+        try {
+            const response = await axios.postForm('http://127.0.0.1:5000/predict', {
+                sentences: text
+            });
+            console.log(response.data);
+            setPredict({
+                ...predict,
+                prediksi: response.data.prediksi,
+                positif: response.data.probabilitas.positif,
+                negatif: response.data.probabilitas.negatif,
+                netral: response.data.probabilitas.netral,
+            })
+
+        } catch (error) {
+            console.error(error);
+        }
+
+
+    }
 
     return(
         <UserLayout title="MyApp | Home">
@@ -19,7 +48,7 @@ export default function Home(props){
                         <div className="p-8">
                             <header className="text-lg mb-5">Masukkan Teks</header>
                             <textarea onChange={(e) => setText(e.target.value)} className="bg-white border w-full rounded-lg p-3 h-52" placeholder="Masukkan kalimat" ></textarea>
-                            <button onClick={() => {setShowPredict(true), setResult(text)}} className="btn-primary mt-5">Prediksi</button>
+                            <button onClick={() => {setShowPredict(true), setResult(text), predictData()}} className="btn-primary mt-5}">Prediksi</button>
                         </div>
                         <div className="p-8 divide-y">
                             <header className="text-lg mb-5">Hasil</header>
@@ -32,9 +61,9 @@ export default function Home(props){
                                                 {result}
                                             </p>
                                             <div className="text-base">
-                                                <span className="font-semibold">Akurasi : </span>
-                                                <span className="font-bold ">67% Negatif</span>
-                                                <span className="text-pink-600 font-semibold"> (Kalimat Cenderung Radikal !)</span>
+                                                <span className="font-semibold">Prediksi : </span>
+                                                <span className="font-bold "> {predict.prediksi}</span>
+                                                <span className="text-pink-600 font-semibold"> (Kalimat Cenderung {predict.prediksi}!)</span>
                                             </div>
                                         </div>
                                         <hr className="my-6" />
@@ -52,15 +81,15 @@ export default function Home(props){
                                                 <tbody>
                                                     <tr className="border border-s-amber-200">
                                                         <td className="p-2 border">Positif</td>
-                                                        <td className="p-2 border">0.143</td>
+                                                        <td className="p-2 border">{predict.positif}</td>
                                                     </tr>
                                                     <tr className="border border-slate-200">
                                                         <td className="p-2 border">Netral</td>
-                                                        <td className="p-2 border">0.143</td>
+                                                        <td className="p-2 border">{predict.netral}</td>
                                                     </tr>
                                                     <tr className="border border-slate-200">
                                                         <td className="p-2 border">Negatif</td>
-                                                        <td className="p-2 border">0.143</td>
+                                                        <td className="p-2 border">{predict.negatif}</td>
                                                     </tr>
                                                 </tbody>
                                             </table>
