@@ -19,9 +19,10 @@
         "@fortawesome/free-solid-svg-icons": "^6.4.0",
         "@fortawesome/react-fontawesome": "^0.2.0",
         "@inertiajs/react": "^1.0.9",
-        "@tensorflow/tfjs": "^4.8.0",
         "react": "^18.2.0",
         "react-dom": "^18.2.0",
-        "scikitjs": "^1.24.0"
+        "scikitjs": "^1.24.0",
+        "sweetalert2": "^11.7.18",
+        "sweetalert2-react-content": "^5.0.7"
     }
 }

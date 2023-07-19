@@ -1,5 +1,7 @@
 <?php
 
+use App\Http\Controllers\AuthController;
+use App\Http\Controllers\SentenceController;
 use App\Http\Controllers\User\HomeController;
 use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
@@ -15,6 +17,13 @@ use Inertia\Inertia;
 |
 */
 
-Route::get('/', [HomeController::class, 'index']);
+Route::get('/', [HomeController::class, 'index'])->name('home');
+Route::get('masuk', [AuthController::class, 'login'])->name('login');
+Route::post('masuk', [AuthController::class, 'check']);
+
+
+Route::get('keluar', [AuthController::class, 'logout'])->name('logout');
+Route::post('simpan', [SentenceController::class, 'saveSentence']);
+
 Route::get('about', [HomeController::class, 'about']);
 Route::get('contact', [HomeController::class, 'contact']);

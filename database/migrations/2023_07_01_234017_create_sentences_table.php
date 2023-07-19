@@ -15,8 +15,10 @@ return new class extends Migration
             $table->uuid('id')->primary();
             $table->uuid('user_id');
             $table->text('text');
-            $table->float('percentage');
-            $table->text('description');
+            $table->string('predict', 10);
+            $table->integer('positive');
+            $table->integer('negative');
+            $table->integer('neutral');
             $table->timestamps();
         });
     }

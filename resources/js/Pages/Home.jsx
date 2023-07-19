@@ -1,8 +1,12 @@
 import React, { useEffect, useState } from "react"
 import UserLayout from "../Layouts/User"
 import axios from "axios"
+import { router, usePage } from "@inertiajs/react"
+
+import { confirmAlert } from "../Components/Alerts"
 
 export default function Home(props){
+    const {auth} = usePage().props
     const [text, setText] = useState('')
     const [showPredict, setShowPredict] = useState(false)
     const [result, setResult] = useState('')
@@ -31,9 +35,18 @@ export default function Home(props){
         } catch (error) {
             console.error(error);
         }
-
-
     }
+
+    function savePredict(){
+        router.post('simpan', {
+            text: text,
+            predict: predict.prediksi,
+            positive: predict.positif,
+            negative: predict.negatif,
+            neutral: predict.netral 
+        })
+    }
+
 
     return(
         <UserLayout title="MyApp | Home">
@@ -47,7 +60,7 @@ export default function Home(props){
                     <div className="rounded-lg grid grid-cols-1 md:grid-cols-2 divide-y md:divide-x bg-white shadow">
                         <div className="p-8">
                             <header className="text-lg mb-5">Masukkan Teks</header>
-                            <textarea onChange={(e) => setText(e.target.value)} className="bg-white border w-full rounded-lg p-3 h-52" placeholder="Masukkan kalimat" ></textarea>
+                            <textarea onChange={(e) => setText(e.target.value)} className="bg-white border w-full rounded-lg p-3 h-52 mb-5" placeholder="Masukkan kalimat" ></textarea>
                             <button onClick={() => {setShowPredict(true), setResult(text), predictData()}} className="btn-primary mt-5}">Prediksi</button>
                         </div>
                         <div className="p-8 divide-y">
@@ -94,7 +107,17 @@ export default function Home(props){
                                                 </tbody>
                                             </table>
                                         </div>
-                                        <button className="btn-primary mt-5">Simpan Hasil</button>
+                                        <button onClick={
+                                            () => {
+                                                if(!auth.user) {
+                                                    confirmAlert('Masuk Sekarang', 'Untuk bisa menyimpan riwayat prediksi, silahkan masuk terlebih dahulu')
+                                                }
+                                                
+                                                else{
+                                                    savePredict()
+                                                }
+                                            }
+                                        } className="btn-primary mt-5">Simpan Hasil</button>
                                     </div>
                                 }
                             </div>
