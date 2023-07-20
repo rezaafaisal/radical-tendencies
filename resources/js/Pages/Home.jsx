@@ -110,7 +110,7 @@ export default function Home(props){
                                         <button onClick={
                                             () => {
                                                 if(!auth.user) {
-                                                    confirmAlert('Masuk Sekarang', 'Untuk bisa menyimpan riwayat prediksi, silahkan masuk terlebih dahulu')
+                                                    confirmAlert('Masuk Sekarang', 'Untuk bisa menyimpan riwayat prediksi, silahkan masuk terlebih dahulu', 'masuk', 'Masuk')
                                                 }
                                                 
                                                 else{

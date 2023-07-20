@@ -3,17 +3,17 @@ import Swal from 'sweetalert2'
 import withReactContent from 'sweetalert2-react-content'
 
 
-const confirmAlert = (title, text) => {
+const confirmAlert = (title, text, route, confirmText) => {
     const MySwal = withReactContent(Swal)
     MySwal.fire({
         title: title,
         text: text,
         showCancelButton: true,
         cancelButtonText: 'Batal',
-        confirmButtonText: 'Masuk'
+        confirmButtonText: confirmText
         }).then((e) => {
             if(e.isConfirmed){
-                router.get('masuk')
+                router.get(route)
             }
     })
 }
