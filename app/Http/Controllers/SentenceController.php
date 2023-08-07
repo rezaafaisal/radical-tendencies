@@ -10,6 +10,10 @@ class SentenceController extends Controller
 {
     public function saveSentence(Request $request){
 
+        $request->validate([
+            'text' => ['required', 'min:5', 'unique:sentences']
+        ]);
+
         $sentence = new Sentence();
         $sentence->user_id = Auth::id();
         $sentence->text = $request->text;
@@ -19,6 +23,6 @@ class SentenceController extends Controller
         $sentence->neutral = $request->neutral;
 
         $success = $sentence->save();
-        if($success) return to_route('home');
+        if($success) return to_route('home')->with('message', 'Kalimat telah berhasil disimpan');
     }
 }

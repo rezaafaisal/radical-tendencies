@@ -36,6 +36,10 @@ Route::post('verifikasi-email', [AuthController::class, 'verifyingEmail']);
 Route::post('kirim-ulang-verifikasi-email', [AuthController::class, 'resendVerifyEmail']);
 
 
+// sentence
+Route::get('kalimat', [HomeController::class, 'sentences'])->name('sentence');
+
+
 Route::get('keluar', [AuthController::class, 'logout'])->name('logout');
 Route::post('simpan', [SentenceController::class, 'saveSentence']);
 

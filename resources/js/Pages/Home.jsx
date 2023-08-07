@@ -3,10 +3,10 @@ import UserLayout from "../Layouts/User"
 import axios from "axios"
 import { router, usePage } from "@inertiajs/react"
 
-import { confirmAlert } from "../Components/Alerts"
+import { confirmAlert, infoAlert } from "../Components/Alerts"
 
 export default function Home(props){
-    const {auth} = usePage().props
+    const {auth, errors, flash} = usePage().props
     const [text, setText] = useState('')
     const [showPredict, setShowPredict] = useState(false)
     const [result, setResult] = useState('')
@@ -33,6 +33,7 @@ export default function Home(props){
             })
 
         } catch (error) {
+            infoAlert('Gagal', 'Silahkan masukkan minimal 2 kata untuk diprediksi')
             console.error(error);
         }
     }
@@ -45,7 +46,21 @@ export default function Home(props){
             negative: predict.negatif,
             neutral: predict.netral 
         })
+
+        // errors.text && 
+        // infoAlert('Gagal', errors.text)  
+
+        // flash.message &&
+        // infoAlert('Berhasil', flash.message)
+
     }
+
+    useEffect(()=>{
+        // if fails
+        errors.text &&  infoAlert('Gagal', errors.text)      
+        // if success
+        flash.message && infoAlert('Berhasil', flash.message)
+    }, [errors, flash])
 
 
     return(

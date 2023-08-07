@@ -17,7 +17,7 @@ export default function NavApp(){
                 {
                     auth.user ?
                     <div className="flex gap-5 items-center">
-                        <Link href='sentences' className="bg-white text-cyan-500 font-semibold px-5 py-2 rounded-lg hover:bg-gray-100 duration-150 shadow">Kalimat Saya</Link>
+                        <Link href='kalimat' className="bg-white text-cyan-500 font-semibold px-5 py-2 rounded-lg hover:bg-gray-100 duration-150 shadow">Kalimat Saya</Link>
                         <div className="relative group">
                             <div className="py-2">
                                 <img src={sully} onClick={showProfile} className="h-10 w-10 rounded-full shadow cursor-pointer ring-2 ring-white"/>
