@@ -2,12 +2,20 @@
 
 namespace App\Http\Controllers;
 
+use Inertia\Inertia;
 use App\Models\Sentence;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
 class SentenceController extends Controller
 {
+    public function index(){
+        $sentences = Sentence::where('user_id', Auth::id())->get();
+        return Inertia::render('Sentence', [
+            'sentences' => $sentences
+        ]);
+    }
+
     public function saveSentence(Request $request){
 
         $request->validate([
@@ -24,5 +32,11 @@ class SentenceController extends Controller
 
         $success = $sentence->save();
         if($success) return to_route('home')->with('message', 'Kalimat telah berhasil disimpan');
+    }
+
+    public function deleteSentence($id){
+        $success = Sentence::find($id)->delete();
+
+        if($success) return to_route('sentence')->with('message', 'Kalimat berhasil dihapus');
     }
 }

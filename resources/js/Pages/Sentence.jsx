@@ -1,11 +1,12 @@
 import React, { useEffect, useState } from "react"
 import UserLayout from "../Layouts/User"
-import axios from "axios"
-import { router, usePage, Link } from "@inertiajs/react"
+import { router, Link, usePage } from "@inertiajs/react"
+import withReactContent from "sweetalert2-react-content"
+import Swal from "sweetalert2"
 
 export default function Sentence(props){
+    const {flash} = usePage().props
     const [sentences, setSentences] = useState(props.sentences)
-
     function label(predict){
         if(predict.toLowerCase() === 'negatif'){
             return(
@@ -26,6 +27,51 @@ export default function Sentence(props){
         }
     }
 
+    function deleteSentence(id){
+        const MySwal = withReactContent(Swal)
+        MySwal.fire({
+            title: 'Yakin hapus?',
+            text: 'Kalimat akan dihapus permanen',
+            confirmButtonText: 'Hapus',
+            showCancelButton: true,
+            cancelButtonText: 'Batal',
+            confirmButtonColor: '#EC4899'
+        }).then((e)=>{
+            if(e.isConfirmed){
+                router.delete(`kalimat/${id}`)
+                const newData = sentences.filter(el => el.id != id)
+                setSentences(newData)
+            }
+        })
+    }
+
+    function detailSentence(el){
+        const MySwal = withReactContent(Swal)
+        const elemen = (
+            <div className="">
+                <p>{el.text}</p>
+                <table className="table-auto text-start mt-5 text-sm">
+                    <tr>
+                        <th className="text-start mr-5 block">Positif</th>
+                        <td>: {el.positive}</td>
+                    </tr>
+                    <tr>
+                        <th className="text-start mr-5 block">Netral</th>
+                        <td>: {el.neutral}</td>
+                    </tr>
+                    <tr>
+                        <th className="text-start block mr-5">Negatif</th>
+                        <td>: {el.negative}</td>
+                    </tr>
+                </table>
+            </div>
+        )
+        MySwal.fire({
+            title: 'Detail Kalimat',
+            html: elemen
+        })
+    }
+
     return(
         <UserLayout>
             <div className="wrapper h-screen">
@@ -33,8 +79,14 @@ export default function Sentence(props){
                     <Link href="/" className="btn-primary">Kembali</Link>
                 </section>
                 <section className="py-5">
+                    {
+                        flash.message && 
+                        <span className="block px-5 py-3  bg-teal-100 mb-7 text-center text-teal-700 rounded-lg shadow" role="alert">
+                            {flash.message}
+                        </span>
+                    }
                     <div className="border border-slate-300 overflow-hidden rounded-lg bg-white py-5">
-                        <table className="table-auto divide-y divide-slate-300">
+                        <table className="table-auto divide-y divide-slate-300 ">
                             <thead>
                                 <tr>
                                     <th className="px-3 pb-5 w-1/12">No.</th>
@@ -61,8 +113,8 @@ export default function Sentence(props){
                                                 </td>
                                                 <td className="">
                                                     <div className="flex gap-3 justify-center">
-                                                        <button className="text-sm py-1 px-3 rounded bg-cyan-500 text-white hover:bg-cyan-600 duration-150">Detail</button>
-                                                        <button className="text-sm py-1 px-3 rounded bg-pink-500 text-white hover:bg-pink-600 duration-150">Hapus</button>
+                                                        <button onClick={()=>{detailSentence(el)}} className="text-sm py-1 px-3 rounded bg-cyan-500 text-white hover:bg-cyan-600 duration-150">Detail</button>
+                                                        <button onClick={() => { deleteSentence(el.id) }} className="text-sm py-1 px-3 rounded bg-pink-500 text-white hover:bg-pink-600 duration-150">Hapus</button>
                                                     </div>
                                                 </td>
                                             </tr>

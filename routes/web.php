@@ -37,11 +37,11 @@ Route::post('kirim-ulang-verifikasi-email', [AuthController::class, 'resendVerif
 
 
 // sentence
-Route::get('kalimat', [HomeController::class, 'sentences'])->name('sentence');
-
+Route::get('kalimat', [SentenceController::class, 'index'])->name('sentence');
+Route::delete('kalimat/{id}', [SentenceController::class, 'deleteSentence'])->name('deleteSentence');
+Route::post('simpan', [SentenceController::class, 'saveSentence']);
 
 Route::get('keluar', [AuthController::class, 'logout'])->name('logout');
-Route::post('simpan', [SentenceController::class, 'saveSentence']);
 
 Route::get('about', [HomeController::class, 'about']);
 Route::get('contact', [HomeController::class, 'contact']);

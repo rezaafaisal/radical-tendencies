@@ -31,8 +31,10 @@ export default function Home(props){
                 negatif: response.data.probabilitas.negatif,
                 netral: response.data.probabilitas.netral,
             })
+            setShowPredict(true)
 
         } catch (error) {
+            setShowPredict(false)
             infoAlert('Gagal', 'Silahkan masukkan minimal 2 kata untuk diprediksi')
             console.error(error);
         }
@@ -57,7 +59,7 @@ export default function Home(props){
 
     useEffect(()=>{
         // if fails
-        errors.text &&  infoAlert('Gagal', errors.text)      
+        errors.text && infoAlert('Gagal', errors.text)      
         // if success
         flash.message && infoAlert('Berhasil', flash.message)
     }, [errors, flash])
@@ -76,14 +78,14 @@ export default function Home(props){
                         <div className="p-8">
                             <header className="text-lg mb-5">Masukkan Teks</header>
                             <textarea onChange={(e) => setText(e.target.value)} className="bg-white border w-full rounded-lg p-3 h-52 mb-5" placeholder="Masukkan kalimat" ></textarea>
-                            <button onClick={() => {setShowPredict(true), setResult(text), predictData()}} className="btn-primary mt-5}">Prediksi</button>
+                            <button onClick={() => {setResult(text), predictData()}} className="btn-primary mt-5}">Prediksi</button>
                         </div>
                         <div className="p-8 divide-y">
                             <header className="text-lg mb-5">Hasil</header>
                             <div className="pt-2">
                             {
                                 showPredict && 
-                                    <div className="">
+                                <div className="">
                                         <div className="mb-5">
                                             <p className="font-light mb-3">
                                                 {result}
