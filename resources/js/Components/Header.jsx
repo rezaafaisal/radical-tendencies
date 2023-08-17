@@ -13,7 +13,7 @@ export default function NavApp(){
     return (
         <nav className="bg-cyan-600 h-20 flex items-center">
             <div className="wrapper flex justify-between items-center">
-                <Link href="/" className="text-2xl font-semibold text-white">MyApp.id</Link>
+                <Link href="/" className="text-2xl font-semibold text-white">Radikal Tes</Link>
                 {
                     auth.user ?
                     <div className="flex gap-5 items-center">
