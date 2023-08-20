@@ -9,6 +9,18 @@ const infoAlert = (title, text) => {
         text: text,
     })
 }
+const successAlert = (title, text) => {
+    const MySwal = withReactContent(Swal)
+    MySwal.fire({
+        icon: 'success',
+        title: title,
+        text: text,
+        showConfirmButton: false,
+        timer: 2000,
+        position: 'top-end',
+        toast: true,
+    })
+}
 
 const confirmAlert = (title, text, route, confirmText) => {
     const MySwal = withReactContent(Swal)
@@ -25,4 +37,4 @@ const confirmAlert = (title, text, route, confirmText) => {
     })
 }
 
-export {confirmAlert, infoAlert}
+export {confirmAlert, infoAlert, successAlert}

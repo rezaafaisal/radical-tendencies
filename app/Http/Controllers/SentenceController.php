@@ -6,20 +6,26 @@ use Inertia\Inertia;
 use App\Models\Sentence;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Maatwebsite\Excel\Facades\Excel;
+use App\Imports\Sentence as ImportsSentence;
 
 class SentenceController extends Controller
 {
     public function index(){
-        $sentences = Sentence::where('user_id', Auth::id())->get();
         return Inertia::render('Sentence', [
-            'sentences' => $sentences
+            'sentences' => Sentence::where('user_id', Auth::id())->where('predict', '!=', null)->get(),
+            'unpredict' => Sentence::where(['user_id' => Auth::id(), 'predict' => null])->get()
         ]);
     }
 
     public function import(Request $request){
         $request->validate([
-            'file' => ['required', 'mimes:xls,xlsx,csv', 'max:1024'],
+            'file' => ['required', 'mimes:xlsx,csv', 'max:1024'],
         ]);
+
+        $success = Excel::import(new ImportsSentence, $request->file);
+
+         if($success) return redirect()->back()->with('message', 'File kallimat berhasil diunggah');
     }
     
     public function saveSentence(Request $request){

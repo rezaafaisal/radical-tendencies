@@ -3,7 +3,7 @@ import UserLayout from "../Layouts/User"
 import axios from "axios"
 import { router, usePage } from "@inertiajs/react"
 
-import { confirmAlert, infoAlert } from "../Components/Alerts"
+import { confirmAlert, infoAlert, successAlert } from "../Components/Alerts"
 
 export default function Home(props){
     const {auth, errors, flash} = usePage().props
@@ -48,20 +48,13 @@ export default function Home(props){
             negative: predict.negatif,
             neutral: predict.netral 
         })
-
-        // errors.text && 
-        // infoAlert('Gagal', errors.text)  
-
-        // flash.message &&
-        // infoAlert('Berhasil', flash.message)
-
     }
 
     useEffect(()=>{
         // if fails
         errors.text && infoAlert('Gagal', errors.text)      
         // if success
-        flash.message && infoAlert('Berhasil', flash.message)
+        flash.message && successAlert('Berhasil', flash.message)
     }, [errors, flash])
 
 
@@ -91,9 +84,8 @@ export default function Home(props){
                                                 {result}
                                             </p>
                                             <div className="text-base">
-                                                <span className="font-semibold">Prediksi : </span>
-                                                <span className="font-bold "> {predict.prediksi}</span>
-                                                <span className="text-pink-600 font-semibold"> (Kalimat Cenderung {predict.prediksi}!)</span>
+                                                <span className="">Prediksi : </span>
+                                                <span className=" font-semibold"> {predict.prediksi}!</span>
                                             </div>
                                         </div>
                                         <hr className="my-6" />
@@ -118,7 +110,7 @@ export default function Home(props){
                                                         <td className="p-2 border">{predict.netral}</td>
                                                     </tr>
                                                     <tr className="border border-slate-200">
-                                                        <td className="p-2 border">Negatif</td>
+                                                        <td className="p-2 border">Cenderung Radikal</td>
                                                         <td className="p-2 border">{predict.negatif}</td>
                                                     </tr>
                                                 </tbody>

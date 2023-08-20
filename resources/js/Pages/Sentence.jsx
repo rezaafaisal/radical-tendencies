@@ -10,6 +10,7 @@ import FileUploadModal from "../Components/FileUploadModal"
 export default function Sentence(props){
     const {flash} = usePage().props
     const [sentences, setSentences] = useState(props.sentences)
+    const [unpredict, setUnpredict] = useState(props.unpredict)
     const [isPredicted, setIsPredicted] = useState(false)
     const [modalUpload, setModalUpload] = useState(false)
     function label(predict){
@@ -76,6 +77,11 @@ export default function Sentence(props){
             html: elemen
         })
     }
+
+    useEffect(()=>{
+        setModalUpload(false)
+        setUnpredict(props.unpredict)
+    }, [flash.message])
 
     return(
         <UserLayout>
@@ -159,7 +165,7 @@ export default function Sentence(props){
                                 </thead>
                                 <tbody className="">
                                     {
-                                        sentences.map((el, i) => {
+                                        unpredict.map((el, i) => {
                                             return (
                                                 <tr key={el.id} className="font-light text-sm">
                                                     <td>

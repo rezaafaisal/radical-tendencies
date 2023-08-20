@@ -22,9 +22,9 @@ def predict():
         vector = sentence_to_vectors(request.form['sentences'])
         result = model.predict(vector)
 
-        if(result == '0'): target = 'Netral'
-        elif(result == '1'): target = 'Positif'
-        elif(result == '2'): target = 'Negatif'
+        if(result == '0'): target = 'Kalimat Netral'
+        elif(result == '1'): target = 'Kalimat Positif'
+        elif(result == '2'): target = 'Cenderung Radikal'
 
         probs = model.predict_log_proba(vector)
         data = {
