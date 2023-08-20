@@ -26,7 +26,7 @@ export default function NavApp(){
                                 <h3 className="text-center font-semibold text-gray-600">{auth.user.name}</h3>
                                 <ul className="mt-8 divide-y">
                                     <li className="pb-2">
-                                        <Link href="/profile" className="text-sm font-light hover:font-normal duration-150">Pengaturan</Link>
+                                        <Link href="/profile" className="text-sm font-light hover:font-normal duration-150">Profil</Link>
                                     </li>
                                     <li className="pt-2">
                                         <span onClick={()=>{
