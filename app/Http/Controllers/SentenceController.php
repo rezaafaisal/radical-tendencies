@@ -16,6 +16,12 @@ class SentenceController extends Controller
         ]);
     }
 
+    public function import(Request $request){
+        $request->validate([
+            'file' => ['required', 'mimes:xls,xlsx,csv', 'max:1024'],
+        ]);
+    }
+    
     public function saveSentence(Request $request){
 
         $request->validate([

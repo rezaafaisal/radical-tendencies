@@ -15,10 +15,10 @@ return new class extends Migration
             $table->uuid('id')->primary();
             $table->uuid('user_id');
             $table->text('text');
-            $table->string('predict', 10);
-            $table->integer('positive');
-            $table->integer('negative');
-            $table->integer('neutral');
+            $table->string('predict', 10)->nullable();
+            $table->integer('positive')->nullable();
+            $table->integer('negative')->nullable();
+            $table->integer('neutral')->nullable();
             $table->timestamps();
         });
     }
