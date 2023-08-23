@@ -19,24 +19,33 @@ export default function Home(props){
     })
 
     async function predictData() {
-        try {
-            const response = await axios.postForm('http://127.0.0.1:5000/predict', {
-                sentences: text
-            });
-            console.log(response.data);
-            setPredict({
-                ...predict,
-                prediksi: response.data.prediksi,
-                positif: response.data.probabilitas.positif,
-                negatif: response.data.probabilitas.negatif,
-                netral: response.data.probabilitas.netral,
-            })
-            setShowPredict(true)
-
-        } catch (error) {
+        const min = 3;
+        const max = 500;
+        const wordsLenght = text.split(' ').length
+        if(wordsLenght >= min && wordsLenght <= max){
+            try {
+                const response = await axios.postForm('http://127.0.0.1:5000/predict', {
+                    sentences: text
+                });
+                console.log(response.data);
+                setPredict({
+                    ...predict,
+                    prediksi: response.data.prediksi,
+                    positif: response.data.probabilitas.positif,
+                    negatif: response.data.probabilitas.negatif,
+                    netral: response.data.probabilitas.netral,
+                })
+                setShowPredict(true)
+    
+            } catch (error) {
+                setShowPredict(false)
+                infoAlert('Gagal', error)
+                console.error(error);
+            }
+        }
+        else{
             setShowPredict(false)
-            infoAlert('Gagal', 'Silahkan masukkan minimal 2 kata untuk diprediksi')
-            console.error(error);
+            infoAlert('Gagal', 'Minimal 3 kata dan Maksimal 500 kata')
         }
     }
 
