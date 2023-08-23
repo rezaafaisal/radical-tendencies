@@ -45,7 +45,7 @@ export default function Home(props){
         }
         else{
             setShowPredict(false)
-            infoAlert('Gagal', 'Minimal 3 kata dan Maksimal 500 kata')
+            infoAlert('Gagal', 'Masukkan Minimal 3 kata dan Maksimal 500 kata')
         }
     }
 
