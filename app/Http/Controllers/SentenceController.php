@@ -29,7 +29,6 @@ class SentenceController extends Controller
     }
     
     public function saveSentence(Request $request){
-
         $request->validate([
             'text' => ['required', 'min:5', 'unique:sentences']
         ]);
@@ -39,11 +38,22 @@ class SentenceController extends Controller
         $sentence->text = $request->text;
         $sentence->predict = $request->predict;
         $sentence->positive = $request->positive;
-        $sentence->negative = $request->negative;
+        $sentence->radical = $request->radical;
         $sentence->neutral = $request->neutral;
 
         $success = $sentence->save();
         if($success) return to_route('home')->with('message', 'Kalimat telah berhasil disimpan');
+    }
+
+    public function updateSentence(Request $request){
+        $sentence = Sentence::find($request->id);
+        $sentence->predict = $request->predict;
+        $sentence->positive = $request->positive;
+        $sentence->radical = $request->radical;
+        $sentence->neutral = $request->neutral;
+
+        $success = $sentence->save();
+        if($success) return redirect()->back()->with('message', 'Kalimat telah berhasil diprediksi, buka tab "Sudah Diprediksi" untuk melihat kalimat');
     }
 
     public function deleteSentence($id){

@@ -8,6 +8,7 @@ import { confirmAlert, infoAlert, successAlert } from "../Components/Alerts"
 export default function Home(props){
     const {auth, errors, flash} = usePage().props
     const [text, setText] = useState('')
+    const [label, setLabel] =useState('')
     const [showPredict, setShowPredict] = useState(false)
     const [result, setResult] = useState('')
     const [predict, setPredict] = useState({
@@ -22,6 +23,7 @@ export default function Home(props){
         const min = 3;
         const max = 500;
         const wordsLenght = text.split(' ').length
+        console.log(wordsLenght);
         if(wordsLenght >= min && wordsLenght <= max){
             try {
                 const response = await axios.postForm('http://127.0.0.1:5000/predict', {
@@ -32,19 +34,16 @@ export default function Home(props){
                     ...predict,
                     prediksi: response.data.prediksi,
                     positif: response.data.probabilitas.positif,
-                    negatif: response.data.probabilitas.negatif,
+                    radikal: response.data.probabilitas.radikal,
                     netral: response.data.probabilitas.netral,
                 })
                 setShowPredict(true)
     
             } catch (error) {
-                setShowPredict(false)
-                infoAlert('Gagal', error)
                 console.error(error);
             }
         }
         else{
-            setShowPredict(false)
             infoAlert('Gagal', 'Minimal 3 kata dan Maksimal 500 kata')
         }
     }
@@ -54,9 +53,15 @@ export default function Home(props){
             text: text,
             predict: predict.prediksi,
             positive: predict.positif,
-            negative: predict.negatif,
+            radical: predict.radikal,
             neutral: predict.netral 
         })
+    }
+
+    function predictLabel(predict){
+        if(predict === 'netral') setLabel('Kalimat Netral')
+        else if(predict === 'positif') setLabel('Kalimat Positif')
+        else if(predict === 'radikal') setLabel('Kalimat Cenderung Radikal')
     }
 
     useEffect(()=>{
@@ -64,7 +69,10 @@ export default function Home(props){
         errors.text && infoAlert('Gagal', errors.text)      
         // if success
         flash.message && successAlert('Berhasil', flash.message)
-    }, [errors, flash])
+
+        // predict label
+        predictLabel(predict.prediksi)
+    }, [errors, flash, predict.prediksi])
 
 
     return(
@@ -94,7 +102,7 @@ export default function Home(props){
                                             </p>
                                             <div className="text-base">
                                                 <span className="">Prediksi : </span>
-                                                <span className=" font-semibold"> {predict.prediksi}!</span>
+                                                <span className=" font-semibold"> {label}!</span>
                                             </div>
                                         </div>
                                         <hr className="my-6" />

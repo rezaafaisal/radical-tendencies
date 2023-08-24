@@ -17,7 +17,7 @@ return new class extends Migration
             $table->text('text');
             $table->string('predict')->nullable();
             $table->integer('positive')->nullable();
-            $table->integer('negative')->nullable();
+            $table->integer('radical')->nullable();
             $table->integer('neutral')->nullable();
             $table->timestamps();
         });
