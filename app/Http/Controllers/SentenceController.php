@@ -12,6 +12,7 @@ use App\Imports\Sentence as ImportsSentence;
 class SentenceController extends Controller
 {
     public function index(){
+        if(!Auth::user()) return to_route('home');
         return Inertia::render('Sentence', [
             'sentences' => Sentence::where('user_id', Auth::id())->where('predict', '!=', null)->get(),
             'unpredict' => Sentence::where(['user_id' => Auth::id(), 'predict' => null])->get()

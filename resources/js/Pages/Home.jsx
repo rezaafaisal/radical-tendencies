@@ -29,7 +29,6 @@ export default function Home(props){
                 const response = await axios.postForm('http://127.0.0.1:5000/predict', {
                     sentences: text
                 });
-                console.log(response.data);
                 setPredict({
                     ...predict,
                     prediksi: response.data.prediksi,
