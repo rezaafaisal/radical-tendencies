@@ -137,7 +137,7 @@ export default function Home(props){
                                                     confirmAlert('Masuk Sekarang', 'Untuk bisa menyimpan riwayat prediksi, silahkan masuk terlebih dahulu', 'masuk', 'Masuk')
                                                 }
                                                 
-                                                else{
+                                            else{
                                                     savePredict()
                                                 }
                                             }

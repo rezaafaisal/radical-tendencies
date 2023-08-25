@@ -55,7 +55,6 @@ class HomeController extends Controller
         $request->validate([
             'name' => ['required', 'min:3']
         ]);
-        if($user->name == $request->name) return redirect()->back()->withErrors(['name' => 'Namanya kok nda berubah :)']);
         $user->name = $request->name;
         $success = $user->save();
 

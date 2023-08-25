@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import UserLayout from "../Layouts/User";
 import { Link, router, usePage } from "@inertiajs/react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
@@ -12,6 +12,7 @@ export default function Profile({user, isAccount}){
     const {errors, flash} = usePage().props
     const [showPassword, setShowPassword] = useState(false)
     const [showPasswordConfirm, setShowPasswordConfirm] = useState(false)
+    const [showPreview, setShowPreview] = useState(false)
     const [data, setData] = useState({
         name: user.name,
         image: null,
@@ -20,6 +21,16 @@ export default function Profile({user, isAccount}){
         is_account: isAccount
     })
 
+    const [newImage, setNewImage] = useState('')
+
+    const hiddenFile = useRef(null)
+
+
+    const fileHandler = (e) => {
+        setShowPreview(true)
+        const file = e.target.files[0]
+        setNewImage(URL.createObjectURL(file))
+    }
 
     const inputHandler = (e) => {
         const name = e.target.name
@@ -52,6 +63,26 @@ export default function Profile({user, isAccount}){
     
     return(
         <UserLayout>
+            {
+                showPreview &&
+                <div className="fixed flex top-0 z-50 justify-center items-center bg-black bg-opacity-50 h-screen w-full overflow-hidden">
+                    <div className="w-full m-10 md:w-8/12 lg:w-4/12 bg-white rounded-lg">
+                        <div className="p-4 border-b border-slate-300 flex justify-between">
+                            <span>Sesuaikan Gambar</span>
+                            <button id="close_crop"><i className="fas fa-xmark"></i></button>
+                        </div>
+                        <div className="p-4">
+                            <img src={newImage} alt="" id="newImg" className="croppie" />
+                        </div>
+                        <div className="p-4 border-t border-slate-300 flex justify-end">
+                            <div className="flex gap-3 text-sm font-light">
+                                <button onClick={()=>setShowPreview(false)} className="btn-secondary">Batal</button>
+                                <button id="crop_image" className="btn-primary">Terapkan</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            }
             <section className="wrapper mt-20 text-slate-600">
                 <div className="flex gap-5">
                     <div className="w-3/12">
@@ -79,7 +110,8 @@ export default function Profile({user, isAccount}){
                                     <div className="flex gap-5">
                                         <img src={ProfileImage} alt="profile picture" className="h-28 w-28 rounded-lg border border-slate-200" />
                                         <div>
-                                            <button type="button" className="text-sm btn-primary">Pilih Foto</button>
+                                            <input type="file" ref={hiddenFile} onChange={fileHandler} name="" id="" className="hidden" />
+                                            <button onClick={()=> hiddenFile.current.click()} type="button" className="text-sm btn-primary">Pilih Foto</button>
                                             <span className="block text-xs font-light mt-3">
                                                 Gambar Profile Anda sebaiknya memiliki rasio 1:1 dan berukuran tidak lebih dari 2MB.
                                             </span>
