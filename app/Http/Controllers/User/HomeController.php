@@ -2,13 +2,15 @@
 
 namespace App\Http\Controllers\User;
 
-use App\Http\Controllers\Controller;
-use App\Models\Sentence;
+use Carbon\Carbon;
 use App\Models\User;
+use Inertia\Inertia;
+use App\Models\Sentence;
 use Illuminate\Http\Request;
+use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
-use Inertia\Inertia;
+use Illuminate\Support\Facades\Storage;
 
 class HomeController extends Controller
 {
@@ -27,6 +29,7 @@ class HomeController extends Controller
     public function profile(){
         $user = Auth::user();
         return Inertia::render('Profile', [
+            'avatar' => '/avatar/'.$user->avatar,
             'user' => $user,
             'isAccount' => false
         ]);
@@ -53,8 +56,17 @@ class HomeController extends Controller
         }
 
         $request->validate([
-            'name' => ['required', 'min:3']
+            'name' => ['required', 'min:3'],
+            'image' => ['nullable', 'mimes:png,jpg,jpeg']
         ]);
+
+        if($request->image){
+            Storage::delete('avatar/'.$user->avatar);
+            $image = $request->image;
+            $filename = md5(Carbon::now()->format('YmdHis')).'.'.$image->extension();
+            Storage::putFileAs('avatar', $image, $filename);
+            $user->avatar = $filename;
+        }
         $user->name = $request->name;
         $success = $user->save();
 

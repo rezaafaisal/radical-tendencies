@@ -18,13 +18,7 @@ use Inertia\Inertia;
 */
 
 Route::get('tes', function(){
-    return view('emails.verify', [
-        'data' => [
-            'email' => 'tes@gmail.com',
-            'fullname' => 'aco',
-            'code' => '12112'
-        ]
-    ]);
+    return Inertia::render('Tes');
 });
 Route::get('/', [HomeController::class, 'index'])->name('home');
 Route::get('masuk', [AuthController::class, 'login'])->name('login');

@@ -4,15 +4,15 @@ import { Link, router, usePage } from "@inertiajs/react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faUser } from "@fortawesome/free-solid-svg-icons";
 import { faGear } from "@fortawesome/free-solid-svg-icons";
-import ProfileImage from "../../../public/avatar/sully.jpg"
 import { errorAlert, successAlert } from "../Components/Alerts";
 import { faEye, faEyeSlash } from "@fortawesome/free-regular-svg-icons";
 
-export default function Profile({user, isAccount}){
+export default function Profile({avatar, user, isAccount}){
     const {errors, flash} = usePage().props
     const [showPassword, setShowPassword] = useState(false)
     const [showPasswordConfirm, setShowPasswordConfirm] = useState(false)
     const [showPreview, setShowPreview] = useState(false)
+    const [applyImage, setApplyImage] = useState(false)
     const [data, setData] = useState({
         name: user.name,
         image: null,
@@ -26,10 +26,18 @@ export default function Profile({user, isAccount}){
     const hiddenFile = useRef(null)
 
 
+    const setImage = () => {
+        setData({
+            ...data,
+            image: newImage
+        })
+        setApplyImage(true)
+        setShowPreview(false)
+    }
     const fileHandler = (e) => {
         setShowPreview(true)
         const file = e.target.files[0]
-        setNewImage(URL.createObjectURL(file))
+        setNewImage(file)
     }
 
     const inputHandler = (e) => {
@@ -52,10 +60,13 @@ export default function Profile({user, isAccount}){
             delete data.password_confirmation
         }
 
-        router.post('/profil', data)
+        router.post('/profil', data, {
+            forceFormData: true,
+        })
     }
 
     useEffect(()=>{
+        console.log(avatar);
         flash.message && successAlert('Berhasil', flash.message)
         errors.name && errorAlert('Gagal', errors.name)
         errors.password && errorAlert('Gagal', errors.password)
@@ -71,13 +82,13 @@ export default function Profile({user, isAccount}){
                             <span>Sesuaikan Gambar</span>
                             <button id="close_crop"><i className="fas fa-xmark"></i></button>
                         </div>
-                        <div className="p-4">
-                            <img src={newImage} alt="" id="newImg" className="croppie" />
+                        <div className="p-4 flex justify-center">
+                            <img src={URL.createObjectURL(newImage)} alt="" id="newImg" className="w-60 h-60 object-cover object-center" />
                         </div>
                         <div className="p-4 border-t border-slate-300 flex justify-end">
                             <div className="flex gap-3 text-sm font-light">
                                 <button onClick={()=>setShowPreview(false)} className="btn-secondary">Batal</button>
-                                <button id="crop_image" className="btn-primary">Terapkan</button>
+                                <button onClick={setImage} id="crop_image" className="btn-primary">Terapkan</button>
                             </div>
                         </div>
                     </div>
@@ -107,10 +118,10 @@ export default function Profile({user, isAccount}){
                             <div className="mt-5 lg:w-8/12">
                                 <label className="block mb-8">
                                     <span className="block font-semibold text-sm mb-3">Foto Diri</span>
-                                    <div className="flex gap-5">
-                                        <img src={ProfileImage} alt="profile picture" className="h-28 w-28 rounded-lg border border-slate-200" />
+                                    <div className="flex gap-5 items-start">
+                                        <img src={applyImage ? URL.createObjectURL(newImage) : avatar} alt="profile picture" className="block shrink-0 h-28 w-28 object-cover object-center rounded-lg border border-slate-200" />
                                         <div>
-                                            <input type="file" ref={hiddenFile} onChange={fileHandler} name="" id="" className="hidden" />
+                                            <input type="file" ref={hiddenFile} onChange={fileHandler} accept="image/png, image/gif, image/jpeg" name="file" id="" className="hidden" />
                                             <button onClick={()=> hiddenFile.current.click()} type="button" className="text-sm btn-primary">Pilih Foto</button>
                                             <span className="block text-xs font-light mt-3">
                                                 Gambar Profile Anda sebaiknya memiliki rasio 1:1 dan berukuran tidak lebih dari 2MB.
