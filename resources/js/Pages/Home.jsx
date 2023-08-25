@@ -23,7 +23,6 @@ export default function Home(props){
         const min = 3;
         const max = 500;
         const wordsLenght = text.split(' ').length
-        console.log(wordsLenght);
         if(wordsLenght >= min && wordsLenght <= max){
             try {
                 const response = await axios.postForm('http://127.0.0.1:5000/predict', {

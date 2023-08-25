@@ -17,7 +17,19 @@ const successAlert = (title, text) => {
         text: text,
         showConfirmButton: false,
         timer: 2000,
-        position: 'top-end',
+        position: 'bottom-end',
+        toast: true,
+    })
+}
+const errorAlert = (title, text) => {
+    const MySwal = withReactContent(Swal)
+    MySwal.fire({
+        icon: 'error',
+        title: title,
+        text: text,
+        showConfirmButton: false,
+        timer: 2000,
+        position: 'bottom-end',
         toast: true,
     })
 }
@@ -37,4 +49,4 @@ const confirmAlert = (title, text, route, confirmText) => {
     })
 }
 
-export {confirmAlert, infoAlert, successAlert}
+export {confirmAlert, infoAlert, successAlert, errorAlert}
