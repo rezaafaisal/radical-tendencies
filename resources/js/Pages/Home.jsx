@@ -75,8 +75,8 @@ export default function Home(props){
 
     return(
         <UserLayout title="MyApp | Home">
-            <section className="flex justify-center items-center h-60">
-                <header className="text-3xl text-gray-700 font-light text-center leading-10">
+            <section className="flex mt-20 justify-center items-center h-60">
+                <header className="text-xl md:text-3xl text-slate-700 font-light text-center leading-10">
                     Sistem Informasi Klasifikasi Kecenderungan <br /> Pemahaman Radikal di Media Sosial
                 </header>
             </section>

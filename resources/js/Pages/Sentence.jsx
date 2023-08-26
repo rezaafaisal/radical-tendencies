@@ -7,9 +7,10 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
 import { faUpload, faTrash, faInfoCircle, faMagnifyingGlass, faDownload } from "@fortawesome/free-solid-svg-icons"
 import FileUploadModal from "../Components/FileUploadModal"
 import axios from "axios"
+import { successAlert } from "../Components/Alerts"
 
 export default function Sentence(props){
-    const {flash} = usePage().props
+    const {flash, errors} = usePage().props
     const [sentences, setSentences] = useState(props.sentences)
     const [unpredict, setUnpredict] = useState(props.unpredict)
     const [isPredicted, setIsPredicted] = useState(true)
@@ -145,6 +146,7 @@ export default function Sentence(props){
     function deleteSentence(id){
         const MySwal = withReactContent(Swal)
         MySwal.fire({
+            icon: 'warning',
             title: 'Yakin hapus?',
             text: 'Kalimat akan dihapus permanen',
             confirmButtonText: 'Hapus',
@@ -154,8 +156,8 @@ export default function Sentence(props){
         }).then((e)=>{
             if(e.isConfirmed){
                 router.delete(`kalimat/${id}`)
-                const newData = sentences.filter(el => el.id != id)
-                setSentences(newData)
+                setSentences(sentences.filter(el => el.id != id))
+                setUnpredict(unpredict.filter(el=> el.id != id))
             }
         })
     }
@@ -188,28 +190,21 @@ export default function Sentence(props){
     }
 
     useEffect(()=>{
-        console.log(sentences);
         setModalUpload(false)
         setUnpredict(props.unpredict)
-    }, [flash.message])
+        flash.message && successAlert('Berhasil', flash.message)
+    }, [flash, errors])
 
     return(
         <UserLayout>
             {
                 modalUpload && <FileUploadModal close={()=>setModalUpload(false)} />
             }
-            <div className="wrapper h-screen">
+            <div className="wrapper mt-20">
                 <section className="py-5">
                     <Link href="/" className="btn-primary">Kembali</Link>
                 </section>
                 <section className="py-5 mt-10">
-                    {
-                        flash.message && 
-                        <span className="block px-5 py-3  bg-teal-100 mb-7 text-center text-teal-700 rounded-lg shadow" role="alert">
-                            {flash.message}
-                        </span>
-                    }
-
                     <header className="mb-5 flex justify-between text-sm">
                         <div className="flex w-max border-2 rounded-lg text-sm border-cyan-500 overflow-hidden">
                             <button onClick={()=>setIsPredicted(true)} className={`px-5 py-2 duration-300 ${isPredicted ? 'bg-cyan-500 text-white' : 'bg-white'}`}>Sudah Diprediksi</button>
@@ -296,6 +291,13 @@ export default function Sentence(props){
                                     }
                                 </tbody>
                             </table>
+                            {
+                                (unpredict.length === 0) &&
+                                <div className="px-5 pt-5">
+                                    <span className="block px-5 py-3  bg-amber-100 mb-7 text-center text-amber-700 rounded-lg shadow">Tidak ada data</span>
+
+                                </div>
+                            }
                         </div>
                     }
                 </section>

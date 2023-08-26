@@ -77,7 +77,7 @@ export default function Profile({avatar, user, isAccount}){
         <UserLayout>
             {
                 showPreview &&
-                <div className="fixed flex top-0 justify-center items-center bg-black bg-opacity-50 h-screen w-full overflow-hidden">
+                <div className="fixed flex z-50 top-0 justify-center items-center bg-black bg-opacity-50 h-screen w-full overflow-hidden">
                     <div className="w-full m-10 md:w-8/12 lg:w-4/12 bg-white rounded-lg">
                         <div className="p-4 border-b border-slate-300 flex justify-between">
                             <span>Sesuaikan Gambar</span>
@@ -102,7 +102,7 @@ export default function Profile({avatar, user, isAccount}){
                     <button onClick={()=>setShowSidebar(true)} className="fixed md:hidden left-0 -mt-10 bg-white p-4 rounded-tr-lg rounded-br-lg shadow">
                         <FontAwesomeIcon className="text-sm" icon={faChevronRight} />
                     </button>
-                    <div className={`w-full fixed h-screen px-1 z-30 bg-gray-100 duration-150 ${showSidebar?'-translate-x-0':'-translate-x-full'} md:-translate-x-0 md:bg-transparent top-20 left-0 right-0 bottom-0 md:h-auto md:static md:block md:w-3/12`}>
+                    <div className={`w-full fixed h-screen px-1 z-30 bg-slate-100 duration-150 ${showSidebar?'-translate-x-0':'-translate-x-full'} md:-translate-x-0 md:bg-transparent top-20 left-0 right-0 bottom-0 md:h-auto md:static md:block md:w-3/12`}>
                         <button onClick={()=>setShowSidebar(false)} className="absolute md:hidden right-10 top-5"><FontAwesomeIcon icon={faXmark} /></button>
                         <span className="mt-5 md:mt-0 block text-2xl">Profil Pengguna</span>
                         <ul className="mt-5">

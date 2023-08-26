@@ -26,7 +26,7 @@ class SentenceController extends Controller
 
         $success = Excel::import(new ImportsSentence, $request->file);
 
-         if($success) return redirect()->back()->with('message', 'File kallimat berhasil diunggah');
+         if($success) return redirect()->back()->with('message', 'Kalimat berhasil diunggah');
     }
     
     public function saveSentence(Request $request){
