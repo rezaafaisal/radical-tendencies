@@ -2,7 +2,7 @@ import React, { useEffect, useRef, useState } from "react";
 import UserLayout from "../Layouts/User";
 import { Link, router, usePage } from "@inertiajs/react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faUser } from "@fortawesome/free-solid-svg-icons";
+import { faChevronRight, faUser, faXmark } from "@fortawesome/free-solid-svg-icons";
 import { faGear } from "@fortawesome/free-solid-svg-icons";
 import { errorAlert, successAlert } from "../Components/Alerts";
 import { faEye, faEyeSlash } from "@fortawesome/free-regular-svg-icons";
@@ -13,6 +13,7 @@ export default function Profile({avatar, user, isAccount}){
     const [showPasswordConfirm, setShowPasswordConfirm] = useState(false)
     const [showPreview, setShowPreview] = useState(false)
     const [applyImage, setApplyImage] = useState(false)
+    const [showSidebar, setShowSidebar] = useState(false)
     const [data, setData] = useState({
         name: user.name,
         image: null,
@@ -76,7 +77,7 @@ export default function Profile({avatar, user, isAccount}){
         <UserLayout>
             {
                 showPreview &&
-                <div className="fixed flex top-0 z-50 justify-center items-center bg-black bg-opacity-50 h-screen w-full overflow-hidden">
+                <div className="fixed flex top-0 justify-center items-center bg-black bg-opacity-50 h-screen w-full overflow-hidden">
                     <div className="w-full m-10 md:w-8/12 lg:w-4/12 bg-white rounded-lg">
                         <div className="p-4 border-b border-slate-300 flex justify-between">
                             <span>Sesuaikan Gambar</span>
@@ -94,10 +95,16 @@ export default function Profile({avatar, user, isAccount}){
                     </div>
                 </div>
             }
-            <section className="wrapper mt-20 text-slate-600">
-                <div className="flex gap-5">
-                    <div className="w-3/12">
-                        <span className="block text-2xl">Profil Pengguna</span>
+            
+
+            <section className="wrapper mt-40 text-slate-600">
+                <div className="flex gap-5 relative">
+                    <button onClick={()=>setShowSidebar(true)} className="fixed md:hidden left-0 -mt-10 bg-white p-4 rounded-tr-lg rounded-br-lg shadow">
+                        <FontAwesomeIcon className="text-sm" icon={faChevronRight} />
+                    </button>
+                    <div className={`w-full fixed h-screen px-1 z-30 bg-gray-100 duration-150 ${showSidebar?'-translate-x-0':'-translate-x-full'} md:-translate-x-0 md:bg-transparent top-20 left-0 right-0 bottom-0 md:h-auto md:static md:block md:w-3/12`}>
+                        <button onClick={()=>setShowSidebar(false)} className="absolute md:hidden right-10 top-5"><FontAwesomeIcon icon={faXmark} /></button>
+                        <span className="mt-5 md:mt-0 block text-2xl">Profil Pengguna</span>
                         <ul className="mt-5">
                             <li className="">
                                 <Link href="/profil" className={`p-5 border-slate-500 hover:bg-slate-200 block ${!isAccount ? 'border-l-2' : ''}`}>
@@ -113,7 +120,7 @@ export default function Profile({avatar, user, isAccount}){
                     </div>
                     {
                         !isAccount ? 
-                        <div className="w-9/12 p-10 border rounded-lg bg-white">
+                        <div className="w-full md:w-9/12 p-10 border rounded-lg bg-white">
                             <span className="block text-lg pb-3 border-b border-slate-200">Data Pribadi</span>
                             <div className="mt-5 lg:w-8/12">
                                 <label className="block mb-8">
@@ -140,7 +147,7 @@ export default function Profile({avatar, user, isAccount}){
                             </div>
                         </div>
                         :
-                        <div className="w-9/12 p-10 border rounded-lg bg-white">
+                        <div className="w-full md:w-9/12 p-10 border rounded-lg bg-white">
                             <span className="block text-lg pb-3 border-b border-slate-200">Akun</span>
                             <div className="mt-5 lg:w-8/12">
                                 <label className="block mb-8">
