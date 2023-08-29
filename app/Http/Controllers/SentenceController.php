@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Exports\SentenceExport;
 use Inertia\Inertia;
 use App\Models\Sentence;
 use Illuminate\Http\Request;
@@ -27,6 +28,10 @@ class SentenceController extends Controller
         $success = Excel::import(new ImportsSentence, $request->file);
 
          if($success) return redirect()->back()->with('message', 'Kalimat berhasil diunggah');
+    }
+
+    public function export(Request $request){
+        return Excel::download(new SentenceExport, $request->filename.'.xlsx');
     }
     
     public function saveSentence(Request $request){

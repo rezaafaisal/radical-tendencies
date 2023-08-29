@@ -37,6 +37,7 @@ Route::delete('kalimat/{id}', [SentenceController::class, 'deleteSentence'])->na
 Route::post('simpan', [SentenceController::class, 'saveSentence']);
 Route::put('perbarui', [SentenceController::class, 'updateSentence']);
 Route::post('impor', [SentenceController::class, 'import']);
+Route::get('export', [SentenceController::class, 'export']);
 Route::get('profil', [HomeController::class, 'profile']);
 Route::get('profil/akun', [HomeController::class, 'profileAccount']);
 Route::post('profil', [HomeController::class, 'updateProfile']);

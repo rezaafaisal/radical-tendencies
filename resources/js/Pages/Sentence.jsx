@@ -8,6 +8,7 @@ import { faUpload, faTrash, faInfoCircle, faMagnifyingGlass, faDownload } from "
 import FileUploadModal from "../Components/FileUploadModal"
 import axios from "axios"
 import { successAlert } from "../Components/Alerts"
+import ExportModal from "../Components/ExportModal"
 
 export default function Sentence(props){
     const {flash, errors} = usePage().props
@@ -15,6 +16,7 @@ export default function Sentence(props){
     const [unpredict, setUnpredict] = useState(props.unpredict)
     const [isPredicted, setIsPredicted] = useState(true)
     const [modalUpload, setModalUpload] = useState(false)
+    const [modal, setModal] = useState(false);
 
     const [predict, setPredict] = useState({
         id: '',
@@ -180,6 +182,9 @@ export default function Sentence(props){
             {
                 modalUpload && <FileUploadModal close={()=>setModalUpload(false)} />
             }
+            {
+                modal && <ExportModal close={()=>setModal(false)} />
+            }
             <div className="wrapper mt-20">
                 <section className="py-5">
                     <Link href="/" className="btn-primary">Kembali</Link>
@@ -192,7 +197,7 @@ export default function Sentence(props){
                         </div>
                         {
                             isPredicted ?
-                                <button className="btn-primary text-sm"><FontAwesomeIcon icon={faDownload} className="mr-2" /> Export Kalimat</button>
+                                <button onClick={()=>setModal(true)} className="btn-primary text-sm"><FontAwesomeIcon icon={faDownload} className="mr-2" /> Export Kalimat</button>
                             :
                                 <button onClick={()=>setModalUpload(true)} className="btn-primary text-sm"><FontAwesomeIcon icon={faUpload} className="mr-2" /> Import Kalimat</button>
                         }
