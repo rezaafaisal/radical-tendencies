@@ -12,11 +12,9 @@ export default function Home(props){
     const [showPredict, setShowPredict] = useState(false)
     const [result, setResult] = useState('')
     const [predict, setPredict] = useState({
-        prediksi: '',
-        akurasi: 0,
-        positif : 0,
-        negatif: 0,
-        netral: 0
+        predict: '',
+        unradical : 0,
+        radical: 0,
     })
 
     async function predictData() {
@@ -28,12 +26,12 @@ export default function Home(props){
                 const response = await axios.postForm('http://127.0.0.1:5000/predict', {
                     sentences: text
                 });
+                console.log(response)
                 setPredict({
                     ...predict,
-                    prediksi: response.data.prediksi,
-                    positif: response.data.probabilitas.positif,
-                    radikal: response.data.probabilitas.radikal,
-                    netral: response.data.probabilitas.netral,
+                    predict: response.data.predict,
+                    radical: response.data.prob.radical,
+                    unradical: response.data.prob.unradical,
                 })
                 setShowPredict(true)
     
@@ -49,17 +47,15 @@ export default function Home(props){
     function savePredict(){
         router.post('simpan', {
             text: text,
-            predict: predict.prediksi,
-            positive: predict.positif,
-            radical: predict.radikal,
-            neutral: predict.netral 
+            predict: predict.predict,
+            radical: predict.radical,
+            unradical: predict.unradical
         })
     }
 
     function predictLabel(predict){
-        if(predict === 'netral') setLabel('Kalimat Netral')
-        else if(predict === 'positif') setLabel('Kalimat Positif')
-        else if(predict === 'radikal') setLabel('Kalimat Cenderung Radikal')
+        if(predict === 'radical') setLabel('Kalimat Cenderung Radikal')
+        else if(predict === 'unradical') setLabel('Kalimat Tidak Radikal')
     }
 
     useEffect(()=>{
@@ -69,8 +65,8 @@ export default function Home(props){
         flash.message && successAlert('Berhasil', flash.message)
 
         // predict label
-        predictLabel(predict.prediksi)
-    }, [errors, flash, predict.prediksi])
+        predictLabel(predict.predict)
+    }, [errors, flash, predict.predict])
 
 
     return(
@@ -117,16 +113,12 @@ export default function Home(props){
                                                 </thead>
                                                 <tbody>
                                                     <tr className="border border-s-amber-200">
-                                                        <td className="p-2 border">Positif</td>
-                                                        <td className="p-2 border">{predict.positif}</td>
+                                                        <td className="p-2 border">Radikal</td>
+                                                        <td className="p-2 border">{predict.radical}%</td>
                                                     </tr>
                                                     <tr className="border border-slate-200">
-                                                        <td className="p-2 border">Netral</td>
-                                                        <td className="p-2 border">{predict.netral}</td>
-                                                    </tr>
-                                                    <tr className="border border-slate-200">
-                                                        <td className="p-2 border">Cenderung Radikal</td>
-                                                        <td className="p-2 border">{predict.negatif}</td>
+                                                        <td className="p-2 border">Tidak Radikal</td>
+                                                        <td className="p-2 border">{predict.unradical}%</td>
                                                     </tr>
                                                 </tbody>
                                             </table>

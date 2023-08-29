@@ -67,7 +67,6 @@ export default function Profile({avatar, user, isAccount}){
     }
 
     useEffect(()=>{
-        console.log(avatar);
         flash.message && successAlert('Berhasil', flash.message)
         errors.name && errorAlert('Gagal', errors.name)
         errors.password && errorAlert('Gagal', errors.password)

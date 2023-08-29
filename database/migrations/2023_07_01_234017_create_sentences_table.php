@@ -15,10 +15,9 @@ return new class extends Migration
             $table->uuid('id')->primary();
             $table->uuid('user_id');
             $table->text('text');
-            $table->string('predict')->nullable();
-            $table->integer('positive')->nullable();
+            $table->enum('predict', ['radical', 'unradical'])->nullable();
             $table->integer('radical')->nullable();
-            $table->integer('neutral')->nullable();
+            $table->integer('unradical')->nullable();
             $table->timestamps();
         });
     }

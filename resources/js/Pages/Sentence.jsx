@@ -18,11 +18,9 @@ export default function Sentence(props){
 
     const [predict, setPredict] = useState({
         id: '',
-        prediksi: '',
-        akurasi: 0,
-        positif : 0,
-        negatif: 0,
-        netral: 0
+        predict: '',
+        radical : 0,
+        unradical: 0
     })
 
     async function predictSentence(data){
@@ -34,17 +32,15 @@ export default function Sentence(props){
                 const response = await axios.postForm('http://127.0.0.1:5000/predict', {
                     sentences: data.text
                 });
-                console.log(response.data);
                 setPredict({
                     ...predict,
                     id: data.id,
-                    prediksi: response.data.prediksi,
-                    positif: response.data.probabilitas.positif,
-                    radikal: response.data.probabilitas.radikal,
-                    netral: response.data.probabilitas.netral,
+                    predict: response.data.predict,
+                    radical: response.data.prob.radical,
+                    unradical: response.data.prob.unradical,
                 })
                 
-                confirmSave(predictLabel(response.data.prediksi), data, response.data)
+                confirmSave(predictLabel(response.data.predict), data, response.data)
     
             } catch (error) {
                 console.error(error);
@@ -56,14 +52,14 @@ export default function Sentence(props){
     }
     
     function confirmSave(title, sentence, response){
+        console.log(response)
         const data = {
             id: sentence.id,
             user_id: sentence.user_id,
             text: sentence.text,
             predict: response.prediksi,
-            positive: response.probabilitas.positif,
-            neutral: response.probabilitas.netral,
-            radical: response.probabilitas.radikal,
+            radical: response.prob.radical,
+            unradical: response.prob.unradical,
             created_at: sentence.created_at, 
             updated_at: sentence.updated_at, 
         }
@@ -74,16 +70,12 @@ export default function Sentence(props){
                 <table className="table-auto text-start mt-5 text-sm">
                     <tbody>
                         <tr>
-                            <th className="text-start mr-5 block">Positif</th>
-                            <td>: {data.positive}</td>
+                            <th className="text-start mr-5 block">Cenderung Radikal</th>
+                            <td>: {data.radical}%</td>
                         </tr>
                         <tr>
-                            <th className="text-start mr-5 block">Netral</th>
-                            <td>: {data.neutral}</td>
-                        </tr>
-                        <tr>
-                            <th className="text-start block mr-5">Cenderung Radikal</th>
-                            <td>: {data.radical}</td>
+                            <th className="text-start mr-5 block">Tidak Radikal</th>
+                            <td>: {data.unradical}%</td>
                         </tr>
                     </tbody>
                 </table>
@@ -100,9 +92,8 @@ export default function Sentence(props){
                     router.put('perbarui', {
                         id: data.id,
                         predict: data.predict,
-                        positive: data.positive,
                         radical: data.radical,
-                        neutral: data.neutral 
+                        unradical: data.unradical,
                     })
 
                     // set predicted
@@ -117,28 +108,21 @@ export default function Sentence(props){
 
     function predictLabel(predict){
         let label = ''
-        if(predict === 'netral') label = 'Kalimat Netral'
-        else if(predict === 'positif') label = 'Kalimat Positif'
-        else if(predict === 'radikal') label = 'Kalimat Cenderung Radikal'
+        if(predict === 'radical') label = 'Cenderung Radikal'
+        else if(predict === 'unradical') label = 'Tidak Radikal'
         return label
     }
     
     function labelData(predict){
-        if(predict.toLowerCase() === 'radikal'){
+        if(predict.toLowerCase() === 'radical'){
             return(
-                <span className="text-center px-2 py-1 font-medium rounded bg-rose-200 text-rose-700">{predict}</span>
+                <span className="text-center px-2 py-1 font-medium rounded bg-rose-200 text-rose-700">{predictLabel(predict)}</span>
             )
         }
 
-        else if(predict.toLowerCase() === 'positif'){
+        else if(predict.toLowerCase() === 'unradical'){
             return(
-                <span className="text-center px-2 py-1 font-medium rounded bg-teal-200 text-teal-700">{predict}</span>
-            )
-        }
-
-        else if(predict.toLowerCase() === 'netral'){
-            return(
-                <span className="text-center px-2 py-1 font-medium rounded bg-gray-200 text-gray-700">{predict}</span>
+                <span className="text-center px-2 py-1 font-medium rounded bg-teal-200 text-teal-700">{predictLabel(predict)}</span>
             )
         }
     }
@@ -169,16 +153,12 @@ export default function Sentence(props){
                 <p>{el.text}</p>
                 <table className="table-auto text-start mt-5 text-sm">
                     <tr>
-                        <th className="text-start mr-5 block">Positif</th>
-                        <td>: {el.positive}</td>
+                        <th className="text-start mr-5 block">{predictLabel('radical')}</th>
+                        <td>: {el.radical}%</td>
                     </tr>
                     <tr>
-                        <th className="text-start mr-5 block">Netral</th>
-                        <td>: {el.neutral}</td>
-                    </tr>
-                    <tr>
-                        <th className="text-start block mr-5">Cenderung Radikal</th>
-                        <td>: {el.radical}</td>
+                        <th className="text-start mr-5 block">{predictLabel('unradical')}</th>
+                        <td>: {el.unradical}%</td>
                     </tr>
                 </table>
             </div>
@@ -257,6 +237,12 @@ export default function Sentence(props){
                                     }
                                 </tbody>
                             </table>
+                            {
+                                (sentences.length === 0) &&
+                                <div className="px-5 pt-5">
+                                    <span className="block px-5 py-3  bg-amber-100 mb-7 text-center text-amber-700 rounded-lg shadow">Tidak ada data</span>
+                                </div>
+                            }
                         </div>
                         :
                         <div className="border border-slate-300 overflow-hidden rounded-lg bg-white py-5">
@@ -295,7 +281,6 @@ export default function Sentence(props){
                                 (unpredict.length === 0) &&
                                 <div className="px-5 pt-5">
                                     <span className="block px-5 py-3  bg-amber-100 mb-7 text-center text-amber-700 rounded-lg shadow">Tidak ada data</span>
-
                                 </div>
                             }
                         </div>
