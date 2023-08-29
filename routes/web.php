@@ -18,13 +18,7 @@ use Inertia\Inertia;
 */
 
 Route::get('tes', function(){
-    return view('emails.verify', [
-        'data' => [
-            'email' => 'tes@gmail.com',
-            'fullname' => 'aco',
-            'code' => '12112'
-        ]
-    ]);
+    return Inertia::render('Tes');
 });
 Route::get('/', [HomeController::class, 'index'])->name('home');
 Route::get('masuk', [AuthController::class, 'login'])->name('login');
@@ -40,7 +34,11 @@ Route::post('kirim-ulang-verifikasi-email', [AuthController::class, 'resendVerif
 Route::get('kalimat', [SentenceController::class, 'index'])->name('sentence');
 Route::delete('kalimat/{id}', [SentenceController::class, 'deleteSentence'])->name('deleteSentence');
 Route::post('simpan', [SentenceController::class, 'saveSentence']);
+Route::put('perbarui', [SentenceController::class, 'updateSentence']);
 Route::post('impor', [SentenceController::class, 'import']);
+Route::get('profil', [HomeController::class, 'profile']);
+Route::get('profil/akun', [HomeController::class, 'profileAccount']);
+Route::post('profil', [HomeController::class, 'updateProfile']);
 
 Route::get('keluar', [AuthController::class, 'logout'])->name('logout');
 

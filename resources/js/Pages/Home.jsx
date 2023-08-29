@@ -8,14 +8,13 @@ import { confirmAlert, infoAlert, successAlert } from "../Components/Alerts"
 export default function Home(props){
     const {auth, errors, flash} = usePage().props
     const [text, setText] = useState('')
+    const [label, setLabel] =useState('')
     const [showPredict, setShowPredict] = useState(false)
     const [result, setResult] = useState('')
     const [predict, setPredict] = useState({
-        prediksi: '',
-        akurasi: 0,
-        positif : 0,
-        negatif: 0,
-        netral: 0
+        predict: '',
+        unradical : 0,
+        radical: 0,
     })
 
     async function predictData() {
@@ -27,36 +26,37 @@ export default function Home(props){
                 const response = await axios.postForm('http://127.0.0.1:5000/predict', {
                     sentences: text
                 });
-                console.log(response.data);
+                console.log(response)
                 setPredict({
                     ...predict,
-                    prediksi: response.data.prediksi,
-                    positif: response.data.probabilitas.positif,
-                    negatif: response.data.probabilitas.negatif,
-                    netral: response.data.probabilitas.netral,
+                    predict: response.data.predict,
+                    radical: response.data.prob.radical,
+                    unradical: response.data.prob.unradical,
                 })
                 setShowPredict(true)
     
             } catch (error) {
-                setShowPredict(false)
-                infoAlert('Gagal', error)
                 console.error(error);
             }
         }
         else{
             setShowPredict(false)
-            infoAlert('Gagal', 'Masukkan Minimal 3 kata dan Maksimal 500 kata')
+            infoAlert('Gagal', 'Minimal 3 kata dan Maksimal 500 kata')
         }
     }
 
     function savePredict(){
         router.post('simpan', {
             text: text,
-            predict: predict.prediksi,
-            positive: predict.positif,
-            negative: predict.negatif,
-            neutral: predict.netral 
+            predict: predict.predict,
+            radical: predict.radical,
+            unradical: predict.unradical
         })
+    }
+
+    function predictLabel(predict){
+        if(predict === 'radical') setLabel('Kalimat Cenderung Radikal')
+        else if(predict === 'unradical') setLabel('Kalimat Tidak Radikal')
     }
 
     useEffect(()=>{
@@ -64,13 +64,16 @@ export default function Home(props){
         errors.text && infoAlert('Gagal', errors.text)      
         // if success
         flash.message && successAlert('Berhasil', flash.message)
-    }, [errors, flash])
+
+        // predict label
+        predictLabel(predict.predict)
+    }, [errors, flash, predict.predict])
 
 
     return(
         <UserLayout title="MyApp | Home">
-            <section className="flex justify-center items-center h-60">
-                <header className="text-3xl text-gray-700 font-light text-center leading-10">
+            <section className="flex mt-20 justify-center items-center h-60">
+                <header className="text-xl md:text-3xl text-slate-700 font-light text-center leading-10">
                     Sistem Informasi Klasifikasi Kecenderungan <br /> Pemahaman Radikal di Media Sosial
                 </header>
             </section>
@@ -94,7 +97,7 @@ export default function Home(props){
                                             </p>
                                             <div className="text-base">
                                                 <span className="">Prediksi : </span>
-                                                <span className=" font-semibold"> {predict.prediksi}!</span>
+                                                <span className=" font-semibold"> {label}!</span>
                                             </div>
                                         </div>
                                         <hr className="my-6" />
@@ -111,16 +114,12 @@ export default function Home(props){
                                                 </thead>
                                                 <tbody>
                                                     <tr className="border border-s-amber-200">
-                                                        <td className="p-2 border">Positif</td>
-                                                        <td className="p-2 border">{predict.positif}</td>
+                                                        <td className="p-2 border">Radikal</td>
+                                                        <td className="p-2 border">{predict.radical}%</td>
                                                     </tr>
                                                     <tr className="border border-slate-200">
-                                                        <td className="p-2 border">Netral</td>
-                                                        <td className="p-2 border">{predict.netral}</td>
-                                                    </tr>
-                                                    <tr className="border border-slate-200">
-                                                        <td className="p-2 border">Cenderung Radikal</td>
-                                                        <td className="p-2 border">{predict.negatif}</td>
+                                                        <td className="p-2 border">Tidak Radikal</td>
+                                                        <td className="p-2 border">{predict.unradical}%</td>
                                                     </tr>
                                                 </tbody>
                                             </table>
@@ -131,7 +130,7 @@ export default function Home(props){
                                                     confirmAlert('Masuk Sekarang', 'Untuk bisa menyimpan riwayat prediksi, silahkan masuk terlebih dahulu', 'masuk', 'Masuk')
                                                 }
                                                 
-                                                else{
+                                            else{
                                                     savePredict()
                                                 }
                                             }

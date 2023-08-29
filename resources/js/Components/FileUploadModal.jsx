@@ -1,6 +1,6 @@
 import { faXmark } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { Link, router, usePage, useForm } from "@inertiajs/react";
+import { Link, usePage, useForm } from "@inertiajs/react";
 import React, { useState } from "react";
 
 export default function FileUploadModal({close}){

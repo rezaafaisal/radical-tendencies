@@ -12,8 +12,9 @@ use App\Imports\Sentence as ImportsSentence;
 class SentenceController extends Controller
 {
     public function index(){
+        if(!Auth::user()) return to_route('home');
         return Inertia::render('Sentence', [
-            'sentences' => Sentence::where('user_id', Auth::id())->where('predict', '!=', null)->get(),
+            'sentences' => Sentence::where('user_id', Auth::id())->where('predict', '!=', null)->orderBy('created_at', 'DESC')->get(),
             'unpredict' => Sentence::where(['user_id' => Auth::id(), 'predict' => null])->get()
         ]);
     }
@@ -25,11 +26,10 @@ class SentenceController extends Controller
 
         $success = Excel::import(new ImportsSentence, $request->file);
 
-         if($success) return redirect()->back()->with('message', 'File kallimat berhasil diunggah');
+         if($success) return redirect()->back()->with('message', 'Kalimat berhasil diunggah');
     }
     
     public function saveSentence(Request $request){
-
         $request->validate([
             'text' => ['required', 'min:5', 'unique:sentences']
         ]);
@@ -38,12 +38,21 @@ class SentenceController extends Controller
         $sentence->user_id = Auth::id();
         $sentence->text = $request->text;
         $sentence->predict = $request->predict;
-        $sentence->positive = $request->positive;
-        $sentence->negative = $request->negative;
-        $sentence->neutral = $request->neutral;
+        $sentence->radical = $request->radical;
+        $sentence->unradical = $request->unradical;
 
         $success = $sentence->save();
         if($success) return to_route('home')->with('message', 'Kalimat telah berhasil disimpan');
+    }
+
+    public function updateSentence(Request $request){
+        $sentence = Sentence::find($request->id);
+        $sentence->predict = $request->predict;
+        $sentence->radical = $request->radical;
+        $sentence->unradical = $request->unradical;
+
+        $success = $sentence->save();
+        if($success) return redirect()->back()->with('message', 'Kalimat telah berhasil diprediksi, buka tab "Sudah Diprediksi" untuk melihat kalimat');
     }
 
     public function deleteSentence($id){
