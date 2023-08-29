@@ -20,6 +20,7 @@ use Inertia\Inertia;
 Route::get('tes', function(){
     return Inertia::render('Tes');
 });
+
 Route::get('/', [HomeController::class, 'index'])->name('home');
 Route::get('masuk', [AuthController::class, 'login'])->name('login');
 Route::post('masuk', [AuthController::class, 'check']);

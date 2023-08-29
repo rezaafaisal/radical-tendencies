@@ -83,7 +83,9 @@ export default function Home(props){
                         <div className="p-8">
                             <header className="text-lg mb-5">Masukkan Teks</header>
                             <textarea onChange={(e) => setText(e.target.value)} className="bg-white border w-full rounded-lg p-3 h-52 mb-5" placeholder="Masukkan kalimat" ></textarea>
-                            <button onClick={() => {setResult(text), predictData()}} className="btn-primary mt-5}">Prediksi</button>
+                            <div className="flex justify-start">
+                                <button onClick={() => {setResult(text), predictData()}} className="btn-primary mt-5}">Prediksi</button>
+                            </div>
                         </div>
                         <div className="p-8 divide-y">
                             <header className="text-lg mb-5">Hasil</header>
@@ -114,7 +116,7 @@ export default function Home(props){
                                                 </thead>
                                                 <tbody>
                                                     <tr className="border border-s-amber-200">
-                                                        <td className="p-2 border">Radikal</td>
+                                                        <td className="p-2 border">Cenderung Radikal</td>
                                                         <td className="p-2 border">{predict.radical}%</td>
                                                     </tr>
                                                     <tr className="border border-slate-200">
