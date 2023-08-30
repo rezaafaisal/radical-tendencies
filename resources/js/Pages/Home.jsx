@@ -99,7 +99,7 @@ export default function Home(props){
                                             </p>
                                             <div className="text-base">
                                                 <span className="">Prediksi : </span>
-                                                <span className=" font-semibold"> {label}!</span>
+                                                <span className=" font-semibold text-red-500"> {label}!</span>
                                             </div>
                                         </div>
                                         <hr className="my-6" />

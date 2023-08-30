@@ -8,7 +8,6 @@ import { faUpload, faTrash, faInfoCircle, faMagnifyingGlass, faDownload } from "
 import FileUploadModal from "../Components/FileUploadModal"
 import axios from "axios"
 import { successAlert } from "../Components/Alerts"
-import ExportModal from "../Components/ExportModal"
 
 export default function Sentence(props){
     const {flash, errors} = usePage().props
@@ -16,7 +15,6 @@ export default function Sentence(props){
     const [unpredict, setUnpredict] = useState(props.unpredict)
     const [isPredicted, setIsPredicted] = useState(true)
     const [modalUpload, setModalUpload] = useState(false)
-    const [modal, setModal] = useState(false);
 
     const [predict, setPredict] = useState({
         id: '',
@@ -110,8 +108,8 @@ export default function Sentence(props){
 
     function predictLabel(predict){
         let label = ''
-        if(predict === 'radical') label = 'Cenderung Radikal'
-        else if(predict === 'unradical') label = 'Tidak Radikal'
+        if(predict === 'radical') label = 'Terindikasi Cenderung Radikal'
+        else if(predict === 'unradical') label = 'Terindikasi Tidak Radikal'
         return label
     }
     
@@ -182,9 +180,6 @@ export default function Sentence(props){
             {
                 modalUpload && <FileUploadModal close={()=>setModalUpload(false)} />
             }
-            {
-                modal && <ExportModal close={()=>setModal(false)} />
-            }
             <div className="wrapper mt-20">
                 <section className="py-5">
                     <Link href="/" className="btn-primary">Kembali</Link>
@@ -194,14 +189,18 @@ export default function Sentence(props){
                         <div className="flex w-max border-2 rounded-lg text-sm border-cyan-500 overflow-hidden">
                             <button onClick={()=>setIsPredicted(true)} className={`px-5 py-2 duration-300 ${isPredicted ? 'bg-cyan-500 text-white' : 'bg-white'}`}>Sudah Diprediksi</button>
                             <button onClick={()=>setIsPredicted(false)} className={`px-5 py-2 duration-300 ${!isPredicted ? 'bg-cyan-500 text-white' : 'bg-white'}`}>Belum Diprediksi</button>
+                            
                         </div>
+                        
                         {
                             isPredicted ?
-                                <button onClick={()=>setModal(true)} className="btn-primary text-sm"><FontAwesomeIcon icon={faDownload} className="mr-2" /> Export Kalimat</button>
+                                <button className="btn-primary text-sm"><FontAwesomeIcon icon={faDownload} className="mr-2" /> Export Kalimat</button>
                             :
                                 <button onClick={()=>setModalUpload(true)} className="btn-primary text-sm"><FontAwesomeIcon icon={faUpload} className="mr-2" /> Import Kalimat</button>
                         }
                     </header>
+                    <p>Aplikasi ini tidak serta merta memastikan, Akan tetapi masih bersifat penelitian rintisan!</p>
+                        <br />
                     {
                         isPredicted ? 
                         <div className="border border-slate-300 overflow-hidden rounded-lg bg-white py-5">
