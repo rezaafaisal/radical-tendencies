@@ -199,7 +199,7 @@ export default function Sentence(props){
                                 <button onClick={()=>setModalUpload(true)} className="btn-primary text-sm"><FontAwesomeIcon icon={faUpload} className="mr-2" /> Import Kalimat</button>
                         }
                     </header>
-                    <p>Aplikasi ini tidak serta merta memastikan, Akan tetapi masih bersifat penelitian rintisan!</p>
+                    <p>Disclaimer : Aplikasi ini tidak serta merta memastikan, Akan tetapi masih bersifat penelitian rintisan!</p>
                         <br />
                     {
                         isPredicted ? 
