@@ -1,19 +1,21 @@
 import React, { useEffect, useState } from "react"
-import UserLayout from "../Layouts/User"
 import { router, Link, usePage } from "@inertiajs/react"
-import withReactContent from "sweetalert2-react-content"
 import Swal from "sweetalert2"
+import axios from "axios"
+import withReactContent from "sweetalert2-react-content"
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
 import { faUpload, faTrash, faInfoCircle, faMagnifyingGlass, faDownload, faChevronLeft, faChevronRight } from "@fortawesome/free-solid-svg-icons"
+import UserLayout from "../Layouts/User"
 import FileUploadModal from "../Components/FileUploadModal"
-import axios from "axios"
-import { successAlert } from "../Components/Alerts"
 import Pagination from "../Components/Pagination"
+import { successAlert } from "../Components/Alerts"
+import Modal from "../Components/Modal"
 
 export default function Sentence(props){
     const {flash, errors} = usePage().props
     const [sentences, setSentences] = useState(props.sentences)
     const [modalUpload, setModalUpload] = useState(false)
+    const [exportModal, setExportModal] = useState(false)
     const isPredicted = props.is_predicted
 
     const [predict, setPredict] = useState({
@@ -184,6 +186,9 @@ export default function Sentence(props){
             {
                 modalUpload && <FileUploadModal close={()=>setModalUpload(false)} />
             }
+            {
+                exportModal && <Modal title={'Selamt datang'} close={()=>setExportModal(false)} />
+            }
             <div className="wrapper mt-20">
                 <section className="py-5">
                     <Link href="/" className="btn-primary">Kembali</Link>
@@ -197,7 +202,7 @@ export default function Sentence(props){
                         
                         {
                             isPredicted ?
-                                <button className="btn-primary text-sm"><FontAwesomeIcon icon={faDownload} className="mr-2" /> Export Kalimat</button>
+                                <button onClick={()=>setExportModal(true)} className="btn-primary text-sm"><FontAwesomeIcon icon={faDownload} className="mr-2" /> Export Kalimat</button>
                             :
                                 <button onClick={()=>setModalUpload(true)} className="btn-primary text-sm"><FontAwesomeIcon icon={faUpload} className="mr-2" /> Import Kalimat</button>
                         }
@@ -224,7 +229,7 @@ export default function Sentence(props){
                                             return (
                                                 <tr key={el.id} className="font-light text-sm hover:bg-slate-100 duration-150">
                                                     <td>
-                                                        <span className="block text-center">{i + 1}</span>
+                                                        <span className="block text-center">{i + sentences.from}</span>
                                                     </td>
                                                     <td className="px-6 py-2">
                                                         {el.text}

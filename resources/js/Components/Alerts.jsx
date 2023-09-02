@@ -9,9 +9,9 @@ const infoAlert = (title, text) => {
         text: text,
     })
 }
-const successAlert = (title, text) => {
+async function successAlert(title, text){
     const MySwal = withReactContent(Swal)
-    MySwal.fire({
+    await MySwal.fire({
         icon: 'success',
         title: title,
         text: text,
@@ -37,11 +37,13 @@ const errorAlert = (title, text) => {
 const confirmAlert = (title, text, route, confirmText) => {
     const MySwal = withReactContent(Swal)
     MySwal.fire({
+        icon: 'warning',
         title: title,
         text: text,
         showCancelButton: true,
         cancelButtonText: 'Batal',
-        confirmButtonText: confirmText
+        confirmButtonText: confirmText,
+        confirmButtonColor: '#EC4899'
         }).then((e) => {
             if(e.isConfirmed){
                 router.get(route)
