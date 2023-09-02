@@ -15,14 +15,14 @@ class SentenceController extends Controller
     public function predicted(){
         if(!Auth::user()) return to_route('home');
         return Inertia::render('Sentence', [
-            'sentences' => Sentence::where('user_id', Auth::id())->where('predict', '!=', null)->orderBy('created_at', 'DESC')->get(),
+            'sentences' => Sentence::where('user_id', Auth::id())->where('predict', '!=', null)->orderBy('created_at', 'DESC')->paginate(25)->onEachSide(0),
             'is_predicted' => true
         ]);
     }
     public function unPredicted(){
         if(!Auth::user()) return to_route('home');
         return Inertia::render('Sentence', [
-            'sentences' => Sentence::where(['user_id' => Auth::id(), 'predict' => null])->get(),
+            'sentences' => Sentence::where(['user_id' => Auth::id(), 'predict' => null])->paginate(25)->onEachSide(0),
             'is_predicted' => false
         ]);
     }
@@ -68,8 +68,9 @@ class SentenceController extends Controller
     }
 
     public function deleteSentence($id){
-        $success = Sentence::find($id)->delete();
+        $sentence = Sentence::find($id);
 
-        if($success) return to_route('sentence')->with('message', 'Kalimat berhasil dihapus');
+        $success = $sentence->delete();
+        if($success) return redirect()->back()->with('message', 'Kalimat berhasil dihapus');
     }
 }

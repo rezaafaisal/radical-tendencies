@@ -8,7 +8,6 @@ import { confirmAlert, infoAlert, successAlert } from "../Components/Alerts"
 export default function Home(props){
     const {auth, errors, flash} = usePage().props
     const [text, setText] = useState('')
-    const [label, setLabel] =useState('')
     const [showPredict, setShowPredict] = useState(false)
     const [result, setResult] = useState('')
     const [predict, setPredict] = useState({
@@ -54,9 +53,18 @@ export default function Home(props){
         })
     }
 
-    function predictLabel(predict){
-        if(predict === 'radical') setLabel('Kalimat Cenderung Radikal')
-        else if(predict === 'unradical') setLabel('Kalimat Tidak Radikal')
+    function label(predict){
+        if(predict === 'radical'){
+            return (
+                <span className="font-semibold text-rose-500">Kalimat Cenderung Radikal!</span>
+            )
+        }
+        else if(predict === 'unradical'){
+            return(
+                <span className="font-semibold text-teal-500">Kalimat Tidak Radikal</span>
+            )
+        }
+        
     }
 
     useEffect(()=>{
@@ -64,10 +72,7 @@ export default function Home(props){
         errors.text && infoAlert('Gagal', errors.text)      
         // if success
         flash.message && successAlert('Berhasil', flash.message)
-
-        // predict label
-        predictLabel(predict.predict)
-    }, [errors, flash, predict.predict])
+    }, [errors, flash])
 
 
     return(
@@ -99,7 +104,7 @@ export default function Home(props){
                                             </p>
                                             <div className="text-base">
                                                 <span className="">Prediksi : </span>
-                                                <span className=" font-semibold text-red-500"> {label}!</span>
+                                                {label(predict.predict)}
                                             </div>
                                         </div>
                                         <hr className="my-6" />

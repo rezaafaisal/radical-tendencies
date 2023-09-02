@@ -4,10 +4,11 @@ import { router, Link, usePage } from "@inertiajs/react"
 import withReactContent from "sweetalert2-react-content"
 import Swal from "sweetalert2"
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
-import { faUpload, faTrash, faInfoCircle, faMagnifyingGlass, faDownload } from "@fortawesome/free-solid-svg-icons"
+import { faUpload, faTrash, faInfoCircle, faMagnifyingGlass, faDownload, faChevronLeft, faChevronRight } from "@fortawesome/free-solid-svg-icons"
 import FileUploadModal from "../Components/FileUploadModal"
 import axios from "axios"
 import { successAlert } from "../Components/Alerts"
+import Pagination from "../Components/Pagination"
 
 export default function Sentence(props){
     const {flash, errors} = usePage().props
@@ -95,7 +96,10 @@ export default function Sentence(props){
                         unradical: data.unradical,
                     })
                     // remove from list
-                    setSentences(sentences.filter(el => el.id != data.id))
+                    setSentences({
+                        ...sentences,
+                        data:sentences.data.filter(el => el.id != data.id)
+                    })
                 }
         })
     }
@@ -133,9 +137,11 @@ export default function Sentence(props){
             confirmButtonColor: '#EC4899'
         }).then((e)=>{
             if(e.isConfirmed){
-                router.delete(`kalimat/${id}`)
-                setSentences(sentences.filter(el => el.id != id))
-                setUnpredict(unpredict.filter(el=> el.id != id))
+                router.delete(`/kalimat/${id}`)
+                setSentences({
+                    ...sentences,
+                    data:sentences.data.filter(el => el.id != id)
+                })
             }
         })
     }
@@ -146,14 +152,16 @@ export default function Sentence(props){
             <div className="">
                 <p>{el.text}</p>
                 <table className="table-auto text-start mt-5 text-sm">
-                    <tr>
-                        <th className="text-start mr-5 block">{predictLabel('radical')}</th>
-                        <td>: {el.radical}%</td>
-                    </tr>
-                    <tr>
-                        <th className="text-start mr-5 block">{predictLabel('unradical')}</th>
-                        <td>: {el.unradical}%</td>
-                    </tr>
+                    <tbody>
+                        <tr>
+                            <th className="text-start mr-5 block">{predictLabel('radical')}</th>
+                            <td>: {el.radical}%</td>
+                        </tr>
+                        <tr>
+                            <th className="text-start mr-5 block">{predictLabel('unradical')}</th>
+                            <td>: {el.unradical}%</td>
+                        </tr>
+                    </tbody>
                 </table>
             </div>
         )
@@ -166,7 +174,10 @@ export default function Sentence(props){
     useEffect(()=>{
         setModalUpload(false)
         flash.message && successAlert('Berhasil', flash.message)
+
     }, [flash, errors])
+
+
 
     return(
         <UserLayout>
@@ -180,8 +191,8 @@ export default function Sentence(props){
                 <section className="py-5 mt-10">
                     <header className="mb-5 flex justify-between text-sm">
                         <div className="flex w-max border-2 rounded-lg text-sm border-cyan-500 overflow-hidden">
-                            <Link href="/kalimat" className={`px-5 py-2 duration-300 ${isPredicted ? 'bg-cyan-500 text-white' : 'bg-white text-slate-600'}`}>Sudah Diprediksi</Link>
-                            <Link href="/kalimat/belum-terprediksi" className={`px-5 py-2 duration-300 ${!isPredicted ? 'bg-cyan-500 text-white' : 'bg-white text-slate-600'}`}>Belum Diprediksi</Link>
+                            <Link preserveScroll href="/kalimat" className={`px-5 py-2 duration-300 ${isPredicted ? 'bg-cyan-500 text-white' : 'bg-white text-slate-600'}`}>Sudah Diprediksi</Link>
+                            <Link preserveScroll href="/kalimat/belum-terprediksi" className={`px-5 py-2 duration-300 ${!isPredicted ? 'bg-cyan-500 text-white' : 'bg-white text-slate-600'}`}>Belum Diprediksi</Link>
                         </div>
                         
                         {
@@ -209,7 +220,7 @@ export default function Sentence(props){
                                 </thead>
                                 <tbody className="divide-y">
                                     {
-                                        sentences.map((el, i) => {
+                                        sentences.data.map((el, i) => {
                                             return (
                                                 <tr key={el.id} className="font-light text-sm hover:bg-slate-100 duration-150">
                                                     <td>
@@ -241,8 +252,11 @@ export default function Sentence(props){
                                     <span className="block px-5 py-3  bg-amber-100 mb-7 text-center text-amber-700 rounded-lg shadow">Tidak ada data</span>
                                 </div>
                             }
+
+                            <Pagination data={sentences} />
                         </div>
                         :
+                        
                         <div className="border border-slate-300 overflow-hidden rounded-lg bg-white py-5">
                             <table className="table-fixed divide-y w-full divide-slate-30 ">
                                 <thead className="text-slate-600">
@@ -254,11 +268,12 @@ export default function Sentence(props){
                                 </thead>
                                 <tbody className="divide-y">
                                     {
-                                        sentences.map((el, i) => {
+                                        sentences.data.map((el, i) => {
+                                            const start = sentences.from
                                             return (
                                                 <tr key={el.id} className="font-light text-sm hover:bg-slate-100 duration-150">
                                                     <td>
-                                                        <span className="block text-center">{i + 1}</span>
+                                                        <span className="block text-center">{i + start}</span>
                                                     </td>
                                                     <td className="px-6 py-2">
                                                         {el.text}
@@ -281,6 +296,8 @@ export default function Sentence(props){
                                     <span className="block px-5 py-3  bg-amber-100 mb-7 text-center text-amber-700 rounded-lg shadow">Tidak ada data</span>
                                 </div>
                             }
+
+                            <Pagination data={sentences} />
                         </div>
                     }
                 </section>
