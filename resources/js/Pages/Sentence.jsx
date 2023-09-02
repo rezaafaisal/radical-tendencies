@@ -12,9 +12,8 @@ import { successAlert } from "../Components/Alerts"
 export default function Sentence(props){
     const {flash, errors} = usePage().props
     const [sentences, setSentences] = useState(props.sentences)
-    // const [unpredict, setUnpredict] = useState(props.unpredict)
-    const [isPredicted, setIsPredicted] = useState(props.is_predicted)
     const [modalUpload, setModalUpload] = useState(false)
+    const isPredicted = props.is_predicted
 
     const [predict, setPredict] = useState({
         id: '',
@@ -111,13 +110,13 @@ export default function Sentence(props){
     function labelData(predict){
         if(predict.toLowerCase() === 'radical'){
             return(
-                <span className="text-center px-2 py-1 font-medium rounded bg-rose-200 text-rose-700">{predictLabel(predict)}</span>
+                <span className="text-center px-2 py-1 text-xxs block my-1 font-medium rounded bg-rose-200 text-rose-700">{predictLabel(predict)}</span>
             )
         }
 
         else if(predict.toLowerCase() === 'unradical'){
             return(
-                <span className="text-center px-2 py-1 font-medium rounded bg-teal-200 text-teal-700">{predictLabel(predict)}</span>
+                <span className="text-center px-2 py-1 text-xxs block my-1 font-medium rounded bg-teal-200 text-teal-700">{predictLabel(predict)}</span>
             )
         }
     }
@@ -181,8 +180,8 @@ export default function Sentence(props){
                 <section className="py-5 mt-10">
                     <header className="mb-5 flex justify-between text-sm">
                         <div className="flex w-max border-2 rounded-lg text-sm border-cyan-500 overflow-hidden">
-                            <Link href="/kalimat" className={`px-5 py-2 duration-300 ${isPredicted ? 'bg-cyan-500 text-white' : 'bg-white'}`}>Sudah Diprediksi</Link>
-                            <Link href="/kalimat/belum-terprediksi" className={`px-5 py-2 duration-300 ${!isPredicted ? 'bg-cyan-500 text-white' : 'bg-white'}`}>Belum Diprediksi</Link>
+                            <Link href="/kalimat" className={`px-5 py-2 duration-300 ${isPredicted ? 'bg-cyan-500 text-white' : 'bg-white text-slate-600'}`}>Sudah Diprediksi</Link>
+                            <Link href="/kalimat/belum-terprediksi" className={`px-5 py-2 duration-300 ${!isPredicted ? 'bg-cyan-500 text-white' : 'bg-white text-slate-600'}`}>Belum Diprediksi</Link>
                         </div>
                         
                         {
@@ -192,13 +191,15 @@ export default function Sentence(props){
                                 <button onClick={()=>setModalUpload(true)} className="btn-primary text-sm"><FontAwesomeIcon icon={faUpload} className="mr-2" /> Import Kalimat</button>
                         }
                     </header>
-                    <p>Disclaimer : Aplikasi ini tidak serta merta memastikan, Akan tetapi masih bersifat penelitian rintisan!</p>
-                        <br />
+                    <span className="italic block py-5 text-slate-600">
+                        <span className="text-rose-500 font-semibold mr-2">Disclaimer :</span>
+                        Aplikasi ini tidak serta merta memastikan, Akan tetapi masih bersifat penelitian rintisan!
+                    </span>
                     {
                         isPredicted ? 
                         <div className="border border-slate-300 overflow-hidden rounded-lg bg-white py-5">
                             <table className="table-fixed divide-y w-full">
-                                <thead className="text-gray-600">
+                                <thead className="text-slate-600">
                                     <tr>
                                         <th className="px-3 pb-5 w-1/12">No.</th>
                                         <th className="px-3 pb-5 w-7/12">Kalimat</th>
@@ -244,7 +245,7 @@ export default function Sentence(props){
                         :
                         <div className="border border-slate-300 overflow-hidden rounded-lg bg-white py-5">
                             <table className="table-fixed divide-y w-full divide-slate-30 ">
-                                <thead className="text-gray-600">
+                                <thead className="text-slate-600">
                                     <tr>
                                         <th className="px-3 pb-5 w-1/12">No.</th>
                                         <th className="px-3 pb-5 w-8/12">Kalimat</th>
