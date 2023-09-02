@@ -32,7 +32,8 @@ Route::post('kirim-ulang-verifikasi-email', [AuthController::class, 'resendVerif
 
 
 // sentence
-Route::get('kalimat', [SentenceController::class, 'index'])->name('sentence');
+Route::get('kalimat', [SentenceController::class, 'predicted'])->name('predicted');
+Route::get('kalimat/belum-terprediksi', [SentenceController::class, 'unPredicted'])->name('unPredicted');
 Route::delete('kalimat/{id}', [SentenceController::class, 'deleteSentence'])->name('deleteSentence');
 Route::post('simpan', [SentenceController::class, 'saveSentence']);
 Route::put('perbarui', [SentenceController::class, 'updateSentence']);

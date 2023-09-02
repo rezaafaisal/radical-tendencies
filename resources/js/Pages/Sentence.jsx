@@ -12,8 +12,8 @@ import { successAlert } from "../Components/Alerts"
 export default function Sentence(props){
     const {flash, errors} = usePage().props
     const [sentences, setSentences] = useState(props.sentences)
-    const [unpredict, setUnpredict] = useState(props.unpredict)
-    const [isPredicted, setIsPredicted] = useState(true)
+    // const [unpredict, setUnpredict] = useState(props.unpredict)
+    const [isPredicted, setIsPredicted] = useState(props.is_predicted)
     const [modalUpload, setModalUpload] = useState(false)
 
     const [predict, setPredict] = useState({
@@ -57,7 +57,7 @@ export default function Sentence(props){
             id: sentence.id,
             user_id: sentence.user_id,
             text: sentence.text,
-            predict: response.prediksi,
+            predict: response.predict,
             radical: response.prob.radical,
             unradical: response.prob.unradical,
             created_at: sentence.created_at, 
@@ -89,19 +89,14 @@ export default function Sentence(props){
             confirmButtonText: 'Simpan'
             }).then((e) => {
                 if(e.isConfirmed){
-                    router.put('perbarui', {
+                    router.put('/perbarui', {
                         id: data.id,
                         predict: data.predict,
                         radical: data.radical,
                         unradical: data.unradical,
                     })
-
-                    // set predicted
-                    setSentences([...sentences, data])
-
-                    // set unpredict
-                    setUnpredict(unpredict.filter(el => el.id != data.id))
-
+                    // remove from list
+                    setSentences(sentences.filter(el => el.id != data.id))
                 }
         })
     }
@@ -171,7 +166,6 @@ export default function Sentence(props){
 
     useEffect(()=>{
         setModalUpload(false)
-        setUnpredict(props.unpredict)
         flash.message && successAlert('Berhasil', flash.message)
     }, [flash, errors])
 
@@ -187,9 +181,8 @@ export default function Sentence(props){
                 <section className="py-5 mt-10">
                     <header className="mb-5 flex justify-between text-sm">
                         <div className="flex w-max border-2 rounded-lg text-sm border-cyan-500 overflow-hidden">
-                            <button onClick={()=>setIsPredicted(true)} className={`px-5 py-2 duration-300 ${isPredicted ? 'bg-cyan-500 text-white' : 'bg-white'}`}>Sudah Diprediksi</button>
-                            <button onClick={()=>setIsPredicted(false)} className={`px-5 py-2 duration-300 ${!isPredicted ? 'bg-cyan-500 text-white' : 'bg-white'}`}>Belum Diprediksi</button>
-                            
+                            <Link href="/kalimat" className={`px-5 py-2 duration-300 ${isPredicted ? 'bg-cyan-500 text-white' : 'bg-white'}`}>Sudah Diprediksi</Link>
+                            <Link href="/kalimat/belum-terprediksi" className={`px-5 py-2 duration-300 ${!isPredicted ? 'bg-cyan-500 text-white' : 'bg-white'}`}>Belum Diprediksi</Link>
                         </div>
                         
                         {
@@ -260,7 +253,7 @@ export default function Sentence(props){
                                 </thead>
                                 <tbody className="divide-y">
                                     {
-                                        unpredict.map((el, i) => {
+                                        sentences.map((el, i) => {
                                             return (
                                                 <tr key={el.id} className="font-light text-sm hover:bg-slate-100 duration-150">
                                                     <td>
@@ -282,7 +275,7 @@ export default function Sentence(props){
                                 </tbody>
                             </table>
                             {
-                                (unpredict.length === 0) &&
+                                (sentences.length === 0) &&
                                 <div className="px-5 pt-5">
                                     <span className="block px-5 py-3  bg-amber-100 mb-7 text-center text-amber-700 rounded-lg shadow">Tidak ada data</span>
                                 </div>
