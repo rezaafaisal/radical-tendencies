@@ -24,6 +24,11 @@ Route::get('tes', function(){
 Route::get('/', [HomeController::class, 'index'])->name('home');
 Route::get('masuk', [AuthController::class, 'login'])->name('login');
 Route::post('masuk', [AuthController::class, 'check']);
+
+Route::get('lupa-kata-sandi', [AuthController::class, 'forgot']);
+Route::post('lupa-kata-sandi', [AuthController::class, 'requestReset']);
+Route::get('setel-ulang-kata-sandi/{token}', [AuthController::class, 'resetPassword'])->name('resetPassword');
+
 Route::get('daftar', [AuthController::class, 'register']);
 Route::post('daftar', [AuthController::class, 'registering']);
 Route::get('verifikasi-email', [AuthController::class, 'verifyEmail'])->name('verify');

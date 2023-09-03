@@ -175,6 +175,7 @@ export default function Sentence(props){
         )
         MySwal.fire({
             title: 'Detail Kalimat',
+            confirmButtonColor: '#06b6d4',
             html: elemen
         })
     }
@@ -191,7 +192,14 @@ export default function Sentence(props){
     function exportSentences(e){
         e.preventDefault()
         const filename = inputData.filename
-        if(filename.length == 0){
+        if(sentences.data.length == 0){
+            setInputData({
+                ...inputData,
+                filenameErrorMessage: 'Kalimat yang terprediksi belum ada, tidak ada yang bisa diunduh! :)',
+                filenameError:true
+            })
+        }
+        else if(filename.length == 0){
             setInputData({
                 ...inputData,
                 filenameErrorMessage: 'Nama file tidak boleh kosong',
@@ -306,13 +314,14 @@ export default function Sentence(props){
                                 </tbody>
                             </table>
                             {
-                                (sentences.length === 0) &&
+                                (sentences.data.length === 0) ?
                                 <div className="px-5 pt-5">
-                                    <span className="block px-5 py-3  bg-amber-100 mb-7 text-center text-amber-700 rounded-lg shadow">Tidak ada data</span>
+                                    <span className="block px-5 py-3  bg-rose-100 mb-7 text-center text-rose-700 rounded-lg shadow">Tidak ada data</span>
                                 </div>
+                                :
+                                <Pagination data={sentences} />
                             }
 
-                            <Pagination data={sentences} />
                         </div>
                         :
                         
@@ -350,13 +359,14 @@ export default function Sentence(props){
                                 </tbody>
                             </table>
                             {
-                                (sentences.length === 0) &&
+                                (sentences.data.length === 0) ?
                                 <div className="px-5 pt-5">
-                                    <span className="block px-5 py-3  bg-amber-100 mb-7 text-center text-amber-700 rounded-lg shadow">Tidak ada data</span>
+                                    <span className="block px-5 py-3  bg-rose-100 mb-7 text-center text-rose-700 rounded-lg shadow">Tidak ada data</span>
                                 </div>
+                                :
+                                <Pagination data={sentences} />
                             }
 
-                            <Pagination data={sentences} />
                         </div>
                     }
                 </section>

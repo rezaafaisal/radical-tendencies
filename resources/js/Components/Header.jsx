@@ -12,7 +12,7 @@ export default function NavApp(){
     }
 
     return (
-        <nav className="bg-cyan-600 h-20 flex items-center fixed top-0 left-0 right-0 z-20">
+        <nav className="bg-cyan-500 h-20 flex items-center fixed top-0 left-0 right-0 z-20">
             <div className="wrapper flex justify-between items-center">
                 <Link href="/" className="text-2xl font-semibold text-white">Radikal Tes</Link>
                 {
@@ -33,7 +33,7 @@ export default function NavApp(){
                                     </li>
                                     <li className="">
                                         <span onClick={()=>{
-                                            confirmAlert('Yakin Keluar?', 'Anda tidak dapat menyimpan hasil prediksi jika anda keluar', 'keluar', 'Keluar')
+                                            confirmAlert('Yakin Keluar?', 'Anda tidak dapat menyimpan hasil prediksi jika anda keluar', '/keluar', 'Keluar')
                                         }} className="text-sm p-4 block text-rose-500 hover:bg-slate-100 duration-150 cursor-pointer">
                                             <FontAwesomeIcon icon={faTrash} className="mr-3" /> Keluar
                                         </span>

@@ -18,7 +18,7 @@ class SentenceExport implements FromCollection, WithHeadings, WithColumnWidths, 
     
     public function collection()
     {
-        $sentences = Sentence::select('text', 'predict', 'radical', 'unradical')->where('user_id', Auth::id())->whereNotNull('predict')->get();
+        $sentences = Sentence::select('text', 'predict', 'radical', 'unradical')->where('user_id', Auth::id())->whereNotNull('predict')->orderBy('predict')->get();
         $sentences = $sentences->map(function($row){
             return [
                 'text' => $row->text,

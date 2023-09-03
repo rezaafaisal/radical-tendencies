@@ -1,6 +1,8 @@
 import React, { useEffect } from "react";
 import { useState } from "react";
 import { Link, router, usePage } from "@inertiajs/react";
+import Input from "../../Components/Input";
+import InputPassword from "../../Components/InputPassword";
 
 export default function Login(){
     const {errors} = usePage().props
@@ -28,39 +30,42 @@ export default function Login(){
     return (
         <div className="bg-cyan-500 h-screen w-full flex items-center justify-center">
             <div className="p-10 rounded-lg shadow border bg-white w-10/12 md:w-6/12 lg:w-4/12">
-                <h3 className="text-2xl mb-7 font-semibold text-gray-500">Daftar Akun Baru</h3>
+                <h3 className="text-xl mb-7 font-semibold text-gray-500">
+                    Daftar Akun Baru
+                    <Link href="/" className="text-cyan-500 ml-2">Radikal Tes</Link>
+                </h3>
                 <form onSubmit={handleSubmit}>
-                    <div className="mb-3">
-                        <label className="block">
-                            <span className="block font-light text-gray-500 mb-2 text-sm">Nama Lengkap</span>
-                            <input onChange={handleChange} type="text" className="px-4 py-2 rounded-lg border w-full" name="fullname" />
-                            {errors.fullname && <div className="text-xs mt-1 font-light text-pink-500">{errors.fullname}</div>}
-                        </label>
-                    </div>
-                    <div className="mb-3">
-                        <label className="block">
-                            <span className="block font-light text-gray-500 mb-2 text-sm">Email</span>
-                            <input onChange={handleChange} type="text" className="px-4 py-2 rounded-lg border w-full" name="email" />
-                            {errors.email && <div className="text-xs mt-1 font-light text-pink-500">{errors.email}</div>}
-                        </label>
-                    </div>
-                    <div className="mb-3">
-                        <label className="block">
-                            <span className="block font-light text-gray-500 mb-2 text-sm">kata Sandi</span>
-                            <input onChange={handleChange} type="password" className="px-4 py-2 rounded-lg border w-full" name="password" />
-                            {errors.password && <div className="text-xs mt-1 font-light text-pink-500">{errors.password}</div>}
-                        </label>
-                    </div>
-                    <div className="mb-3">
-                        <label className="block">
-                            <span className="block font-light text-gray-500 mb-2 text-sm">Konfirmasi kata Sandi</span>
-                            <input onChange={handleChange} type="password" className="px-4 py-2 rounded-lg border w-full" name="password_confirmation" />
-                            {errors.password_confirmation && <div className="text-xs mt-1 font-light text-pink-500">{errors.password_confirmation}</div>}
-                        </label>
-                    </div>
-                    <button className="btn-primary text-sm">Daftar</button>
+                    <Input
+                        label="Nama Lengkap"
+                        type="text"
+                        name="fullname"
+                        handler={handleChange}
+                        errors={errors.fullname}
+                    />
+                    <Input
+                        label="Email"
+                        type="email"
+                        name="email"
+                        handler={handleChange}
+                        errors={errors.email}
+                    />
+                    <InputPassword
+                        label="Kata Sandi"
+                        name="password"
+                        errors={errors.password}
+                        handler={handleChange}
+                    />
+                    <InputPassword
+                        label="Konfirmasi Kata Sandi"
+                        name="password_confirmation"
+                        errors={errors.password_confirmation}
+                        handler={handleChange}
+                    />
+                    <button className="btn-primary">Daftar</button>
                 </form>
-                <span className="block mt-5 pt-5 border-t text-gray-500 text-sm text-center">Sudah punya akun? <Link href="masuk" className="text-cyan-500 font-semibold">Masuk Sekarang!</Link></span>
+                <span className="block mt-5 pt-5 border-t text-gray-500 text-sm text-center">
+                    Sudah punya akun? <Link href="masuk" className="text-cyan-500 font-semibold">Masuk Sekarang!</Link>
+                </span>
             </div>
         </div>
     )

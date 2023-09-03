@@ -2,10 +2,13 @@
 
 namespace App\Http\Controllers;
 
+use App\Mail\RequestReset;
+use App\Mail\ResetPassword;
 use Carbon\Carbon;
 use App\Models\User;
 use Inertia\Inertia;
 use App\Mail\VerifyMail;
+use App\Models\ActiveRequest;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
@@ -70,6 +73,65 @@ class AuthController extends Controller
         return to_route('verify');
     }
 
+    public function forgot(){
+        return Inertia::render('Auth/Forgot', []);
+    }
+
+    public function requestReset(Request $request){
+        $request->validate([
+            'email' => ['required', 'email']
+        ]);
+        
+        // check if email exist
+        if(!User::where('email', $request->email)->exists()){
+            return back()->withErrors([
+                'email' => 'Email belum terdaftar, silahkan buat akun baru saja ygy :)',
+                ])->onlyInput('email');
+        }
+
+        // make request token
+        $token = $this->randomStrings(20);
+        $active_request = new ActiveRequest();
+        $active_request->email = $request->email;
+        $active_request->token = $token;
+        $success = $active_request->save();
+
+        if($success){
+            Mail::to($request->email)->send(new RequestReset([
+                'fullname' => $request->name,
+                'email' => $request->email,
+                'link' => route('resetPassword', ['token' => $token])
+            ]));
+            return to_route('login')->with('message', 'Konfirmasi setel ulang kata sandi Akun anda pada email '.$request->email.' untuk menyetel ulang kata sandi');
+        }
+        return back()->with('message', 'Terjadi kesalahan');
+
+    }
+    
+    public function resetPassword($token){
+        if(!ActiveRequest::where('token', $token)->exists()){
+            to_route('login')->with('message', 'Link konfirmasi untuk menyetel ulang kata sandi sudah kadaluarsa :(');
+        }
+        $new_password = $this->randomStrings(8);
+        $active_request = ActiveRequest::where('token', $token)->first();
+        $user = User::where('email', $active_request->email)->first();
+        $user->password = Hash::make($new_password);
+        $success = $user->save();
+        
+        if($success){
+            // send mail
+            Mail::to($user->email)->send(new ResetPassword([
+                'fullname' => $user->name,
+                'email' => $user->email,
+                'password' => $new_password
+            ]));
+            // delete token in database
+            ActiveRequest::where('token', $token)->delete();
+            // redirect
+            return to_route('login')->with('message', 'Kata sandi untuk email '.$user->email.' telah disetel ulang, gunakan kata sandi yang dikirim melalui email anda');
+        }
+    }
+    
     public function verifyEmail(){
         if(!Session::get('user')) return redirect()->back();
 
@@ -126,5 +188,13 @@ class AuthController extends Controller
         $request->session()->invalidate();
         $request->session()->regenerateToken();
         return redirect()->route('home');
+    }
+
+    private function randomStrings($length){
+        // String of all alphanumeric character
+        $str_result = '0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz';
+        // Shuffle the $str_result and returns substring
+        // of specified length
+        return substr(str_shuffle($str_result), 0, $length);
     }
 }
