@@ -10,12 +10,18 @@ import FileUploadModal from "../Components/FileUploadModal"
 import Pagination from "../Components/Pagination"
 import { successAlert } from "../Components/Alerts"
 import Modal from "../Components/Modal"
+import Input from "../Components/Input"
 
 export default function Sentence(props){
     const {flash, errors} = usePage().props
     const [sentences, setSentences] = useState(props.sentences)
     const [modalUpload, setModalUpload] = useState(false)
     const [exportModal, setExportModal] = useState(false)
+    const [inputData, setInputData] = useState({
+        filename:'',
+        filenameErrorMessage:'',
+        filenameError:false
+    })
     const isPredicted = props.is_predicted
 
     const [predict, setPredict] = useState({
@@ -173,6 +179,37 @@ export default function Sentence(props){
         })
     }
 
+    function inputHandler(e){
+        const name = e.target.name
+        const value = e.target.value
+        setInputData({
+            ...inputData,
+            [name]: value
+        })
+    }
+    
+    function exportSentences(e){
+        e.preventDefault()
+        const filename = inputData.filename
+        if(filename.length == 0){
+            setInputData({
+                ...inputData,
+                filenameErrorMessage: 'Nama file tidak boleh kosong',
+                filenameError:true
+            })
+        }
+        else if(filename.length < 3){
+            setInputData({
+                ...inputData,
+                filenameErrorMessage: 'Nama file tidak boleh kurang 3 karakter',
+                filenameError:true
+            })
+        }
+        else{
+            window.open(`/export/${inputData.filename}`)
+        }
+    }
+    
     useEffect(()=>{
         setModalUpload(false)
         flash.message && successAlert('Berhasil', flash.message)
@@ -187,7 +224,24 @@ export default function Sentence(props){
                 modalUpload && <FileUploadModal close={()=>setModalUpload(false)} />
             }
             {
-                exportModal && <Modal title={'Selamt datang'} close={()=>setExportModal(false)} />
+                exportModal &&
+                <Modal
+                    title={'Unduh Kalimat Anda'}
+                    close={()=>setExportModal(false)}
+                    submitText='Unduh'
+                    onSubmit={exportSentences}
+                >
+                    <Input 
+                        label="Nama File"
+                        type="text"
+                        placeholder="Masukkan nama file min 3 karakter"
+                        name="filename"
+                        handler={inputHandler}
+                        value={inputData.filename}
+                        errors={inputData.filenameError}
+                        errorMessage={inputData.filenameErrorMessage}
+                    />
+                </Modal>
             }
             <div className="wrapper mt-20">
                 <section className="py-5">

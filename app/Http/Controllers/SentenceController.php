@@ -37,8 +37,8 @@ class SentenceController extends Controller
          if($success) return redirect()->back()->with('message', 'Kalimat berhasil diunggah');
     }
 
-    public function export(Request $request){
-        return Excel::download(new SentenceExport, $request->filename.'.xlsx');
+    public function export($filename){
+        return Excel::download(new SentenceExport, $filename.'.xlsx');
     }
     
     public function saveSentence(Request $request){
