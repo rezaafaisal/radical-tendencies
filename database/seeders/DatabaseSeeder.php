@@ -18,6 +18,7 @@ class DatabaseSeeder extends Seeder
             'name' => 'Andi Engku Putribuana',
             'email' => 'test@example.com',
             'avatar' => 'profil.jpg',
+            'level' => 'admin',
             'password' => '$2y$10$92IXUNpkjO0rOQ5byMi.Ye4oKoEa3Ro9llC/.og/at2.uheWG/igi'
         ]);
     }

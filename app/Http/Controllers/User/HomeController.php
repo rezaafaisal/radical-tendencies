@@ -15,6 +15,8 @@ use Illuminate\Support\Facades\Storage;
 class HomeController extends Controller
 {
     public function index(){
+        if(Auth::user()?->level == 'admin') return redirect()->route('dashboard');
+
         return Inertia::render('Home');
     }
 

@@ -90,7 +90,6 @@ export default function Home(props){
                             <textarea onChange={(e) => setText(e.target.value)} className="bg-white border w-full rounded-lg p-3 h-52 mb-5" placeholder="Masukkan kalimat" value={text} ></textarea>
                             <div className="flex gap-2 justify-start">
                                 <button onClick={() => {setResult(text), predictData()}} className="btn-primary mt-5">Prediksi</button>
-                                <button onClick={() => setText('')} className="btn-primary-outline mt-5">Bersihkan</button>
                             </div>
                         </div>
                         <div className="p-8 divide-y">

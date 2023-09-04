@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\AdminController;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\SentenceController;
 use App\Http\Controllers\User\HomeController;
@@ -35,20 +36,22 @@ Route::get('verifikasi-email', [AuthController::class, 'verifyEmail'])->name('ve
 Route::post('verifikasi-email', [AuthController::class, 'verifyingEmail']);
 Route::post('kirim-ulang-verifikasi-email', [AuthController::class, 'resendVerifyEmail']);
 
+// admin
+Route::middleware('admin')->prefix('admin')->group(function(){
+    Route::get('/', [AdminController::class, 'index'])->name('dashboard');
+});
 
-// sentence
-Route::get('kalimat', [SentenceController::class, 'predicted'])->name('predicted');
-Route::get('kalimat/belum-terprediksi', [SentenceController::class, 'unPredicted'])->name('unPredicted');
-Route::delete('kalimat/{id}', [SentenceController::class, 'deleteSentence'])->name('deleteSentence');
-Route::post('simpan', [SentenceController::class, 'saveSentence']);
-Route::put('perbarui', [SentenceController::class, 'updateSentence']);
-Route::post('impor', [SentenceController::class, 'import']);
-Route::get('export/{filename}', [SentenceController::class, 'export']);
-Route::get('profil', [HomeController::class, 'profile']);
-Route::get('profil/akun', [HomeController::class, 'profileAccount']);
-Route::post('profil', [HomeController::class, 'updateProfile']);
-
+// user
+Route::middleware('user')->group(function(){
+    Route::get('kalimat', [SentenceController::class, 'predicted'])->name('predicted');
+    Route::get('kalimat/belum-terprediksi', [SentenceController::class, 'unPredicted'])->name('unPredicted');
+    Route::delete('kalimat/{id}', [SentenceController::class, 'deleteSentence'])->name('deleteSentence');
+    Route::post('simpan', [SentenceController::class, 'saveSentence']);
+    Route::put('perbarui', [SentenceController::class, 'updateSentence']);
+    Route::post('impor', [SentenceController::class, 'import']);
+    Route::get('export/{filename}', [SentenceController::class, 'export']);
+    Route::get('profil', [HomeController::class, 'profile']);
+    Route::get('profil/akun', [HomeController::class, 'profileAccount']);
+    Route::post('profil', [HomeController::class, 'updateProfile']);
+});
 Route::get('keluar', [AuthController::class, 'logout'])->name('logout');
-
-Route::get('about', [HomeController::class, 'about']);
-Route::get('contact', [HomeController::class, 'contact']);

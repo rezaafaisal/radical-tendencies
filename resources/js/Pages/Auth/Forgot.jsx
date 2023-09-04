@@ -1,13 +1,10 @@
 import React from "react";
 import { useState } from "react";
 import { Link, router, usePage } from "@inertiajs/react";
-import InputPassword from "../../Components/InputPassword";
 import Input from "../../Components/Input";
-import { SpinnerCircular } from "spinners-react";
 
 export default function Forgot(){
     const {errors, flash} = usePage().props
-    const [loading, setLoading] = useState(false)
     const [cred, setCred] = useState({
         email: ''
     })
