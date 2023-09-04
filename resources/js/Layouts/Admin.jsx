@@ -45,17 +45,18 @@ export default function AdminLayout({children, active, title}){
                     <ul className="font-light flex  text-slate-600 flex-col gap-3">
                         <li>
                             <Link
+                                href="/admin"
                                 className={`p-3 duration-100 rounded-lg block ${active == 'dashboard' ? 'bg-cyan-500 text-white' : 'hover:bg-slate-200'}`}>
                                 <FontAwesomeIcon icon={faChartPie} className="mr-2 w-6" /> Dashboard
                             </Link>
                         </li>
                         <li>
-                            <Link className={`p-3 duration-100 rounded-lg block ${active == 'sentence' ? 'bg-cyan-500 text-white' : 'hover:bg-slate-200'}`}>
+                            <Link href="/admin/kalimat" className={`p-3 duration-100 rounded-lg block ${active == 'sentence' ? 'bg-cyan-500 text-white' : 'hover:bg-slate-200'}`}>
                                 <FontAwesomeIcon icon={faQuoteLeft} className="mr-2 w-6" /> Kalimat
                             </Link>
                         </li>
                         <li>
-                            <Link className={`p-3 duration-100 rounded-lg block ${active == 'user' ? 'bg-cyan-500 text-white' : 'hover:bg-slate-200'}`}>
+                            <Link href="/admin/pengguna" className={`p-3 duration-100 rounded-lg block ${active == 'user' ? 'bg-cyan-500 text-white' : 'hover:bg-slate-200'}`}>
                                 <FontAwesomeIcon icon={faUsers} className="mr-2 w-6" /> Pengguna
                             </Link>
                         </li>

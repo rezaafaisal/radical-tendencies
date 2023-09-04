@@ -39,6 +39,10 @@ Route::post('kirim-ulang-verifikasi-email', [AuthController::class, 'resendVerif
 // admin
 Route::middleware('admin')->prefix('admin')->group(function(){
     Route::get('/', [AdminController::class, 'index'])->name('dashboard');
+    Route::get('kalimat', [AdminController::class, 'sentence'])->name('sentence');
+    Route::get('kalimat/{user_id}', [AdminController::class, 'detailSentence'])->name('detailSentence');
+    Route::get('pengguna', [AdminController::class, 'user'])->name('user');
+
 });
 
 // user
