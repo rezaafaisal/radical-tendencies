@@ -7,7 +7,7 @@ export default function DetailSentence({user, sentences}){
   return (
     <AdminLayout active="sentence" title="Kalimat">
         <div className="rounded-lg border p-10 bg-white overflow-hidden">
-            <div className="mb-5 pb-5 flex justify-between items-center border-b">
+            <div className="mb-5 pb-5 flex justify-between items-start border-b">
                 <div className='flex gap-2 items-center'>
                     <img src={'/avatar/'+user.avatar} alt="" className="w-20 h-20 object-cover object-center rounded block" />
                     <div>
