@@ -11,7 +11,7 @@ use Illuminate\Http\Request;
 class AdminController extends Controller
 {
     public function index(){
-        $sentences = Sentence::with('user')->whereNotNull('predict')->orderBy('updated_at', 'desc`')->take(10)->get();
+        $sentences = Sentence::with('user')->whereNotNull('predict')->orderBy('updated_at', 'desc')->take(10)->get();
         $sentences = $sentences->map(function($row){
             return [
                 'name' => $row->user->name,

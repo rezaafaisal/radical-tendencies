@@ -32,7 +32,12 @@ class AuthController extends Controller
         if (Auth::attempt($credentials)) {
             $request->session()->regenerate();
  
-            if(Auth::user()->level == 'admin') return redirect()->route('dashboard');
+            if(Auth::user()->level == 'admin'){
+                return $token = $request->user()->createToken('admin');
+
+                return $token->plainTextToken;
+                return redirect()->route('dashboard');
+            }
             return redirect()->route('home');
         }
  
