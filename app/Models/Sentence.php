@@ -24,4 +24,8 @@ class Sentence extends Model
             set: fn(string $value) => strtolower($value),
         );
     }
+
+    public function User(){
+        return $this->belongsTo(User::class);
+    }
 }

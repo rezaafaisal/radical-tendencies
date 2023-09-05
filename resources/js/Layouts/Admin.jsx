@@ -5,7 +5,7 @@ import React, { useState } from "react";
 
 export default function AdminLayout({children, active, title}){
 
-    const [expanded, setExpanded] = useState(true)
+    const [expanded, setExpanded] = useState(false)
     return(
         <div>
             <nav className="bg-white shadow fixed w-full top-0 h-20 flex items-center">
