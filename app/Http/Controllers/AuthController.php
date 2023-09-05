@@ -33,9 +33,11 @@ class AuthController extends Controller
             $request->session()->regenerate();
  
             if(Auth::user()->level == 'admin'){
-                return $token = $request->user()->createToken('admin');
-
-                return $token->plainTextToken;
+                // delete old token
+                $request->user()->tokens()->delete();
+                // create token
+                $request->user()->createToken('admin');
+                // redirect to dashboard
                 return redirect()->route('dashboard');
             }
             return redirect()->route('home');
