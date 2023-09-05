@@ -2,13 +2,14 @@ import { faAnglesLeft, faArrowRightFromBracket, faBars, faChartPie, faQuoteLeft,
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { Link } from "@inertiajs/react";
 import React, { useState } from "react";
+import { confirmAlert } from "../Components/Alerts";
 
 export default function AdminLayout({children, active, title}){
 
     const [expanded, setExpanded] = useState(false)
     return(
         <div>
-            <nav className="bg-white shadow fixed w-full top-0 h-20 flex items-center">
+            <nav className="bg-white z-20 shadow fixed w-full top-0 h-20 flex items-center">
                 <div className="w-full flex justify-between px-8">
                     <div className="flex items-center ">
                         <button onClick={()=>setExpanded(!expanded)} className="lg:hidden text-slate-600 h-10 w-10 flex justify-center items-center rounded-lg mr-3 duration-150 hover:bg-slate-200">
@@ -30,7 +31,7 @@ export default function AdminLayout({children, active, title}){
                                 </li>
                                 <li className="">
                                     <span onClick={()=>{
-                                        confirmAlert('Yakin Keluar?', 'Anda tidak dapat menyimpan hasil prediksi jika anda keluar', '/keluar', 'Keluar')
+                                        confirmAlert('Yakin Keluar?', 'Anda tidak dapat mengakses halaman ini lagi jika keluar', '/keluar', 'Keluar')
                                     }} className="text-sm p-4 block text-rose-500 hover:bg-slate-100 duration-150 cursor-pointer">
                                         <FontAwesomeIcon icon={faTrash} className="mr-3" /> Keluar
                                     </span>
@@ -40,7 +41,7 @@ export default function AdminLayout({children, active, title}){
                     </div>
                 </div>
             </nav>
-            <aside className={`fixed top-0 mt-20 left-0 h-screen bg-white border duration-150 w-72 px-5 lg:translate-x-0 ${expanded ? 'sm:translate-x-0' : '-translate-x-full'}`}>
+            <aside className={`fixed z-10 top-0 mt-20 left-0 h-screen bg-white border duration-150 w-72 px-5 lg:translate-x-0 ${expanded ? 'sm:translate-x-0' : '-translate-x-full'}`}>
                 <div className="mt-10">
                     <ul className="font-light flex  text-slate-600 flex-col gap-3">
                         <li>
@@ -61,9 +62,9 @@ export default function AdminLayout({children, active, title}){
                             </Link>
                         </li>
                         <li>
-                            <Link className="p-3 duration-100 rounded-lg block hover:bg-slate-200">
+                            <button onClick={()=>confirmAlert('Yakin Keluar?', 'Anda tidak dapat mengakses halaman ini lagi jika keluar', '/keluar', 'Keluar')} className="p-3 duration-100 rounded-lg block w-full text-start hover:bg-slate-200">
                                 <FontAwesomeIcon icon={faArrowRightFromBracket} className="mr-2 w-6" /> Keluar
-                            </Link>
+                            </button>
                         </li>
                     </ul>
                 </div>

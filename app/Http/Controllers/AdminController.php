@@ -55,8 +55,19 @@ class AdminController extends Controller
 
     public function userDetail($user_id){
         $user = User::find($user_id);
+        $data = [
+            'name' => $user->name,
+            'email' => $user->email,
+            'avatar' => $user->avatar,
+            'registered' => Carbon::parse($user->created_at)->format('d M Y, H:i').' WITA',
+            'login' => (is_null($user->last_login) ) ? 'Belum pernah login' :  Carbon::parse($user->last_login)->format('d M Y, H:i').' WITA',
+            'sentences' => $user->sentences->count(),
+            'predicts' => $user->sentences->whereNotNull('predict')->count(),
+            'radical' => $user->sentences->where('predict', 'radical')->count(),
+            'unradical' => $user->sentences->where('predict', 'unradical')->count(),
+        ];
         return Inertia::render('Admin/UserDetail', [
-            'user' => $user
+            'user' => $data
         ]);
     }
 }

@@ -19,15 +19,15 @@ class DatabaseSeeder extends Seeder
             Sentence::factory(random_int(10, 50))
         )->create();
 
-        User::insert(
-            [
+        User::create([
                 'name' => 'Andi Engku Putribuana',
                 'email' => 'test@example.com',
                 'avatar' => 'user.jpg',
                 'level' => 'admin',
                 'password' => '$2y$10$92IXUNpkjO0rOQ5byMi.Ye4oKoEa3Ro9llC/.og/at2.uheWG/igi'
             ],
-            [
+        );
+        User::create([
                 'name' => 'Jake Sully',
                 'email' => 'jake@example.com',
                 'avatar' => 'user.jpg',

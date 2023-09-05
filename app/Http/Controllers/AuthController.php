@@ -32,6 +32,8 @@ class AuthController extends Controller
         if (Auth::attempt($credentials)) {
             $request->session()->regenerate();
  
+            $request->user()->update(['last_login' => Carbon::now()]);
+
             if(Auth::user()->level == 'admin'){
                 // delete old token
                 $request->user()->tokens()->delete();

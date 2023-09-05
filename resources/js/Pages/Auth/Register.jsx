@@ -29,7 +29,7 @@ export default function Login(){
 
     return (
         <div className="bg-cyan-500 h-screen w-full flex items-center justify-center">
-            <div className="p-10 rounded-lg shadow border bg-white w-10/12 md:w-6/12 lg:w-4/12">
+            <div className="p-10 rounded-lg shadow border bg-white w-10/12 md:w-7/12 lg:w-5/12">
                 <h3 className="text-xl mb-7 font-semibold text-gray-500">
                     Daftar Akun Baru
                     <Link href="/" className="text-cyan-500 ml-2">Radikal Tes</Link>
