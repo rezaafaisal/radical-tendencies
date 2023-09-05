@@ -40,10 +40,23 @@ class AdminController extends Controller
     }
 
     public function detailSentence($user_id){
-        return Inertia::render('Admin/DetailSentence');
+        $user = User::find($user_id);
+        $sentences = Sentence::where('user_id', $user_id)->paginate(25);
+
+        return Inertia::render('Admin/DetailSentence', [
+            'user' => $user,
+            'sentences' => $sentences
+        ]);
     }
 
     public function user(){
         return Inertia::render('Admin/User');
+    }
+
+    public function userDetail($user_id){
+        $user = User::find($user_id);
+        return Inertia::render('Admin/UserDetail', [
+            'user' => $user
+        ]);
     }
 }

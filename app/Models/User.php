@@ -4,6 +4,7 @@ namespace App\Models;
 
 // use Illuminate\Contracts\Auth\MustVerifyEmail;
 
+use Illuminate\Database\Eloquent\Casts\Attribute;
 use Illuminate\Database\Eloquent\Concerns\HasUuids;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
@@ -48,6 +49,12 @@ class User extends Authenticatable
         'password' => 'hashed',
     ];
 
+    // public function avatar():Attribute{
+    //     return Attribute::make(
+    //         get: fn(string $val) => asset('avatar/'.$val)
+    //     );
+    // }
+    
     public function Sentences(){
         return $this->hasMany(Sentence::class);
     }

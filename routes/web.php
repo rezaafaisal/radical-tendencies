@@ -38,6 +38,7 @@ Route::middleware('admin')->prefix('admin')->group(function(){
     Route::get('kalimat', [AdminController::class, 'sentence'])->name('sentence');
     Route::get('kalimat/{user_id}', [AdminController::class, 'detailSentence'])->name('detailSentence');
     Route::get('pengguna', [AdminController::class, 'user'])->name('user');
+    Route::get('pengguna/{user_id}', [AdminController::class, 'userDetail'])->name('userDetail');
 
 });
 
