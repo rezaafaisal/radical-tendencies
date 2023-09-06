@@ -1,13 +1,13 @@
 import React, { useEffect, useRef, useState } from "react";
-import UserLayout from "../Layouts/User";
 import { Link, router, usePage } from "@inertiajs/react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faChevronRight, faUser, faXmark } from "@fortawesome/free-solid-svg-icons";
 import { faGear } from "@fortawesome/free-solid-svg-icons";
-import { errorAlert, successAlert } from "../Components/Alerts";
+import { errorAlert, successAlert } from "../../Components/Alerts";
 import { faEye, faEyeSlash } from "@fortawesome/free-regular-svg-icons";
+import Nav from "../../Components/AdminNav";
 
-export default function Profile({user, isAccount, profileUrl, accountUrl}){
+export default function Profile({user, isAccount}){
     const {errors, flash} = usePage().props
     const [showPassword, setShowPassword] = useState(false)
     const [showPasswordConfirm, setShowPasswordConfirm] = useState(false)
@@ -61,7 +61,7 @@ export default function Profile({user, isAccount, profileUrl, accountUrl}){
             delete data.password_confirmation
         }
 
-        router.post('/profil', data, {
+        router.post('/admin/profil', data, {
             forceFormData: true,
         })
     }
@@ -73,7 +73,8 @@ export default function Profile({user, isAccount, profileUrl, accountUrl}){
     }, [errors, flash])
     
     return(
-        <UserLayout>
+        <div>
+            <Nav />
             {
                 showPreview &&
                 <div className="fixed flex z-50 top-0 justify-center items-center bg-black bg-opacity-50 h-screen w-full overflow-hidden">
@@ -106,12 +107,12 @@ export default function Profile({user, isAccount, profileUrl, accountUrl}){
                         <span className="mt-5 md:mt-0 block text-2xl">Profil Pengguna</span>
                         <ul className="mt-5">
                             <li className="">
-                                <Link href='/profil' className={`p-5 border-slate-500 hover:bg-slate-200 block ${!isAccount ? 'border-l-2' : ''}`}>
+                                <Link href="/admin/profil" className={`p-5 border-slate-500 hover:bg-slate-200 block ${!isAccount ? 'border-l-2' : ''}`}>
                                     <FontAwesomeIcon icon={faUser} className="mr-2" /> Data Pribadi
                                 </Link>
                             </li>
                             <li className="">
-                                <Link href='/profil/akun' className={`p-5 border-slate-500 hover:bg-slate-200 block ${isAccount ? 'border-l-2' : ''}`}>
+                                <Link href="/admin/profil/akun" className={`p-5 border-slate-500 hover:bg-slate-200 block ${isAccount ? 'border-l-2' : ''}`}>
                                     <FontAwesomeIcon icon={faGear} className="mr-2" /> Akun
                                 </Link>
                             </li>
@@ -157,7 +158,7 @@ export default function Profile({user, isAccount, profileUrl, accountUrl}){
                                     <span className="block font-semibold text-sm mb-3">Kata Sandi Baru</span>
                                     <div className="relative flex items-center">
                                         <input onChange={inputHandler} type={showPassword?'text':'password'} name="password" id="" className="px-4 py-2 border border-slate-200 w-full rounded-lg font-light relative"/>
-                                        <button onClick={()=>setShowPassword(!showPassword)} className="absolute right-3"><FontAwesomeIcon icon={showPassword?faEyeSlash:faEye} /></button>
+                                        <button onClick={()=>setShowPassword(!showPassword)} className="absolute right-3"><FontAwesomeIcon icon={showPassword?faEyeSlash:faEye} className="text-sm text-slate-400" /></button>
                                     </div>
                                     {
                                         errors.password ? 
@@ -170,7 +171,7 @@ export default function Profile({user, isAccount, profileUrl, accountUrl}){
                                     <span className="block font-semibold text-sm mb-3">Konfirmasi Kata Sandi Baru</span>
                                     <div className="relative flex items-center">
                                         <input onChange={inputHandler} type={showPasswordConfirm?'text':'password'} name="password_confirmation" id="" className="px-4 py-2 border border-slate-200 w-full rounded-lg font-light"/>
-                                        <button onClick={()=>setShowPasswordConfirm(!showPasswordConfirm)} className="absolute right-3"><FontAwesomeIcon icon={showPasswordConfirm?faEyeSlash:faEye} /></button>
+                                        <button onClick={()=>setShowPasswordConfirm(!showPasswordConfirm)} className="absolute right-3"><FontAwesomeIcon icon={showPasswordConfirm?faEyeSlash:faEye} className="text-sm text-slate-400" /></button>
                                     </div>
                                 </label>
                                 <button onClick={updateData} className="btn-primary mt-5">Simpan Perubahan</button>
@@ -179,6 +180,6 @@ export default function Profile({user, isAccount, profileUrl, accountUrl}){
                     }
                 </div>
             </section>
-        </UserLayout>
+        </div>
     )
 }

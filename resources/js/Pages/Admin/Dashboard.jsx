@@ -32,7 +32,7 @@ export default function Dashboard({user, counts, sentences}){
                         <FontAwesomeIcon icon={faFaceSmile} />
                     </div>
                     <div>
-                        <span className="block text-sm font-light mb-2">Total Tidak Radikal</span>
+                        <span className="block text-sm font-light mb-2">Tidak Radikal</span>
                         <span className="block font-semibold text-lg">{counts.unradical}</span>
                     </div>
                 </div>
@@ -41,7 +41,7 @@ export default function Dashboard({user, counts, sentences}){
                         <FontAwesomeIcon icon={faFaceAngry} />
                     </div>
                     <div>
-                        <span className="block text-sm font-light mb-2">Total Cenderung Radikal</span>
+                        <span className="block text-sm font-light mb-2">Cenderung Radikal</span>
                         <span className="block font-semibold text-lg">{counts.radical}</span>
                     </div>
                 </div>
@@ -90,6 +90,12 @@ export default function Dashboard({user, counts, sentences}){
                         }
                     </tbody>
                 </table>
+                {
+                    sentences.length == 0 &&
+                    <div className="px-5 pt-5">
+                        <span className="block px-5 py-3 text-sm bg-rose-100 mb-7 text-center text-rose-400 rounded-lg shadow">Tidak ada data</span>
+                    </div>
+                }
             </div>
         </AdminLayout>
     )

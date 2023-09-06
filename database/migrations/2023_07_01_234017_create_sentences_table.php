@@ -13,7 +13,7 @@ return new class extends Migration
     {
         Schema::create('sentences', function (Blueprint $table) {
             $table->uuid('id')->primary();
-            $table->foreignUuid('user_id');
+            $table->foreignUuid('user_id')->constrained()->onDelete('CASCADE')->onUpdate('CASCADE');
             $table->text('text');
             $table->enum('predict', ['radical', 'unradical'])->nullable();
             $table->integer('radical')->nullable();

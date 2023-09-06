@@ -1,6 +1,6 @@
 import { Link, usePage } from "@inertiajs/react"
 import React, { useState } from "react"
-import { confirmAlert } from "./Alerts"
+import { confirmAlert, confirmAlertDanger } from "./Alerts"
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
 import { faTrash, faUser } from "@fortawesome/free-solid-svg-icons"
 
@@ -33,7 +33,15 @@ export default function NavApp(){
                                     </li>
                                     <li className="">
                                         <span onClick={()=>{
-                                            confirmAlert('Yakin Keluar?', 'Anda tidak dapat menyimpan hasil prediksi jika anda keluar', '/keluar', 'Keluar')
+                                            confirmAlertDanger({
+                                                title: 'Yakin Keluar?',
+                                                text: 'Anda tidak dapat mengakses halaman ini lagi jika keluar',
+                                                confirmText: 'Keluar',
+                                                cancelText: 'Batal',
+                                                handler: () => {
+                                                    router.get('/keluar')
+                                                }
+                                            })
                                         }} className="text-sm p-4 block text-rose-500 hover:bg-slate-100 duration-150 cursor-pointer">
                                             <FontAwesomeIcon icon={faTrash} className="mr-3" /> Keluar
                                         </span>

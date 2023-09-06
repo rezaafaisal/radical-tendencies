@@ -2,13 +2,15 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Sentence;
-use App\Models\User;
 use Carbon\Carbon;
+use App\Models\User;
 use Inertia\Inertia;
+use App\Models\Sentence;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Session;
+use Illuminate\Support\Facades\Storage;
 
 class AdminController extends Controller
 {
@@ -73,9 +75,7 @@ class AdminController extends Controller
 
     public function profile(){
         $user = Auth::user();
-        return Inertia::render('Profile', [
-            'profileUrl' => '/admin/profil',
-            'accountUrl' => '/admin/profil/akun',
+        return Inertia::render('Admin/Profile', [
             'user' => $user,
             'isAccount' => false
         ]);
@@ -83,11 +83,61 @@ class AdminController extends Controller
 
     public function profileAccount(){
         $user = Auth::user();
-        return Inertia::render('Profile', [
-            'profileUrl' => '/admin/profil',
-            'accountUrl' => '/admin/profil/akun',
+        return Inertia::render('Admin/Profile', [
             'user' => $user,
             'isAccount' => true
         ]);
+    }
+
+    public function updateProfile(Request $request){
+        $user = User::find(Auth::id());
+        if($request->is_account){
+            $request->validate([
+            'password' => ['required', 'min:5', 'confirmed']
+            ]);
+
+            $user->password = Hash::make($request->password);
+            $success = $user->save();
+            if($success) return redirect()->back()->with('message', 'Password berhasil di perbarui');
+        }
+
+        $request->validate([
+            'name' => ['required', 'min:3'],
+            'image' => ['nullable', 'mimes:png,jpg,jpeg']
+        ]);
+
+        if($request->image){
+            
+            if($user->avatar != 'user.jpg') Storage::delete('avatar/'.$user->avatar);
+            
+            $image = $request->image;
+            $filename = md5(Carbon::now()->format('YmdHis')).'.'.$image->extension();
+            Storage::putFileAs('avatar', $image, $filename);
+            $user->avatar = $filename;
+        }
+        $user->name = $request->name;
+        $success = $user->save();
+
+        if($success) return redirect()->back()->with('message', 'Data berhasil di perbarui');
+    }
+
+    public function updatePassword(Request $request){
+        $request->validate([
+            'password' => ['required', 'min:8', 'confirmed'],
+        ]);
+
+        $success = User::find($request->id)->update([
+            'password' => Hash::make($request->password)
+        ]);
+
+        if($success) return redirect()->back()->with('message', 'Kata sandi pengguna berhasil diperbarui');
+        return redirect()->back()->withErrors('message', 'Kata sandi pengguna gagal diperbarui');
+    }
+
+    public function deleteUser($user_id){
+        $success =  User::find($user_id)->delete();
+
+        if($success) return redirect()->back()->with('message', 'Pengguna berhasil dihapus');
+        return redirect()->back()->withErrors('message', 'Pengguna gagal dihapus');
     }
 }

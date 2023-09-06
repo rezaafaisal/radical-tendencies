@@ -14,6 +14,7 @@ const InputPassword = ({label, handler, placeholder, name, errors, errorMessage}
                     name={name}
                     placeholder={placeholder}
                     className={`px-4 py-2 border w-full rounded-lg font-light ${errors?'border-rose-500':'border-slate-200'}`}
+                    defaultValue=""
                 />
                 <button
                     type="button"

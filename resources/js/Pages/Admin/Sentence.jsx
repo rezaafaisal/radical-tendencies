@@ -43,8 +43,8 @@ export default function Sentence(){
     return (
         <AdminLayout active="sentence" title="Kalimat">
             <div className="rounded-lg border p-10 bg-white overflow-hidden">
-                <div className="mb-5 pb-5 flex justify-between items-center">
-                    <div>
+                <div className="mb-5 flex flex-col md:flex-row md:justify-between md:items-center">
+                    <div className="mb-3 md:mb-0">
                         <span className="inline-block">Tampilkan</span>
                         <select onChange={inputHandler} defaultValue={25} name="show" className="ml-2 py-2 px-4 appearance-none text-sm rounded-lg bg-white border">
                             <option value="10">10</option>
@@ -52,7 +52,7 @@ export default function Sentence(){
                             <option value="50">50</option>
                         </select>
                     </div>
-                    <div className="w-28 md:w-48">
+                    <div className="w-full md:w-48">
                         <input onChange={inputHandler} type="search" name="keyword" placeholder="Pencarian" className="px-4 py-2 border text-slate-600 w-full rounded-lg font-light" />
                     </div>
                 </div>
@@ -101,6 +101,12 @@ export default function Sentence(){
                             }
                         </tbody>
                     </table>
+                    {
+                        sentences && (sentences.data.length == 0) &&
+                        <div className="px-5 pt-5">
+                            <span className="block px-5 py-3 text-sm bg-rose-100 mb-7 text-center text-rose-400 rounded-lg shadow">Tidak ada data</span>
+                        </div>
+                    }
                 </div>
                 {
                     sentences && <ApiPagination data={sentences} handler={urlHandler} />
