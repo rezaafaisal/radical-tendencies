@@ -1,11 +1,11 @@
 import { faAnglesLeft, faArrowRightFromBracket, faBars, faChartPie, faQuoteLeft, faTrash, faUser, faUsers } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { Link } from "@inertiajs/react";
+import { Link, usePage } from "@inertiajs/react";
 import React, { useState } from "react";
 import { confirmAlert } from "../Components/Alerts";
 
 export default function AdminLayout({children, active, title}){
-
+    const {auth} = usePage().props
     const [expanded, setExpanded] = useState(false)
     return(
         <div>
@@ -19,13 +19,13 @@ export default function AdminLayout({children, active, title}){
                     </div>
                     <div className="relative group">
                         <div className="py-2">
-                            <img src={'/avatar/user.jpg'} className="h-10 w-10 object-cover object-center rounded-full shadow cursor-pointer ring-offset-2 ring-2 ring-cyan-500"/>
+                            <img src={'/avatar/'+auth.user.avatar} className="h-10 w-10 object-cover object-center rounded-full shadow cursor-pointer ring-offset-2 ring-2 ring-cyan-500"/>
                         </div>
                         <div className="absolute top-15 bg-white right-0 w-60 shadow w-a border rounded-lg group-hover:visible invisible group-hover:translate-y-0 translate-y-5 group-hover:opacity-100 opacity-0 group-hover:delay-100 delay-300  block ease-in-out duration-150 text-slate-600">
                             <h3 className="text-center py-5 font-semibold">Admin</h3>
                             <ul className="divide-y">
                                 <li className="">
-                                    <Link href="/profil" className="text-sm p-4 block hover:bg-slate-100 duration-150">
+                                    <Link href="/admin/profil" className="text-sm p-4 block hover:bg-slate-100 duration-150">
                                         <FontAwesomeIcon icon={faUser} className="mr-3" /> Profil
                                     </Link>
                                 </li>

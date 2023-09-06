@@ -7,7 +7,7 @@ import { faGear } from "@fortawesome/free-solid-svg-icons";
 import { errorAlert, successAlert } from "../Components/Alerts";
 import { faEye, faEyeSlash } from "@fortawesome/free-regular-svg-icons";
 
-export default function Profile({avatar, user, isAccount}){
+export default function Profile({user, isAccount, profileUrl, accountUrl}){
     const {errors, flash} = usePage().props
     const [showPassword, setShowPassword] = useState(false)
     const [showPasswordConfirm, setShowPasswordConfirm] = useState(false)
@@ -101,17 +101,17 @@ export default function Profile({avatar, user, isAccount}){
                     <button onClick={()=>setShowSidebar(true)} className="fixed md:hidden left-0 -mt-10 bg-white p-4 rounded-tr-lg rounded-br-lg shadow">
                         <FontAwesomeIcon className="text-sm" icon={faChevronRight} />
                     </button>
-                    <div className={`w-full fixed h-screen px-1 z-30 bg-slate-100 duration-150 ${showSidebar?'-translate-x-0':'-translate-x-full'} md:-translate-x-0 md:bg-transparent top-20 left-0 right-0 bottom-0 md:h-auto md:static md:block md:w-3/12`}>
+                    <div className={`w-full fixed h-screen px-1 z-10 bg-slate-100 duration-150 ${showSidebar?'-translate-x-0':'-translate-x-full'} md:-translate-x-0 md:bg-transparent top-20 left-0 right-0 bottom-0 md:h-auto md:static md:block md:w-3/12`}>
                         <button onClick={()=>setShowSidebar(false)} className="absolute md:hidden right-10 top-5"><FontAwesomeIcon icon={faXmark} /></button>
                         <span className="mt-5 md:mt-0 block text-2xl">Profil Pengguna</span>
                         <ul className="mt-5">
                             <li className="">
-                                <Link href="/profil" className={`p-5 border-slate-500 hover:bg-slate-200 block ${!isAccount ? 'border-l-2' : ''}`}>
+                                <Link href={profileUrl} className={`p-5 border-slate-500 hover:bg-slate-200 block ${!isAccount ? 'border-l-2' : ''}`}>
                                     <FontAwesomeIcon icon={faUser} className="mr-2" /> Data Pribadi
                                 </Link>
                             </li>
                             <li className="">
-                                <Link href="/profil/akun" className={`p-5 border-slate-500 hover:bg-slate-200 block ${isAccount ? 'border-l-2' : ''}`}>
+                                <Link href={accountUrl} className={`p-5 border-slate-500 hover:bg-slate-200 block ${isAccount ? 'border-l-2' : ''}`}>
                                     <FontAwesomeIcon icon={faGear} className="mr-2" /> Akun
                                 </Link>
                             </li>
@@ -125,7 +125,7 @@ export default function Profile({avatar, user, isAccount}){
                                 <label className="block mb-8">
                                     <span className="block font-semibold text-sm mb-3">Foto Diri</span>
                                     <div className="flex gap-5 items-start">
-                                        <img src={applyImage ? URL.createObjectURL(newImage) : avatar} alt="profile picture" className="block shrink-0 h-28 w-28 object-cover object-center rounded-lg border border-slate-200" />
+                                        <img src={applyImage ? URL.createObjectURL(newImage) : '/avatar/'+user.avatar} alt="profile picture" className="block shrink-0 h-28 w-28 object-cover object-center rounded-lg border border-slate-200" />
                                         <div>
                                             <input type="file" ref={hiddenFile} onChange={fileHandler} accept="image/png, image/gif, image/jpeg" name="file" id="" className="hidden" />
                                             <button onClick={()=> hiddenFile.current.click()} type="button" className="text-sm btn-primary">Pilih Foto</button>

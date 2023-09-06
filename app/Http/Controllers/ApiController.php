@@ -11,7 +11,7 @@ class ApiController extends Controller
     public function sentences(Request $request){
         $show = $request->show;
         $keyword = $request->keyword;
-        $data = User::where('name', 'like', '%'.$keyword.'%')->where('level', 'user')->paginate($show)->onEachSide(0);
+        $data = User::where('level', 'user')->where('name', 'like', '%'.$keyword.'%')->paginate($show)->onEachSide(0);
         $data->getCollection()->transform(function ($user) {
             return [
                 'id' => $user->id,
@@ -28,7 +28,7 @@ class ApiController extends Controller
     public function users(Request $request){
         $show = $request->show;
         $keyword = $request->keyword;
-        $data = User::where('name', 'like', '%'.$keyword.'%')->where('level', 'user')->orderBy('name')->paginate($show)->onEachSide(0);
+        $data = User::where('level', 'user')->where('name', 'like', '%'.$keyword.'%')->orderBy('name')->paginate($show)->onEachSide(0);
 
         if($data) return response($data, 200);
         return response('Gagal', 400);

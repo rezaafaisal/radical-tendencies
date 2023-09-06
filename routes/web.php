@@ -39,10 +39,13 @@ Route::middleware('admin')->prefix('admin')->group(function(){
     Route::get('kalimat/{user_id}', [AdminController::class, 'detailSentence'])->name('detailSentence');
     Route::get('pengguna', [AdminController::class, 'user'])->name('user');
     Route::get('pengguna/{user_id}', [AdminController::class, 'userDetail'])->name('userDetail');
+    Route::get('profil', [AdminController::class, 'profile']);
+    Route::get('profil/akun', [AdminController::class, 'profileAccount']);
 
 });
 
 // user
+Route::post('profil', [HomeController::class, 'updateProfile']);
 Route::middleware('user')->group(function(){
     Route::get('kalimat', [SentenceController::class, 'predicted'])->name('predicted');
     Route::get('kalimat/belum-terprediksi', [SentenceController::class, 'unPredicted'])->name('unPredicted');
@@ -53,6 +56,5 @@ Route::middleware('user')->group(function(){
     Route::get('export/{filename}', [SentenceController::class, 'export']);
     Route::get('profil', [HomeController::class, 'profile']);
     Route::get('profil/akun', [HomeController::class, 'profileAccount']);
-    Route::post('profil', [HomeController::class, 'updateProfile']);
 });
 Route::get('keluar', [AuthController::class, 'logout'])->name('logout');

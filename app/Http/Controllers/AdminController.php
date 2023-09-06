@@ -70,4 +70,24 @@ class AdminController extends Controller
             'user' => $data
         ]);
     }
+
+    public function profile(){
+        $user = Auth::user();
+        return Inertia::render('Profile', [
+            'profileUrl' => '/admin/profil',
+            'accountUrl' => '/admin/profil/akun',
+            'user' => $user,
+            'isAccount' => false
+        ]);
+    }
+
+    public function profileAccount(){
+        $user = Auth::user();
+        return Inertia::render('Profile', [
+            'profileUrl' => '/admin/profil',
+            'accountUrl' => '/admin/profil/akun',
+            'user' => $user,
+            'isAccount' => true
+        ]);
+    }
 }

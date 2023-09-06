@@ -31,7 +31,8 @@ class HomeController extends Controller
     public function profile(){
         $user = Auth::user();
         return Inertia::render('Profile', [
-            'avatar' => '/avatar/'.$user->avatar,
+            'profileUrl' => '/profil',
+            'accountUrl' => '/profil/akun',
             'user' => $user,
             'isAccount' => false
         ]);
@@ -40,6 +41,8 @@ class HomeController extends Controller
     public function profileAccount(){
         $user = Auth::user();
         return Inertia::render('Profile', [
+            'profileUrl' => '/profil',
+            'accountUrl' => '/profil/akun',
             'user' => $user,
             'isAccount' => true
         ]);
@@ -63,7 +66,9 @@ class HomeController extends Controller
         ]);
 
         if($request->image){
-            Storage::delete('avatar/'.$user->avatar);
+            
+            if($user->avatar != 'user.jpg') Storage::delete('avatar/'.$user->avatar);
+            
             $image = $request->image;
             $filename = md5(Carbon::now()->format('YmdHis')).'.'.$image->extension();
             Storage::putFileAs('avatar', $image, $filename);
