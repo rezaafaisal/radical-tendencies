@@ -43,7 +43,7 @@ class AdminController extends Controller
 
     public function detailSentence($user_id){
         $user = User::find($user_id);
-        $sentences = Sentence::where('user_id', $user_id)->paginate(25);
+        $sentences = Sentence::where('user_id', $user_id)->orderBy('predict', 'DESC')->paginate(25);
 
         return Inertia::render('Admin/DetailSentence', [
             'user' => $user,

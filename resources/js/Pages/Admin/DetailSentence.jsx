@@ -41,15 +41,17 @@ export default function DetailSentence({user, sentences}){
                                             {
                                                 (sentence.predict == 'radical') ?
                                                 <span className="block min-w-max text-xxs md:text-xs font-semibold bg-rose-100 text-rose-500 text-center p-2 rounded-lg">Cenderung Radikal</span>
-                                                :
+                                                : (sentence.predict == 'unradical') ?
                                                 <span className="block text-xxs md:text-xs font-semibold bg-teal-100 text-teal-500 text-center p-2 rounded-lg">Tidak Radikal</span>
+                                                :
+                                                <span className="block text-xxs md:text-xs font-semibold bg-slate-100 text-slate-500 text-center p-2 rounded-lg">Belum Terprediksi</span>
                                             }
                                         </td>
                                         <td className="text-sm font-light py-3 px-4 text-center">
-                                            <span className='font-semibold text-xs inline-block bg-slate-400 py-2 px-3 text-white rounded-lg'>{sentence.radical+'%'}</span>
+                                            <span className='font-semibold text-xs inline-block bg-slate-400 py-2 px-3 text-white rounded-lg'>{ sentence.radical ? sentence.radical+'%' : '0%'}</span>
                                         </td>
                                         <td className="text-sm font-light py-3 px-4 text-center">
-                                            <span className='font-semibold text-xs inline-block bg-slate-400 py-2 px-3 text-white rounded-lg'>{sentence.unradical+'%'}</span>
+                                            <span className='font-semibold text-xs inline-block bg-slate-400 py-2 px-3 text-white rounded-lg'>{ sentence.unradical ? sentence.unradical+'%' : '0%'}</span>
                                         </td>
                                     </tr>
                                 )

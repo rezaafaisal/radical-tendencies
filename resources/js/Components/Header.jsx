@@ -1,4 +1,4 @@
-import { Link, usePage } from "@inertiajs/react"
+import { Link, router, usePage } from "@inertiajs/react"
 import React, { useState } from "react"
 import { confirmAlert, confirmAlertDanger } from "./Alerts"
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"

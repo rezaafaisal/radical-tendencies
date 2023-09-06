@@ -221,8 +221,8 @@ export default function Sentence(props){
     useEffect(()=>{
         setModalUpload(false)
         flash.message && successAlert('Berhasil', flash.message)
-
-    }, [flash, errors])
+        setSentences(props.sentences)
+    }, [flash, errors, props])
 
 
 
@@ -319,7 +319,9 @@ export default function Sentence(props){
                                     <span className="block px-5 py-3  bg-rose-100 mb-7 text-center text-rose-700 rounded-lg shadow">Tidak ada data</span>
                                 </div>
                                 :
-                                <Pagination data={sentences} />
+                                <div className="px-6">
+                                    <Pagination data={sentences} />
+                                </div>
                             }
 
                         </div>
@@ -364,7 +366,9 @@ export default function Sentence(props){
                                     <span className="block px-5 py-3  bg-rose-100 mb-7 text-center text-rose-700 rounded-lg shadow">Tidak ada data</span>
                                 </div>
                                 :
-                                <Pagination data={sentences} />
+                                <div className="px-6">
+                                    <Pagination data={sentences} />
+                                </div>
                             }
 
                         </div>

@@ -32,7 +32,7 @@ export default function FileUploadModal({close}){
                         </button>
                     </div>
                     <div className="p-5">
-                        <span className="block text-sm">Contoh file template unduh <Link href="akwaokw.com" className="text-cyan-500 font-semibold">disini</Link></span>
+                        <span className="block text-sm">Contoh file template unduh <a target="_blank" href="/etc/template-kalimat.xlsx" download className="text-cyan-500 font-semibold">disini</a></span>
                         <form onSubmit={handleSubmit} className="mt-5">
                             {errors.file && <div className="text-xs mt-1 font-light text-pink-500">{errors.file}</div>}
                             <span className="block pb-3 text-sm">{filename}</span>

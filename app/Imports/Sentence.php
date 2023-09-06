@@ -18,6 +18,9 @@ class Sentence implements ToCollection
             return $row[0];
         })->filter()->toArray();
 
+        // remove first row
+        array_shift($sentences);
+        
         foreach ($sentences as $sentence) {
             ModelsSentence::create([
                 'user_id' => Auth::id(),

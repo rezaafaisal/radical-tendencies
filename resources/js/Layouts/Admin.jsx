@@ -1,6 +1,6 @@
 import { faAnglesLeft, faArrowRightFromBracket, faBars, faChartPie, faQuoteLeft, faTrash, faUser, faUsers } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { Link, usePage } from "@inertiajs/react";
+import { Link, router, usePage } from "@inertiajs/react";
 import React, { useState } from "react";
 import { confirmAlert, confirmAlertDanger } from "../Components/Alerts";
 import Nav from "../Components/AdminNav";

@@ -42,7 +42,8 @@ class RequestReset extends Mailable
     public function content(): Content
     {
         return new Content(
-            view: 'emails.request_reset',
+            // view: 'emails.request_reset',
+            view: 'email.index',
         );
     }
 
