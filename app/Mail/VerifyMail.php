@@ -34,7 +34,7 @@ class VerifyMail extends Mailable
     public function envelope(): Envelope
     {
         return new Envelope(
-            subject: 'Verify E-Mail',
+            subject: 'Verifikasi Email',
         );
     }
 
@@ -44,7 +44,7 @@ class VerifyMail extends Mailable
     public function content(): Content
     {
         return new Content(
-            view: 'emails.index',
+            view: 'emails.verify',
         );
     }
 

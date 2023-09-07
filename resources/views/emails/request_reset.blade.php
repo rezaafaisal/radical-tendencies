@@ -1,32 +1,331 @@
 <!DOCTYPE html>
-<html lang="en" style="box-sizing: border-box;border: 0 solid #e5e7eb;--tw-border-spacing-x: 0;--tw-border-spacing-y: 0;--tw-translate-x: 0;--tw-translate-y: 0;--tw-rotate: 0;--tw-skew-x: 0;--tw-skew-y: 0;--tw-scale-x: 1;--tw-scale-y: 1;--tw-pan-x: ;--tw-pan-y: ;--tw-pinch-zoom: ;--tw-scroll-snap-strictness: proximity;--tw-gradient-from-position: ;--tw-gradient-via-position: ;--tw-gradient-to-position: ;--tw-ordinal: ;--tw-slashed-zero: ;--tw-numeric-figure: ;--tw-numeric-spacing: ;--tw-numeric-fraction: ;--tw-ring-inset: ;--tw-ring-offset-width: 0px;--tw-ring-offset-color: #fff;--tw-ring-color: #3b82f680;--tw-ring-offset-shadow: 0 0 #0000;--tw-ring-shadow: 0 0 #0000;--tw-shadow: 0 0 #0000;--tw-shadow-colored: 0 0 #0000;--tw-blur: ;--tw-brightness: ;--tw-contrast: ;--tw-grayscale: ;--tw-hue-rotate: ;--tw-invert: ;--tw-saturate: ;--tw-sepia: ;--tw-drop-shadow: ;--tw-backdrop-blur: ;--tw-backdrop-brightness: ;--tw-backdrop-contrast: ;--tw-backdrop-grayscale: ;--tw-backdrop-hue-rotate: ;--tw-backdrop-invert: ;--tw-backdrop-opacity: ;--tw-backdrop-saturate: ;--tw-backdrop-sepia: ;line-height: 1.5;-webkit-text-size-adjust: 100%;-moz-tab-size: 4;-o-tab-size: 4;tab-size: 4;font-family: ui-sans-serif,system-ui,-apple-system,BlinkMacSystemFont,Segoe UI,Roboto,Helvetica Neue,Arial,Noto Sans,sans-serif,Apple Color Emoji,Segoe UI Emoji,Segoe UI Symbol,Noto Color Emoji;font-feature-settings: normal;font-variation-settings: normal;">
-<head style="box-sizing: border-box;border: 0 solid #e5e7eb;--tw-border-spacing-x: 0;--tw-border-spacing-y: 0;--tw-translate-x: 0;--tw-translate-y: 0;--tw-rotate: 0;--tw-skew-x: 0;--tw-skew-y: 0;--tw-scale-x: 1;--tw-scale-y: 1;--tw-pan-x: ;--tw-pan-y: ;--tw-pinch-zoom: ;--tw-scroll-snap-strictness: proximity;--tw-gradient-from-position: ;--tw-gradient-via-position: ;--tw-gradient-to-position: ;--tw-ordinal: ;--tw-slashed-zero: ;--tw-numeric-figure: ;--tw-numeric-spacing: ;--tw-numeric-fraction: ;--tw-ring-inset: ;--tw-ring-offset-width: 0px;--tw-ring-offset-color: #fff;--tw-ring-color: #3b82f680;--tw-ring-offset-shadow: 0 0 #0000;--tw-ring-shadow: 0 0 #0000;--tw-shadow: 0 0 #0000;--tw-shadow-colored: 0 0 #0000;--tw-blur: ;--tw-brightness: ;--tw-contrast: ;--tw-grayscale: ;--tw-hue-rotate: ;--tw-invert: ;--tw-saturate: ;--tw-sepia: ;--tw-drop-shadow: ;--tw-backdrop-blur: ;--tw-backdrop-brightness: ;--tw-backdrop-contrast: ;--tw-backdrop-grayscale: ;--tw-backdrop-hue-rotate: ;--tw-backdrop-invert: ;--tw-backdrop-opacity: ;--tw-backdrop-saturate: ;--tw-backdrop-sepia: ;">
-    <title style="box-sizing: border-box;border: 0 solid #e5e7eb;--tw-border-spacing-x: 0;--tw-border-spacing-y: 0;--tw-translate-x: 0;--tw-translate-y: 0;--tw-rotate: 0;--tw-skew-x: 0;--tw-skew-y: 0;--tw-scale-x: 1;--tw-scale-y: 1;--tw-pan-x: ;--tw-pan-y: ;--tw-pinch-zoom: ;--tw-scroll-snap-strictness: proximity;--tw-gradient-from-position: ;--tw-gradient-via-position: ;--tw-gradient-to-position: ;--tw-ordinal: ;--tw-slashed-zero: ;--tw-numeric-figure: ;--tw-numeric-spacing: ;--tw-numeric-fraction: ;--tw-ring-inset: ;--tw-ring-offset-width: 0px;--tw-ring-offset-color: #fff;--tw-ring-color: #3b82f680;--tw-ring-offset-shadow: 0 0 #0000;--tw-ring-shadow: 0 0 #0000;--tw-shadow: 0 0 #0000;--tw-shadow-colored: 0 0 #0000;--tw-blur: ;--tw-brightness: ;--tw-contrast: ;--tw-grayscale: ;--tw-hue-rotate: ;--tw-invert: ;--tw-saturate: ;--tw-sepia: ;--tw-drop-shadow: ;--tw-backdrop-blur: ;--tw-backdrop-brightness: ;--tw-backdrop-contrast: ;--tw-backdrop-grayscale: ;--tw-backdrop-hue-rotate: ;--tw-backdrop-invert: ;--tw-backdrop-opacity: ;--tw-backdrop-saturate: ;--tw-backdrop-sepia: ;">Verifikasi Email</title>
-    {{-- @vite('resources/css/mail.css') --}}
-    {{--  --}}
-    
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml" xmlns:v="urn:schemas-microsoft-com:vml" xmlns:o="urn:schemas-microsoft-com:office:office">
+<head>
+    <meta charset="utf-8"> <!-- utf-8 works for most cases -->
+    <meta name="viewport" content="width=device-width"> <!-- Forcing initial-scale shouldn't be necessary -->
+    <meta http-equiv="X-UA-Compatible" content="IE=edge"> <!-- Use the latest (edge) version of IE rendering engine -->
+    <meta name="x-apple-disable-message-reformatting">  <!-- Disable auto-scale in iOS 10 Mail entirely -->
+    <title></title> <!-- The title tag shows in email notifications, like Android 4.4. -->
+
+    <link href="https://fonts.googleapis.com/css?family=Poppins:200,300,400,500,600,700" rel="stylesheet">
+
+    <!-- CSS Reset : BEGIN -->
+    <style>
+
+        /* What it does: Remove spaces around the email design added by some email clients. */
+        /* Beware: It can remove the padding / margin and add a background color to the compose a reply window. */
+        html,
+    body {
+        margin: 0 auto !important;
+        padding: 0 !important;
+        height: 100% !important;
+        width: 100% !important;
+        background: #f1f1f1;
+    }
+
+    /* What it does: Stops email clients resizing small text. */
+    * {
+        -ms-text-size-adjust: 100%;
+        -webkit-text-size-adjust: 100%;
+    }
+
+    /* What it does: Centers email on Android 4.4 */
+    div[style*="margin: 16px 0"] {
+        margin: 0 !important;
+    }
+
+    /* What it does: Stops Outlook from adding extra spacing to tables. */
+    table,
+    td {
+        mso-table-lspace: 0pt !important;
+        mso-table-rspace: 0pt !important;
+    }
+
+    /* What it does: Fixes webkit padding issue. */
+    table {
+        border-spacing: 0 !important;
+        border-collapse: collapse !important;
+        table-layout: fixed !important;
+        margin: 0 auto !important;
+    }
+
+    /* What it does: Uses a better rendering method when resizing images in IE. */
+    img {
+        -ms-interpolation-mode:bicubic;
+    }
+
+    /* What it does: Prevents Windows 10 Mail from underlining links despite inline CSS. Styles for underlined links should be inline. */
+    a {
+        text-decoration: none;
+    }
+
+    /* What it does: A work-around for email clients meddling in triggered links. */
+    *[x-apple-data-detectors],  /* iOS */
+    .unstyle-auto-detected-links *,
+    .aBn {
+        border-bottom: 0 !important;
+        cursor: default !important;
+        color: inherit !important;
+        text-decoration: none !important;
+        font-size: inherit !important;
+        font-family: inherit !important;
+        font-weight: inherit !important;
+        line-height: inherit !important;
+    }
+
+    /* What it does: Prevents Gmail from displaying a download button on large, non-linked images. */
+    .a6S {
+        display: none !important;
+        opacity: 0.01 !important;
+    }
+
+    /* What it does: Prevents Gmail from changing the text color in conversation threads. */
+    .im {
+        color: inherit !important;
+    }
+
+    /* If the above doesn't work, add a .g-img class to any image in question. */
+    img.g-img + div {
+        display: none !important;
+    }
+
+    /* What it does: Removes right gutter in Gmail iOS app: https://github.com/TedGoas/Cerberus/issues/89  */
+    /* Create one of these media queries for each additional viewport size you'd like to fix */
+
+    /* iPhone 4, 4S, 5, 5S, 5C, and 5SE */
+    @media only screen and (min-device-width: 320px) and (max-device-width: 374px) {
+        u ~ div .email-container {
+            min-width: 320px !important;
+        }
+    }
+    /* iPhone 6, 6S, 7, 8, and X */
+    @media only screen and (min-device-width: 375px) and (max-device-width: 413px) {
+        u ~ div .email-container {
+            min-width: 375px !important;
+        }
+    }
+    /* iPhone 6+, 7+, and 8+ */
+    @media only screen and (min-device-width: 414px) {
+        u ~ div .email-container {
+            min-width: 414px !important;
+        }
+    }
+
+
+    </style>
+
+    <!-- CSS Reset : END -->
+
+    <!-- Progressive Enhancements : BEGIN -->
+    <style>
+
+	    .primary{
+	background: #06b6d4;
+        }
+        .bg_white{
+            background: #ffffff;
+        }
+        .bg_light{
+            background: #f7fafa;
+        }
+        .bg_black{
+            background: #000000;
+        }
+        .bg_dark{
+            background: rgba(0,0,0,.8);
+        }
+        .email-section{
+            padding:2.5em;
+        }
+
+        /*BUTTON*/
+        .btn{
+            padding: 10px 15px;
+            display: inline-block;
+        }
+        .btn.btn-primary{
+            border-radius: 5px;
+            background: #06b6d4;
+            color: #ffffff;
+        }
+        .btn.btn-white{
+            border-radius: 5px;
+            background: #ffffff;
+            color: #000000;
+        }
+        .btn.btn-white-outline{
+            border-radius: 5px;
+            background: transparent;
+            border: 1px solid #fff;
+            color: #fff;
+        }
+        .btn.btn-black-outline{
+            border-radius: 0px;
+            background: transparent;
+            border: 2px solid #000;
+            color: #000;
+            font-weight: 700;
+        }
+        .btn-custom{
+            color: rgba(0,0,0,.3);
+            text-decoration: underline;
+        }
+
+        h1,h2,h3,h4,h5,h6{
+            font-family: 'Poppins', sans-serif;
+            color: #000000;
+            margin-top: 0;
+            font-weight: 400;
+        }
+
+        body{
+            font-family: 'Poppins', sans-serif;
+            font-weight: 400;
+            font-size: 15px;
+            line-height: 1.8;
+            color: rgba(0,0,0,.4);
+        }
+
+        a{
+            color: #06b6d4;
+        }
+
+        table{
+        }
+        /*LOGO*/
+
+        .logo h1{
+            margin: 0;
+        }
+        .logo h1 a{
+            color: #06b6d4;
+            font-size: 24px;
+            font-weight: 700;
+            font-family: 'Poppins', sans-serif;
+        }
+
+        /*HERO*/
+        .hero{
+            position: relative;
+            z-index: 0;
+        }
+
+        .hero .text{
+            color: #475569;
+        }
+        .hero .text h2{
+            color: #000;
+            font-size: 20px;
+            margin-bottom: 0;
+            font-weight: 200;
+            line-height: 1.4;
+        }
+        .hero .text h3{
+            font-size: 24px;
+            font-weight: 300;
+        }
+        .hero .text h2 span{
+            font-weight: 600;
+            color: #000;
+        }
+
+        .text-author{
+            bordeR: 1px solid rgba(0,0,0,.05);
+            max-width: 70%;
+            margin: 0 auto;
+            padding: 2em;
+        }
+        .text-author img{
+            border-radius: 50%;
+            padding-bottom: 20px;
+        }
+        .text-author h3{
+            margin-bottom: 0;
+        }
+        ul.social{
+            padding: 0;
+        }
+        ul.social li{
+            display: inline-block;
+            margin-right: 10px;
+        }
+
+        /*FOOTER*/
+
+        .footer{
+            border-top: 1px solid rgba(0,0,0,.05);
+            color: rgba(0,0,0,.5);
+        }
+        .footer .heading{
+            color: #000;
+            font-size: 20px;
+        }
+        .footer ul{
+            margin: 0;
+            padding: 0;
+        }
+        .footer ul li{
+            list-style: none;
+            margin-bottom: 10px;
+        }
+        .footer ul li a{
+            color: rgba(0,0,0,1);
+        }
+
+
+        @media screen and (max-width: 500px) {
+
+
+        }
+
+
+    </style>
+
+
 </head>
 
-<body style="box-sizing: border-box;border: 0 solid #e5e7eb;--tw-border-spacing-x: 0;--tw-border-spacing-y: 0;--tw-translate-x: 0;--tw-translate-y: 0;--tw-rotate: 0;--tw-skew-x: 0;--tw-skew-y: 0;--tw-scale-x: 1;--tw-scale-y: 1;--tw-pan-x: ;--tw-pan-y: ;--tw-pinch-zoom: ;--tw-scroll-snap-strictness: proximity;--tw-gradient-from-position: ;--tw-gradient-via-position: ;--tw-gradient-to-position: ;--tw-ordinal: ;--tw-slashed-zero: ;--tw-numeric-figure: ;--tw-numeric-spacing: ;--tw-numeric-fraction: ;--tw-ring-inset: ;--tw-ring-offset-width: 0px;--tw-ring-offset-color: #fff;--tw-ring-color: #3b82f680;--tw-ring-offset-shadow: 0 0 #0000;--tw-ring-shadow: 0 0 #0000;--tw-shadow: 0 0 #0000;--tw-shadow-colored: 0 0 #0000;--tw-blur: ;--tw-brightness: ;--tw-contrast: ;--tw-grayscale: ;--tw-hue-rotate: ;--tw-invert: ;--tw-saturate: ;--tw-sepia: ;--tw-drop-shadow: ;--tw-backdrop-blur: ;--tw-backdrop-brightness: ;--tw-backdrop-contrast: ;--tw-backdrop-grayscale: ;--tw-backdrop-hue-rotate: ;--tw-backdrop-invert: ;--tw-backdrop-opacity: ;--tw-backdrop-saturate: ;--tw-backdrop-sepia: ;margin: 0;line-height: inherit;">
-    <div class="h-screen w-full flex items-start justify-center bg-gray-100" style="box-sizing: border-box;border: 0 solid #e5e7eb;--tw-border-spacing-x: 0;--tw-border-spacing-y: 0;--tw-translate-x: 0;--tw-translate-y: 0;--tw-rotate: 0;--tw-skew-x: 0;--tw-skew-y: 0;--tw-scale-x: 1;--tw-scale-y: 1;--tw-pan-x: ;--tw-pan-y: ;--tw-pinch-zoom: ;--tw-scroll-snap-strictness: proximity;--tw-gradient-from-position: ;--tw-gradient-via-position: ;--tw-gradient-to-position: ;--tw-ordinal: ;--tw-slashed-zero: ;--tw-numeric-figure: ;--tw-numeric-spacing: ;--tw-numeric-fraction: ;--tw-ring-inset: ;--tw-ring-offset-width: 0px;--tw-ring-offset-color: #fff;--tw-ring-color: #3b82f680;--tw-ring-offset-shadow: 0 0 #0000;--tw-ring-shadow: 0 0 #0000;--tw-shadow: 0 0 #0000;--tw-shadow-colored: 0 0 #0000;--tw-blur: ;--tw-brightness: ;--tw-contrast: ;--tw-grayscale: ;--tw-hue-rotate: ;--tw-invert: ;--tw-saturate: ;--tw-sepia: ;--tw-drop-shadow: ;--tw-backdrop-blur: ;--tw-backdrop-brightness: ;--tw-backdrop-contrast: ;--tw-backdrop-grayscale: ;--tw-backdrop-hue-rotate: ;--tw-backdrop-invert: ;--tw-backdrop-opacity: ;--tw-backdrop-saturate: ;--tw-backdrop-sepia: ;display: flex;height: 100vh;width: 100%;align-items: flex-start;justify-content: center;--tw-bg-opacity: 1;background-color: rgb(243 244 246/var(--tw-bg-opacity));">
-
-        <div class="p-5 rounded-lg bg-white w-10/12 md:w-8/12 lg:w-6/12 mt-20 text-gray-500 divide-y" style="box-sizing: border-box;border: 0 solid #e5e7eb;--tw-border-spacing-x: 0;--tw-border-spacing-y: 0;--tw-translate-x: 0;--tw-translate-y: 0;--tw-rotate: 0;--tw-skew-x: 0;--tw-skew-y: 0;--tw-scale-x: 1;--tw-scale-y: 1;--tw-pan-x: ;--tw-pan-y: ;--tw-pinch-zoom: ;--tw-scroll-snap-strictness: proximity;--tw-gradient-from-position: ;--tw-gradient-via-position: ;--tw-gradient-to-position: ;--tw-ordinal: ;--tw-slashed-zero: ;--tw-numeric-figure: ;--tw-numeric-spacing: ;--tw-numeric-fraction: ;--tw-ring-inset: ;--tw-ring-offset-width: 0px;--tw-ring-offset-color: #fff;--tw-ring-color: #3b82f680;--tw-ring-offset-shadow: 0 0 #0000;--tw-ring-shadow: 0 0 #0000;--tw-shadow: 0 0 #0000;--tw-shadow-colored: 0 0 #0000;--tw-blur: ;--tw-brightness: ;--tw-contrast: ;--tw-grayscale: ;--tw-hue-rotate: ;--tw-invert: ;--tw-saturate: ;--tw-sepia: ;--tw-drop-shadow: ;--tw-backdrop-blur: ;--tw-backdrop-brightness: ;--tw-backdrop-contrast: ;--tw-backdrop-grayscale: ;--tw-backdrop-hue-rotate: ;--tw-backdrop-invert: ;--tw-backdrop-opacity: ;--tw-backdrop-saturate: ;--tw-backdrop-sepia: ;margin-top: 5rem;width: 50%;border-radius: .5rem;--tw-bg-opacity: 1;background-color: rgb(255 255 255/var(--tw-bg-opacity));padding: 1.25rem;--tw-text-opacity: 1;color: rgb(107 114 128/var(--tw-text-opacity));">
-            <h1 class="text-2xl font-semibold pb-5" style="box-sizing: border-box;border: 0 solid #e5e7eb;--tw-border-spacing-x: 0;--tw-border-spacing-y: 0;--tw-translate-x: 0;--tw-translate-y: 0;--tw-rotate: 0;--tw-skew-x: 0;--tw-skew-y: 0;--tw-scale-x: 1;--tw-scale-y: 1;--tw-pan-x: ;--tw-pan-y: ;--tw-pinch-zoom: ;--tw-scroll-snap-strictness: proximity;--tw-gradient-from-position: ;--tw-gradient-via-position: ;--tw-gradient-to-position: ;--tw-ordinal: ;--tw-slashed-zero: ;--tw-numeric-figure: ;--tw-numeric-spacing: ;--tw-numeric-fraction: ;--tw-ring-inset: ;--tw-ring-offset-width: 0px;--tw-ring-offset-color: #fff;--tw-ring-color: #3b82f680;--tw-ring-offset-shadow: 0 0 #0000;--tw-ring-shadow: 0 0 #0000;--tw-shadow: 0 0 #0000;--tw-shadow-colored: 0 0 #0000;--tw-blur: ;--tw-brightness: ;--tw-contrast: ;--tw-grayscale: ;--tw-hue-rotate: ;--tw-invert: ;--tw-saturate: ;--tw-sepia: ;--tw-drop-shadow: ;--tw-backdrop-blur: ;--tw-backdrop-brightness: ;--tw-backdrop-contrast: ;--tw-backdrop-grayscale: ;--tw-backdrop-hue-rotate: ;--tw-backdrop-invert: ;--tw-backdrop-opacity: ;--tw-backdrop-saturate: ;--tw-backdrop-sepia: ;font-size: 1.5rem;font-weight: 600;margin: 0;padding-bottom: 1.25rem;line-height: 2rem;">Salam, {{ $data['fullname'] }}</h1>
-            <div class="pt-5" style="box-sizing: border-box;border: 0 solid #e5e7eb;--tw-border-spacing-x: 0;--tw-border-spacing-y: 0;--tw-translate-x: 0;--tw-translate-y: 0;--tw-rotate: 0;--tw-skew-x: 0;--tw-skew-y: 0;--tw-scale-x: 1;--tw-scale-y: 1;--tw-pan-x: ;--tw-pan-y: ;--tw-pinch-zoom: ;--tw-scroll-snap-strictness: proximity;--tw-gradient-from-position: ;--tw-gradient-via-position: ;--tw-gradient-to-position: ;--tw-ordinal: ;--tw-slashed-zero: ;--tw-numeric-figure: ;--tw-numeric-spacing: ;--tw-numeric-fraction: ;--tw-ring-inset: ;--tw-ring-offset-width: 0px;--tw-ring-offset-color: #fff;--tw-ring-color: #3b82f680;--tw-ring-offset-shadow: 0 0 #0000;--tw-ring-shadow: 0 0 #0000;--tw-shadow: 0 0 #0000;--tw-shadow-colored: 0 0 #0000;--tw-blur: ;--tw-brightness: ;--tw-contrast: ;--tw-grayscale: ;--tw-hue-rotate: ;--tw-invert: ;--tw-saturate: ;--tw-sepia: ;--tw-drop-shadow: ;--tw-backdrop-blur: ;--tw-backdrop-brightness: ;--tw-backdrop-contrast: ;--tw-backdrop-grayscale: ;--tw-backdrop-hue-rotate: ;--tw-backdrop-invert: ;--tw-backdrop-opacity: ;--tw-backdrop-saturate: ;--tw-backdrop-sepia: ;padding-top: 1.25rem;">
-                <p class="mb-3" style="box-sizing: border-box;border: 0 solid #e5e7eb;--tw-border-spacing-x: 0;--tw-border-spacing-y: 0;--tw-translate-x: 0;--tw-translate-y: 0;--tw-rotate: 0;--tw-skew-x: 0;--tw-skew-y: 0;--tw-scale-x: 1;--tw-scale-y: 1;--tw-pan-x: ;--tw-pan-y: ;--tw-pinch-zoom: ;--tw-scroll-snap-strictness: proximity;--tw-gradient-from-position: ;--tw-gradient-via-position: ;--tw-gradient-to-position: ;--tw-ordinal: ;--tw-slashed-zero: ;--tw-numeric-figure: ;--tw-numeric-spacing: ;--tw-numeric-fraction: ;--tw-ring-inset: ;--tw-ring-offset-width: 0px;--tw-ring-offset-color: #fff;--tw-ring-color: #3b82f680;--tw-ring-offset-shadow: 0 0 #0000;--tw-ring-shadow: 0 0 #0000;--tw-shadow: 0 0 #0000;--tw-shadow-colored: 0 0 #0000;--tw-blur: ;--tw-brightness: ;--tw-contrast: ;--tw-grayscale: ;--tw-hue-rotate: ;--tw-invert: ;--tw-saturate: ;--tw-sepia: ;--tw-drop-shadow: ;--tw-backdrop-blur: ;--tw-backdrop-brightness: ;--tw-backdrop-contrast: ;--tw-backdrop-grayscale: ;--tw-backdrop-hue-rotate: ;--tw-backdrop-invert: ;--tw-backdrop-opacity: ;--tw-backdrop-saturate: ;--tw-backdrop-sepia: ;margin: 0;margin-bottom: .75rem;">
-                    Anda telah melakukan permintaan setel ulang kata sandi Akun anda pada Sistem Informasi Klasifikasi Kecenderungan
-                    Pemahaman Radikal di Media Sosial menggunakan email <span class="font-semibold" style="box-sizing: border-box;border: 0 solid #e5e7eb;--tw-border-spacing-x: 0;--tw-border-spacing-y: 0;--tw-translate-x: 0;--tw-translate-y: 0;--tw-rotate: 0;--tw-skew-x: 0;--tw-skew-y: 0;--tw-scale-x: 1;--tw-scale-y: 1;--tw-pan-x: ;--tw-pan-y: ;--tw-pinch-zoom: ;--tw-scroll-snap-strictness: proximity;--tw-gradient-from-position: ;--tw-gradient-via-position: ;--tw-gradient-to-position: ;--tw-ordinal: ;--tw-slashed-zero: ;--tw-numeric-figure: ;--tw-numeric-spacing: ;--tw-numeric-fraction: ;--tw-ring-inset: ;--tw-ring-offset-width: 0px;--tw-ring-offset-color: #fff;--tw-ring-color: #3b82f680;--tw-ring-offset-shadow: 0 0 #0000;--tw-ring-shadow: 0 0 #0000;--tw-shadow: 0 0 #0000;--tw-shadow-colored: 0 0 #0000;--tw-blur: ;--tw-brightness: ;--tw-contrast: ;--tw-grayscale: ;--tw-hue-rotate: ;--tw-invert: ;--tw-saturate: ;--tw-sepia: ;--tw-drop-shadow: ;--tw-backdrop-blur: ;--tw-backdrop-brightness: ;--tw-backdrop-contrast: ;--tw-backdrop-grayscale: ;--tw-backdrop-hue-rotate: ;--tw-backdrop-invert: ;--tw-backdrop-opacity: ;--tw-backdrop-saturate: ;--tw-backdrop-sepia: ;font-weight: 600;">{{ $data['email'] }}</span>
-                </p>
-                <p class="mb-3 text-sm" style="box-sizing: border-box;border: 0 solid #e5e7eb;--tw-border-spacing-x: 0;--tw-border-spacing-y: 0;--tw-translate-x: 0;--tw-translate-y: 0;--tw-rotate: 0;--tw-skew-x: 0;--tw-skew-y: 0;--tw-scale-x: 1;--tw-scale-y: 1;--tw-pan-x: ;--tw-pan-y: ;--tw-pinch-zoom: ;--tw-scroll-snap-strictness: proximity;--tw-gradient-from-position: ;--tw-gradient-via-position: ;--tw-gradient-to-position: ;--tw-ordinal: ;--tw-slashed-zero: ;--tw-numeric-figure: ;--tw-numeric-spacing: ;--tw-numeric-fraction: ;--tw-ring-inset: ;--tw-ring-offset-width: 0px;--tw-ring-offset-color: #fff;--tw-ring-color: #3b82f680;--tw-ring-offset-shadow: 0 0 #0000;--tw-ring-shadow: 0 0 #0000;--tw-shadow: 0 0 #0000;--tw-shadow-colored: 0 0 #0000;--tw-blur: ;--tw-brightness: ;--tw-contrast: ;--tw-grayscale: ;--tw-hue-rotate: ;--tw-invert: ;--tw-saturate: ;--tw-sepia: ;--tw-drop-shadow: ;--tw-backdrop-blur: ;--tw-backdrop-brightness: ;--tw-backdrop-contrast: ;--tw-backdrop-grayscale: ;--tw-backdrop-hue-rotate: ;--tw-backdrop-invert: ;--tw-backdrop-opacity: ;--tw-backdrop-saturate: ;--tw-backdrop-sepia: ;margin: 0;margin-bottom: .75rem;font-size: .875rem;line-height: 1.25rem;">Jika benar kamu ingin mengatur ulang kata sandi, silahkan klik tautan ini untuk konfirmasi : </p>
-                <span class="block text-3xl py-5 text-center tracking-widest font-bold text-cyan-500" style="box-sizing: border-box;border: 0 solid #e5e7eb;--tw-border-spacing-x: 0;--tw-border-spacing-y: 0;--tw-translate-x: 0;--tw-translate-y: 0;--tw-rotate: 0;--tw-skew-x: 0;--tw-skew-y: 0;--tw-scale-x: 1;--tw-scale-y: 1;--tw-pan-x: ;--tw-pan-y: ;--tw-pinch-zoom: ;--tw-scroll-snap-strictness: proximity;--tw-gradient-from-position: ;--tw-gradient-via-position: ;--tw-gradient-to-position: ;--tw-ordinal: ;--tw-slashed-zero: ;--tw-numeric-figure: ;--tw-numeric-spacing: ;--tw-numeric-fraction: ;--tw-ring-inset: ;--tw-ring-offset-width: 0px;--tw-ring-offset-color: #fff;--tw-ring-color: #3b82f680;--tw-ring-offset-shadow: 0 0 #0000;--tw-ring-shadow: 0 0 #0000;--tw-shadow: 0 0 #0000;--tw-shadow-colored: 0 0 #0000;--tw-blur: ;--tw-brightness: ;--tw-contrast: ;--tw-grayscale: ;--tw-hue-rotate: ;--tw-invert: ;--tw-saturate: ;--tw-sepia: ;--tw-drop-shadow: ;--tw-backdrop-blur: ;--tw-backdrop-brightness: ;--tw-backdrop-contrast: ;--tw-backdrop-grayscale: ;--tw-backdrop-hue-rotate: ;--tw-backdrop-invert: ;--tw-backdrop-opacity: ;--tw-backdrop-saturate: ;--tw-backdrop-sepia: ;display: block;padding-top: 1.25rem;padding-bottom: 1.25rem;text-align: center;font-size: 1.875rem;line-height: 2.25rem;font-weight: 700;letter-spacing: .1em;--tw-text-opacity: 1;color: rgb(6 182 212/var(--tw-text-opacity));">
-                    <a href="{{ $data['link'] }}">{{ $data['link'] }}</a>
-                </span>
-                <p class="mb-3 text-sm text-pink-500" style="box-sizing: border-box;border: 0 solid #e5e7eb;--tw-border-spacing-x: 0;--tw-border-spacing-y: 0;--tw-translate-x: 0;--tw-translate-y: 0;--tw-rotate: 0;--tw-skew-x: 0;--tw-skew-y: 0;--tw-scale-x: 1;--tw-scale-y: 1;--tw-pan-x: ;--tw-pan-y: ;--tw-pinch-zoom: ;--tw-scroll-snap-strictness: proximity;--tw-gradient-from-position: ;--tw-gradient-via-position: ;--tw-gradient-to-position: ;--tw-ordinal: ;--tw-slashed-zero: ;--tw-numeric-figure: ;--tw-numeric-spacing: ;--tw-numeric-fraction: ;--tw-ring-inset: ;--tw-ring-offset-width: 0px;--tw-ring-offset-color: #fff;--tw-ring-color: #3b82f680;--tw-ring-offset-shadow: 0 0 #0000;--tw-ring-shadow: 0 0 #0000;--tw-shadow: 0 0 #0000;--tw-shadow-colored: 0 0 #0000;--tw-blur: ;--tw-brightness: ;--tw-contrast: ;--tw-grayscale: ;--tw-hue-rotate: ;--tw-invert: ;--tw-saturate: ;--tw-sepia: ;--tw-drop-shadow: ;--tw-backdrop-blur: ;--tw-backdrop-brightness: ;--tw-backdrop-contrast: ;--tw-backdrop-grayscale: ;--tw-backdrop-hue-rotate: ;--tw-backdrop-invert: ;--tw-backdrop-opacity: ;--tw-backdrop-saturate: ;--tw-backdrop-sepia: ;margin: 0;margin-bottom: .75rem;font-size: .875rem;line-height: 1.25rem;--tw-text-opacity: 1;color: rgb(236 72 153/var(--tw-text-opacity));">
-                    Segera perbarui kata sandi anda pada Profil lalu ke pengaturan akun untuk mengubah kata sandi saat ini.    
-                </p>
-            </div>
-        </div>
-
+<body width="100%" style="margin: 0; padding: 0 !important; mso-line-height-rule: exactly; background-color: #f1f1f1;">
+	<center style="width: 100%; background-color: #f1f1f1;">
+    <div style="max-width: 600px; margin: 0 auto;" class="email-container">
+    	<!-- BEGIN BODY -->
+      <table align="center" role="presentation" cellspacing="0" cellpadding="0" border="0" width="100%" style="margin: auto;">
+				<tr>
+          <td valign="middle" class="hero bg_white" style="padding: 2em 0 4em 0;">
+            <table role="presentation" border="0" cellpadding="0" cellspacing="0" width="100%">
+            	<tr>
+            		<td style="padding: 0 2.5em; text-align: left; padding-bottom: 3em;">
+            			<div class="text" style="font-size: medium;">
+            				<h2>Halo, {{ $data['fullname'] }}</h2>
+							<p>Anda telah melakukan permintaan untuk setel ulang kata sandi Akun Anda pada <a href="" style="font-weight:600;">Radikal Tes</a> menggunakan Email <a href="mailto:{{ $data['email'] }}">{{ $data['email'] }}</a></p>
+            			</div>
+            		</td>
+            	</tr>
+            	<tr>
+			          <td style="text-align: center;">
+			          	<div class="text-author" style="color: #475569;">
+				          	<p>Jika benar kamu ingin menyetel ulang kata sandi, silahkan konfirmasi menggunakan tautan dibawah.</p>
+				           	<p><a href="{{ $data['link'] }}" class="btn btn-primary">Konfirmasi</a></p>
+				           	<p style="color: #64748b; font-size: 12px;">Segera perbarui kata sandi anda pada Profil lalu ke pengaturan akun untuk mengubah kata sandi saat ini.</p>
+			           	</div>
+			          </td>
+			        </tr>
+					<tr>
+						<td style="padding: 0 2.5em; text-align: left; padding-bottom: 3em;">
+							<div class="text" style="margin-top: 40px;">
+								<p>Terima kasih sudah menggunakan sistem ini untuk prediksi kalimat kecenderungan Radikal. Sistem ini tidak serta merta memastikan, Akan tetapi masih bersifat penelitian rintisan!</p>
+								<div style="margin-top: 10px;">
+									<span style="display: block;">Salam, </span>
+									<span style="display: block;font-weight: 600;">Tim Radikal Tes</span>
+								</div>
+							</div>
+						</td>
+					</tr>
+            </table>
+          </td>
+	      </tr><!-- end tr -->
+      <!-- 1 Column Text + Button : END -->
+      </table>
     </div>
+  </center>
 </body>
 </html>

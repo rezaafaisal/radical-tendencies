@@ -32,7 +32,7 @@ class RequestReset extends Mailable
     public function envelope(): Envelope
     {
         return new Envelope(
-            subject: 'Request Reset',
+            subject: 'Permintaan Setel Ulang Kata Sandi',
         );
     }
 
@@ -42,8 +42,7 @@ class RequestReset extends Mailable
     public function content(): Content
     {
         return new Content(
-            // view: 'emails.request_reset',
-            view: 'email.index',
+            view: 'emails.request_reset',
         );
     }
 
