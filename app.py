@@ -1,5 +1,6 @@
-from flask import Flask, jsonify, request
+from flask import Flask, jsonify, request, Response
 from flask_cors import CORS
+from langdetect import detect
 
 import numpy as np
 import joblib
@@ -19,7 +20,13 @@ def predict():
     target = ''
     data = None
     if request.method =='POST':
-        sentence_vector = vectorizer.transform([request.form['sentences']])
+        sentence = request.form['sentences']
+        if detect(sentence) != 'id':
+            return Response(
+                "Bahasa yang bisa diprediksi hanya Bahasa Indonesia",
+                status=400
+            )
+        sentence_vector = vectorizer.transform([sentence])
         result = model.predict(sentence_vector)
 
         if(result[0] == '0'): target = 'unradical'
@@ -35,7 +42,7 @@ def predict():
             }
         }
 
-        response = jsonify(data)
+        response = jsonify(data), 200
         return response
 
 

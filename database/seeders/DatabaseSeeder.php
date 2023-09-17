@@ -15,9 +15,9 @@ class DatabaseSeeder extends Seeder
      */
     public function run(): void
     {
-        User::factory(50)->has(
-            Sentence::factory(random_int(10, 50))
-        )->create();
+        // User::factory(50)->has(
+        //     Sentence::factory(random_int(10, 50))
+        // )->create();
 
         User::create([
                 'name' => 'Admin Putri',
@@ -27,6 +27,7 @@ class DatabaseSeeder extends Seeder
                 'password' => '$2y$10$92IXUNpkjO0rOQ5byMi.Ye4oKoEa3Ro9llC/.og/at2.uheWG/igi'
             ],
         );
+
         User::create([
                 'name' => 'Putri Buana',
                 'email' => 'putri@gmail.com',
