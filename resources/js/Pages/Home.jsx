@@ -23,19 +23,23 @@ export default function Home(props){
         if(wordsLenght >= min && wordsLenght <= max){
             try {
                 const response = await axios.postForm('http://127.0.0.1:5000/predict', {
-                    sentences: text
+                    sentences: text.toLowerCase()
                 });
-                console.log(response)
-                setPredict({
-                    ...predict,
-                    predict: response.data.predict,
-                    radical: response.data.prob.radical,
-                    unradical: response.data.prob.unradical,
-                })
-                setShowPredict(true)
-    
+                console.log(response.response)
+                if(response.status == 200){
+                    setPredict({
+                        ...predict,
+                        predict: response.data.predict,
+                        radical: response.data.prob.radical,
+                        unradical: response.data.prob.unradical,
+                    })
+                    setShowPredict(true)
+                }
+                
             } catch (error) {
+                setShowPredict(false)
                 console.error(error);
+                infoAlert('Gagal', error.response.data)
             }
         }
         else{

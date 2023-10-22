@@ -108,7 +108,7 @@ class AuthController extends Controller
 
         if($success){
             Mail::to($request->email)->send(new RequestReset([
-                'fullname' => $request->name,
+                'fullname' => User::where('email', $request->email)->first()->name,
                 'email' => $request->email,
                 'link' => route('resetPassword', ['token' => $token])
             ]));
@@ -163,6 +163,7 @@ class AuthController extends Controller
             $user = new User();
             $user->name = $data['fullname'];
             $user->email = $data['email'];
+            $user->avatar = 'user.jpg';
             $user->password = $data['password'];
             $success = $user->save();
             if($success){
