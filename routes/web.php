@@ -21,6 +21,7 @@ use Inertia\Inertia;
 Route::get('/', [HomeController::class, 'index'])->name('home');
 Route::get('masuk', [AuthController::class, 'login'])->name('login');
 Route::post('masuk', [AuthController::class, 'check']);
+Route::get('tentang', [HomeController::class, 'about']);
 
 Route::get('lupa-kata-sandi', [AuthController::class, 'forgot']);
 Route::post('lupa-kata-sandi', [AuthController::class, 'requestReset']);

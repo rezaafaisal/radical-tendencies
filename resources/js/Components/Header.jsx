@@ -4,17 +4,42 @@ import { confirmAlert, confirmAlertDanger } from "./Alerts"
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
 import { faTrash, faUser } from "@fortawesome/free-solid-svg-icons"
 
-export default function NavApp(){
+export default function NavApp({active}){
     const [show, setShow] = useState(false)
     const {auth} = usePage().props
     function showProfile(){
         setShow(!show)
     }
+    
 
     return (
         <nav className="bg-cyan-500 h-20 flex items-center fixed top-0 left-0 right-0 z-20">
             <div className="wrapper flex justify-between items-center">
-                <Link href="/" className="text-2xl font-semibold text-white">Radikal Tes</Link>
+                <div className="flex items-center">
+                    <Link href="/" className="text-2xl font-semibold text-white">Radikal Tes</Link>
+                    <Link href="/tentang" className={`relative
+                        cursor-pointer
+                        ml-10
+                        font-semibold
+                        transition-all
+                        duration-500
+                        before:content-['']
+                        before:absolute
+                        before:-bottom-1
+                        before:left-1/2
+                        before:-translate-x-1/2
+                        before:w-0
+                        before:h-0.5
+                        before:rounded-full
+                        before:opacity-0
+                        before:transition-all
+                        before:duration-150
+                        before:bg-white
+                        text-white
+                        ${active ? 'before:w-full before:opacity-100': 'hover:before:w-full hover:before:opacity-100'}`}>
+                        Tentang
+                    </Link>
+                </div>
                 {
                     auth.user ?
                     <div className="flex gap-5 items-center">
