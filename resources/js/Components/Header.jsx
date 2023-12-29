@@ -13,7 +13,7 @@ export default function NavApp({active}){
     
 
     return (
-        <nav className="bg-cyan-500 h-20 flex items-center fixed top-0 left-0 right-0 z-20">
+        <nav className="bg-cyan-500 h-20 flex items-center fixed top-0 left-0 right-0 z-[10000]">
             <div className="wrapper flex justify-between items-center">
                 <div className="flex items-center">
                     <Link href="/" className="text-2xl font-semibold text-white">Radikal Tes</Link>

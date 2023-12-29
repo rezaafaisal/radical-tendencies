@@ -2,6 +2,8 @@ import React, { useEffect, useState } from "react"
 import UserLayout from "../Layouts/User"
 import axios from "axios"
 import { router, usePage } from "@inertiajs/react"
+import Carousel from 'react-multi-carousel'
+import 'react-multi-carousel/lib/styles.css'
 
 import { confirmAlert, infoAlert, successAlert } from "../Components/Alerts"
 
@@ -15,6 +17,26 @@ export default function Home(props){
         unradical : 0,
         radical: 0,
     })
+
+    const responsive = {
+        superLargeDesktop: {
+            // the naming can be any, depends on you.
+            breakpoint: { max: 4000, min: 3000 },
+            items: 5
+        },
+        desktop: {
+            breakpoint: { max: 3000, min: 1024 },
+            items: 3
+        },
+        tablet: {
+            breakpoint: { max: 1024, min: 464 },
+            items: 2
+        },
+        mobile: {
+            breakpoint: { max: 464, min: 0 },
+            items: 1
+        }
+    };
 
     async function predictData() {
         const min = 3;
@@ -85,6 +107,91 @@ export default function Home(props){
                 <header className="text-xl md:text-3xl text-slate-700 font-light text-center leading-10">
                     Sistem Informasi Klasifikasi Kecenderungan <br /> Pemahaman Radikal di Media Sosial
                 </header>
+            </section>
+            <section id="carousel" className="wrapper mb-20">
+                <h2 className="mb-5 text-2xl text-start ml-5 text-slate-700">
+                    Tahap Pembuatan Model Naive Bayes
+                </h2>
+                {/* <div className="grid grid-cols-5 gap-4"> */}
+                <Carousel 
+                    swipeable={true}
+                    draggable={true}
+                    showDots={false}
+                    responsive={responsive}
+                    ssr={true} // means to render carousel on server-side.
+                    infinite={false}
+                    autoPlaySpeed={2000}
+                    keyBoardControl={true}
+                    transitionDuration={1000}
+                    itemClass="carousel-item-padding-40-px"
+                    className="flex items-stretch"
+                >
+                    <div className="rounded-lg h-[300px] lg:h-[530px] mx-5 bg-white shadow p-5">
+                        <div className="flex justify-center items-center">
+                            <div className="h-8 w-8 bg-cyan-600 text-white text-lg rounded-full flex justify-center items-center">
+                                <span>1</span>
+                            </div>
+                        </div>
+                        <img src="ui/crawling.svg" />
+                        <span className="text-lg text-cyan-500 font-semibold block text-center">Crawling Data</span>
+                        <p className="text-xs lg:text-sm font-light mt-2">
+                            Crawling Dataset, adalah proses pengambilan data secara otomatis dari berbagai sumber, seperti situ web, database atau dokumen.
+                        </p>
+                    </div>
+                    <div className="rounded-lg h-[300px] lg:h-[530px] mx-5 bg-white shadow p-5">
+                        <div className="flex justify-center items-center">
+                            <div className="h-8 w-8 bg-cyan-600 text-white text-lg rounded-full flex justify-center items-center">
+                                <span>2</span>
+                            </div>
+                        </div>
+                        <img src="ui/remove_tag.svg" />
+                        <span className="text-lg text-cyan-500 font-semibold block text-center">Removing Tags and Links</span>
+                        <p className="text-xs lg:text-sm font-light mt-2">
+                           Removing Tags and Links, adalah proses menghilangkan tag dan tautan dari data yang telah diambil.
+                        </p>
+                    </div>
+                    <div className="rounded-lg h-[300px] lg:h-[530px] mx-5 bg-white shadow p-5">
+                        <div className="flex justify-center items-center">
+                            <div className="h-8 w-8 bg-cyan-600 text-white text-lg rounded-full flex justify-center items-center">
+                                <span>3</span>
+                            </div>
+                        </div>
+                        <img src="ui/labelling.svg" />
+                        <span className="text-lg text-cyan-500 font-semibold block text-center">Data Labelling</span>
+                        <p className="text-xs lg:text-sm font-light mt-2">
+                           Data Labelling, adalah proses yang dilakukan  untuk melabeli seluruh dataset oleh pakar/ahli.
+                        </p>
+                    </div>
+                    <div className="rounded-lg h-[300px] lg:h-[530px] mx-5 bg-white shadow p-5">
+                        <div className="flex justify-center items-center">
+                            <div className="h-8 w-8 bg-cyan-600 text-white text-lg rounded-full flex justify-center items-center">
+                                <span>4</span>
+                            </div>
+                        </div>
+                        <img src="ui/text_preprocessing.svg" />
+                        <span className="text-lg text-cyan-500 font-semibold block text-center">Text Preprocessing</span>
+                        <p className="text-xs lg:text-sm font-light mt-2">
+                           Text Preprocessing, adalah serangkaian tahap pemrosesan teks pada data, seperti mengubah huruf besar menjadi kecil, menghapus tanda baca, menghapus kata-kata umum, mereduksi kata-kata ke bentuk dasarnya dan memisahkan teks menjadi kata-kata.
+                        </p>
+                    </div>
+                    <div className="rounded-lg h-[300px] lg:h-[530px] mx-5 bg-white shadow p-5">
+                        <div className="flex justify-center items-center">
+                            <div className="h-8 w-8 bg-cyan-600 text-white text-lg rounded-full flex justify-center items-center">
+                                <span>5</span>
+                            </div>
+                        </div>
+                        <img src="ui/modelling.svg" />
+                        <span className="text-lg text-cyan-500 font-semibold block text-center">Modelling</span>
+                        <p className="text-xs lg:text-sm font-light mt-2">
+                           Modelling, adalah proses untuk membuat model dari suatu objek, sistem, atau konsep. Model yang dibuat adalah model yang menggunakan algoritma Naive Bayes.
+                        </p>
+                        <div className="flex justify-start mt-5">
+                            <a href="https://colab.research.google.com/drive/1wDNoNJ_BcqIwjzQYwhVFP4doImdCk9uB?usp=sharing" target="_blank" className="bg-white px-4 text-xs py-2 border border-cyan-600 text-cyan-600 inline-block rounded-lg hover:bg-cyan-600 hover:text-white duration-150">Lihat Proses Modelling</a>
+
+                        </div>
+                    </div>
+                </Carousel>
+                {/* </div> */}
             </section>
             <section>
                 <div className="wrapper">

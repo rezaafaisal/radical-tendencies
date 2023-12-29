@@ -12,6 +12,10 @@ export default defineConfig({
   //   //   child_process:'process/browser'
   //   }
   // },
+    optimizeDeps: {
+        exclude: ['js-big-decimal']
+    },
+    
     plugins: [
         laravel({
             input: ['resources/css/app.css', 'resources/js/app.jsx'],
