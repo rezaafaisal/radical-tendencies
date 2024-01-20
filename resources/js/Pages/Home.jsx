@@ -110,7 +110,7 @@ export default function Home(props){
             </section>
             <section id="carousel" className="wrapper mb-20">
                 <h2 className="mb-5 text-2xl text-start ml-5 text-slate-700">
-                    Tahap Pembuatan Model Naive Bayes
+                    Tahap Dibalik Pembuatan Aplikasi
                 </h2>
                 {/* <div className="grid grid-cols-5 gap-4"> */}
                 <Carousel 
@@ -195,6 +195,9 @@ export default function Home(props){
             </section>
             <section>
                 <div className="wrapper">
+                    <h2 className="mb-5 text-2xl text-start text-slate-700">
+                        Prediksi Sentimen Sekarang
+                    </h2>
                     <div className="rounded-lg grid grid-cols-1 md:grid-cols-2 divide-y md:divide-x bg-white shadow">
                         <div className="p-8">
                             <header className="text-lg mb-5">Kalimat</header>
