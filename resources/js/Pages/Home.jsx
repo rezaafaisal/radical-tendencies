@@ -7,7 +7,7 @@ import 'react-multi-carousel/lib/styles.css'
 
 import { confirmAlert, infoAlert, successAlert } from "../Components/Alerts"
 
-export default function Home(props){
+export default function Home(){
     const {auth, errors, flash} = usePage().props
     const [text, setText] = useState('')
     const [showPredict, setShowPredict] = useState(false)
